@@ -1,2 +1,7 @@
 # SpecialTopics
-Project for Special Topics IT4435-20202-HUST
+Author:
+- Nguyen Van Luong
+- Bui Pho Ben
+- Nguyen Huu Anh Viet
+- Ma Viet Tung
+- Vu Quang Huy

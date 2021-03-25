@@ -1,16 +1,16 @@
-# QT:
-	- thuyet trinh (5tr) - 2
-		- thanh vien
-		- nhiem vu
-		- cong nghe
-		- tinh nang
-	- bao cao (10-15tr) - 2
-	- demo - 3
-	- git - 3
-		- khong duoc phep
-			- push dồn
-			- push hộ
-			- tương tác lúc cần 
+# Point:
+	- Presentation (5pages) 	| 2 points
+		- member
+		- tasks
+		- tech
+		- func
+	- report (10-15pages) 		| 2 points
+	- demo 				| 3 points
+	- git 				| 3 points
 
 # Project
 	- Dashboard
+	- Logo
+	- Menu
+	- Id
+	- ...

@@ -14,3 +14,9 @@
 	- Menu
 	- Id
 	- ...
+
+# References:
+	- https://www.linux.com/training-tutorials/10-open-source-point-sale-systems-linux/
+	- https://demo.wallacepos.com/admin/#!dashboard
+	- https://github.com/opensourcepos/opensourcepos
+	- https://relipos.com/giai-phap-quan-ly-bar/

@@ -1,4 +1,4 @@
-# SpecialTopics
+# Coffee Management System
 Author:
 - Nguyen Van Luong
 - Bui Pho Ben

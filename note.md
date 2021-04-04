@@ -20,3 +20,7 @@
 	- https://demo.wallacepos.com/admin/#!dashboard
 	- https://github.com/opensourcepos/opensourcepos
 	- https://relipos.com/giai-phap-quan-ly-bar/
+	- https://github.com/quocthang0507/QuanLyQuanCaPhe
+	- https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON
+	- https://github.com/khangit96/QuanLyCafe
+	- https://www.youtube.com/playlist?list=PL33lvabfss1xnPhBJHjM0A8TEBBcGCTsf

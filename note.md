@@ -24,3 +24,5 @@
 	- https://github.com/htthinh1999/QuanLyQuanCafe_KEYCODE_MON
 	- https://github.com/khangit96/QuanLyCafe
 	- https://www.youtube.com/playlist?list=PL33lvabfss1xnPhBJHjM0A8TEBBcGCTsf
+	- https://blog.logrocket.com/mern-stack-tutorial/
+	- https://bezkoder.com/react-node-express-mysql/

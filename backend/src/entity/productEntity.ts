@@ -2,10 +2,10 @@ import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn} from "typ
 
 @Entity()
 export class ProductEntity {
-  @PrimaryColumn({type: "varchar", length: 5, nullable: false})
+  @PrimaryColumn({type: "varchar", length: 9, nullable: false})
   id: string
 
-  @Column({type: "varchar", default: "", length: 50, nullable: false})
+  @Column({type: "nvarchar", default: "", nullable: false})
   name: string
 
   @Column({type: "int", default: 0, nullable: false})

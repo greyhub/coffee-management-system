@@ -1,6 +1,8 @@
 export default interface IEmployee {
   id: string,
-  name: string,
+  firstName: string,
+  lastName: string,
   cccd: string,
-  avatarUri: string
+  avatarUri: string,
+  isActive: boolean
 }

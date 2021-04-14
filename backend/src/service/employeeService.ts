@@ -40,9 +40,11 @@ class EmployeeService {
       // Create Employee to save
       let newEmployee = employeeDAO.create({
         id: nextId,
-        name: e.name,
+        firstName: e.firstName,
+        lastName: e.lastName,
         cccd: e.cccd,
-        avatarUri: avatarPath
+        avatarUri: avatarPath,
+        isActive: e.isActive === false ? false : true
       });
 
       // Save employee in database

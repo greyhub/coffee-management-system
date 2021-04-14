@@ -13,7 +13,7 @@ export class OrderEntity {
   updateAt: Date
   
   @ManyToOne(type => EmployeeEntity, {
-    cascade: true, onDelete: "RESTRICT", onUpdate: "RESTRICT", eager: true, persistence: true, nullable: false
+    cascade: true, onDelete: "RESTRICT", onUpdate: "CASCADE", eager: true, persistence: true, nullable: false
   })
   @JoinColumn({ name: 'importerId', referencedColumnName: 'id'})
   employee: EmployeeEntity

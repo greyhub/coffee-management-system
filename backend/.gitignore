@@ -2,7 +2,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,node,dotenv
 
+# Save files in backend
 static/
+# Typescript build folder
+build/
+# Scripts to work
 
 ### dotenv ###
 .env
@@ -171,6 +175,7 @@ dist/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode/
 
 # Temporary folders
 tmp/
@@ -201,8 +206,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Typescript build folder
-build/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node,dotenv

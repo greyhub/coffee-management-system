@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import employeeAuthorConfig from '../config/develop/employeeAuthorConfig';
+import employeeAuthorConfig from '../config/employeeAuthorConfig';
 import employeeController from '../controller/employeeController';
 import authMiddlewareFactory from '../middleware/authMiddlewareFactory';
 

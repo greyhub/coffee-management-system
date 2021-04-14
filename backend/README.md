@@ -26,4 +26,13 @@ $ npm start
 ```ruby
 $ npm run build
 ```
+
+# Script
+#### Drop all tables when schema change
+Step 1: Copy content script/dropAllTables.sql and change name database<br>
+```ruby
+$ DROP PROCEDURE IF EXISTS `drop_all_tables`;
+```
+Step 2: Paste to SQL script in this database on remote and execute<br>
+
 # Guide

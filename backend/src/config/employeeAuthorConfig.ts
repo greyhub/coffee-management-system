@@ -1,10 +1,10 @@
-import authorConfig from "../../_base/author/authorConfig";
-import AuthorGroupRole from "../../_base/author/authorGroupRole";
+import authorConfig from "../_base/author/authorConfig";
+import AuthorGroupRole from "./authorGroupRoleConfig";
 
-const resource = "employee"
+const RESOURCE = "employee";
 
 const employeeAuthorConfig = {
-  "employeecreate": [
+  "create": [
     AuthorGroupRole.ADMIN
   ],
   "getAll": [
@@ -22,6 +22,6 @@ const employeeAuthorConfig = {
   ]
 }
 
-authorConfig.setConfig(employeeAuthorConfig, resource)
+authorConfig.addConfig(employeeAuthorConfig, RESOURCE)
 
-export default resource
+export default RESOURCE

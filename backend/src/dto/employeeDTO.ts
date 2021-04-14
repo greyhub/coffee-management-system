@@ -1,5 +1,5 @@
+import serverConfig from "../config/serverConfig";
 import { EmployeeEntity } from "../entity/employeeEntity";
-import env from "../env";
 import AbstractDTO from "./abstractDTO";
 
 export default class EmployeeDTO extends AbstractDTO{
@@ -17,7 +17,7 @@ export default class EmployeeDTO extends AbstractDTO{
     this.firstName = e.firstName;
     this.lastName = e.lastName;
     this.cccd = e.cccd;
-    this.avatarUri = env.URL_PREFIX + e.avatarUri
+    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
     this.isActive = e.isActive;
   }
 }

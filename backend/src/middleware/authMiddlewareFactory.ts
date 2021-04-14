@@ -2,7 +2,7 @@ import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
 import CustomError from "../error/customError";
 import authorConfig from "../_base/author/authorConfig"
-import AuthorGroupRole from "../_base/author/authorGroupRole"
+import AuthorGroupRole from "../config/authorGroupRoleConfig"
 
 export default function authMiddlewareFactory(resource: string, permission: string) {
   return function authMiddleware(req: any, res: any, next: any) {

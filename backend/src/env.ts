@@ -27,6 +27,7 @@ class EnvConfig {
   public readonly DB_NAME = (() => (process.env.DB_NAME) ? process.env.DB_NAME.toString() : "test")() || "test"
   public readonly DB_USERNAME = (() => (process.env.DB_USERNAME) ? process.env.DB_USERNAME.toString() : "root")() || "root"
   public readonly DB_PASSWORD = (() => (process.env.DB_PASSWORD) ? process.env.DB_PASSWORD.toString() : "123456")() || "123456"
+  public readonly URL_PREFIX = (() => (process.env.URL_PREFIX) ? process.env.URL_PREFIX.toString() : "localhost:3030/")() || "localhost:3030/"
 }
 
 const envConfig = EnvConfig.Instance;

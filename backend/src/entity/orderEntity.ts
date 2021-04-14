@@ -6,10 +6,7 @@ export class OrderEntity {
   @PrimaryGeneratedColumn("uuid") 
   id: string
 
-  @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', update: false})
-  createAt: Date
-
-  @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+  @Column({type: 'datetime', default: () => 'CURRENT_TIMESTAMP'})
   updateAt: Date
   
   @ManyToOne(type => EmployeeEntity, {
@@ -17,4 +14,13 @@ export class OrderEntity {
   })
   @JoinColumn({ name: 'importerId', referencedColumnName: 'id'})
   employee: EmployeeEntity
+
+  @Column({type: "nvarchar", default: "", nullable: false})
+  note: string
+
+  @Column({type: "int", default: 0, nullable: false})
+  money: number
+
+  @Column({type: "int", default: 0, nullable: false})
+  tableCode: number
 }

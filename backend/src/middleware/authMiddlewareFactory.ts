@@ -4,7 +4,7 @@ import CustomError from "../error/customError";
 import authorConfig from "../_base/author/authorConfig"
 import AuthorGroupRole from "../_base/author/authorGroupRole"
 
-export default function authFactoryMiddleware(resource: string, permission: string) {
+export default function authMiddlewareFactory(resource: string, permission: string) {
   return function authMiddleware(req: any, res: any, next: any) {
     const isAllow = authorConfig.isAuthorized(resource, AuthorGroupRole.ADMIN, permission);
     if (!isAllow) {

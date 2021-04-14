@@ -3,8 +3,8 @@ import { EmployeeEntity } from "./employeeEntity";
 
 @Entity()
 export class OrderEntity {
-  @PrimaryGeneratedColumn("increment", {type: "int"})
-  id: number
+  @PrimaryGeneratedColumn("uuid") 
+  id: string
 
   @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', update: false})
   createAt: Date

@@ -1,7 +1,19 @@
-const getKeyByValue: any = (obj: any, value: any) => Object.keys(obj).find(key => obj[key] === value);
-const isUndefinedOrNull: any = (obj: any) => !(obj || obj === 0);
+function getKeyByValue(obj: any, value: any) {
+  const result =  Object.keys(obj).find(key => obj[key] === value);
+  if (result === null || result === undefined) {
+    return "";
+  }
+  else {
+    return result;
+  }
+}
+function isUndefinedOrNull(obj: any) {
+  return !(obj || obj === 0);
+}
 
-export default {
+const objectUtil = {
   getKeyByValue,
   isUndefinedOrNull
 }
+
+export default objectUtil

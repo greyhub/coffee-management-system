@@ -1,6 +1,7 @@
 import { getManager, getRepository, Repository } from 'typeorm';
 import { EmployeeEntity } from '../entity/employeeEntity';
 import IEmployee from '../model/IEmployee';
+import logger from '../_base/log/logger4js';
 
 async function getMaxEmployeeId() {
   try {
@@ -9,7 +10,7 @@ async function getMaxEmployeeId() {
     .createQueryBuilder("e")
     .select("MAX(e.id)", "max")
     .getRawOne()
-    console.log(JSON.stringify(maxId));//{"max": null}
+    logger.debug(JSON.stringify(maxId));//{"max": null}
     if (!maxId || !maxId.hasOwnProperty("max") || !maxId.max) {
       return null;
     }

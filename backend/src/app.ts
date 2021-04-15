@@ -37,17 +37,6 @@ app.use('/static',express.static('static'))
 app.use(responseTime((req: any, res: any, time: number) => {
   logger.info(req.method + " " + "localhost:" + env.PORT + req.url + " in " + time.toFixed(3) + "ms");
 }))
-/**
- * Log input
- */
-app.all('*', (req: any, res: any, next: any) => {
-  logger.info('INPUT:'
-  +'\nbody:'+JSON.stringify(req.body)
-  +'\nparams:'+JSON.stringify(req.params)
-  +'\nquery:'+JSON.stringify(req.query));
-
-  next()
-})
 
 /**
  * Business logic

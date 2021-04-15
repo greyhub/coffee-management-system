@@ -6,6 +6,7 @@ import CustomError from '../error/customError';
 import logger from "../_base/log/logger4js";
 import bcrypt from "bcrypt";
 import moment from "moment";
+import dateUtil from "../util/dateUtil";
 
 class EmployeeService {
   private static _instance: EmployeeService
@@ -25,9 +26,9 @@ class EmployeeService {
     return arr[0] + "-" + nextId.toString();
   }
   private async hashPassword(password: string) {
-    bcrypt.hash(password, 10, function(err, hash) {
+    await bcrypt.hash(password, 10, function(err, hash) {
       if (err) {
-        throw new CustomError(STATUS_CODE.INTERNAL_SERVER_ERROR, ERR_CODE.INTERNAL_SERVER_ERROR);
+        return ""
       }
       else {
         return hash;
@@ -50,15 +51,20 @@ class EmployeeService {
     try {
       // Generate Next Id
       const nextId = await this.generateEmployeeId();
-      console.log("GENERATE" + nextId);
+      logger.debug("GENERATE" + nextId);
 
       // Hash Password
-      e.hashPassword = this.hashPassword(e.hashPassword);
+      e.hashPassword = await this.hashPassword(e.hashPassword);
+      if (e.hashPassword === "") {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_INVALID_PASSWORD);
+      }
+
+      logger.debug("joindate" + new Date(e.joinDate))
 
       // Gen Date
-      e.birthday = moment(e.birthday).format("dd/mm/yyyy");
-      e.joinDate = moment(e.joinDate).format("dd/mm/yyyy");
-      e.expireDate = moment(e.expireDate).format("dd/mm/yyyy");
+      e.birthday = dateUtil.fromString(e.birthday)
+      e.joinDate = dateUtil.fromString(e.joinDate)
+      e.expireDate = dateUtil.fromString(e.expireDate)
 
       // Create Employee to save
       let newEmployee = employeeDAO.create({

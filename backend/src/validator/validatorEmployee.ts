@@ -1,6 +1,8 @@
 import AuthorGroupRole from "../config/authorGroupRoleConfig";
 import ERR_CODE from "../const/error";
-import validatorUtil from "../util/validatorUtil";
+import businessUtil from "../util/businessUtil";
+import dateUtil from "../util/dateUtil";
+import stringUtil from "../util/stringUtil";
 
 class ValidatorEmployee {
   private static _instance: ValidatorEmployee
@@ -14,38 +16,38 @@ class ValidatorEmployee {
     return roleCode != null && Object.values(AuthorGroupRole).includes(Number(roleCode));
   }
   private isValidAccount(account: any) {
-    return validatorUtil.isValidString(account, 6, 20) &&  account.match(/^[0-9a-zA-Z]+$/)
+    return stringUtil.isValidString(account, 6, 20) &&  account.match(/^[0-9a-zA-Z]+$/)
   }
 
   public isValidEmployee(e: any) {
-    if (!validatorUtil.isValidString(e.firstName, 0) || !validatorUtil.isValidString(e.lastName)) {
+    if (!stringUtil.isValidString(e.firstName, 0) || !stringUtil.isValidString(e.lastName)) {
       return ERR_CODE.EMPLOYEE_INVALID_NAME;
     }
-    if (!validatorUtil.isValidString(e.address, 0, 255)) {
+    if (!stringUtil.isValidString(e.address, 0, 255)) {
       return ERR_CODE.EMPLOYEE_INVALID_ADDRESS;
     }
-    if (!validatorUtil.isValidString(e.position, 1)) {
+    if (!stringUtil.isValidString(e.position, 1)) {
       return ERR_CODE.EMPLOYEE_INVALID_POSITION;
     }
     if (!this.isValidAccount(e.account)) {
       return ERR_CODE.EMPLOYEE_INVALID_ACCOUNT;
     }
-    if (!validatorUtil.isValidString(e.password, 6, 20)) {
+    if (!stringUtil.isValidString(e.password, 6, 20)) {
       return ERR_CODE.EMPLOYEE_INVALID_PASSWORD;
     }
     if (!this.isValidRoleCode(e.roleCode)) {
       return ERR_CODE.EMPLOYEE_INVALID_ROLE;
     }
-    if (!validatorUtil.isCCCD(e.cccd)) {
+    if (!businessUtil.isCCCD(e.cccd)) {
       return ERR_CODE.EMPLOYEE_INVALID_CCCD;
     }
-    if (!validatorUtil.isValidDateBeforeNow(e.birthday)) {
+    if (!dateUtil.isValidDateBeforeNow(e.birthday)) {
       return ERR_CODE.EMPLOYEE_INVALID_BIRTHDAY;
     }
-    if (!validatorUtil.isValidDate(e.joinDate)) {
+    if (!dateUtil.isValidDate(e.joinDate)) {
       return ERR_CODE.EMPLOYEE_INVALID_JOIN_DATE;
     }
-    if (!validatorUtil.isValidDate(e.expireDate)) {
+    if (!dateUtil.isValidDate(e.expireDate)) {
       return ERR_CODE.EMPLOYEE_INVALID_EXPIRE_DATE;
     }
     return ERR_CODE.OK

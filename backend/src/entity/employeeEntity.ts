@@ -1,4 +1,5 @@
 import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn} from "typeorm"
+import AuthorGroupRole from "../config/authorGroupRoleConfig"
 
 @Entity()
 export class EmployeeEntity {
@@ -17,8 +18,8 @@ export class EmployeeEntity {
   @Column({type: "nvarchar", default: "", nullable: false})
   address: string
 
-  @Column({type: "int", default: 0, nullable: false})
-  position: number
+  @Column({type: "nvarchar", nullable: false})
+  position: string
 
   @Column({type: "date", nullable: false})
   joinDate: Date
@@ -26,10 +27,10 @@ export class EmployeeEntity {
   @Column({type: "date", nullable: false})
   expireDate: Date
 
-  @Column({type: "int", default: 1, nullable: false})
+  @Column({type: "int", default: AuthorGroupRole.ANY, nullable: false})
   roleCode: number
 
-  @Column({type: "varchar", default: "", length: 12, nullable: false, unique: true})
+  @Column({type: "varchar", length: 12, nullable: false, unique: true})
   cccd: string
 
   @Column({type: "varchar", default: "", nullable: false})
@@ -38,9 +39,9 @@ export class EmployeeEntity {
   @Column({type: "boolean", default: true, nullable: false})
   isActive: boolean
 
-  @Column({type: "varchar", default: "", nullable: false})
+  @Column({type: "varchar", nullable: false, unique: true})
   account: string  
 
-  @Column({type: "varchar", default: "", nullable: false})
+  @Column({type: "varchar", nullable: false})
   hashPassword: string
 }

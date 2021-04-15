@@ -27,12 +27,12 @@ class EmployeeController {
   public async createOne(req: any, res: any, next: any) {
     try {
       // Validate input
-      const errCode = ValidatorEmployee.isEmployee(req.body);
+      console.log(JSON.stringify(req.body));
+      const errCode = ValidatorEmployee.isValidEmployee(req.body);
       if (errCode !== ERR_CODE.OK) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, errCode);
       }
       console.log("createone");
-      // const name = res.locals.imageUri;
       const path = req.file.path;
       const employee = await employeeService.createOne(req.body, path);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeeDTO(employee));

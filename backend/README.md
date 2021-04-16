@@ -51,3 +51,11 @@ $ if (!serverConfig.shouldAuth) {
     return;
   }
 ```
+### *For cheat role and do not auth, add a new Route belike (function cheateRoleMiddleware -> set ROOT role)
+```ruby
+$ router.all('/v1/cheat/employee/createone',
+  cheatRoleMiddleware,
+  uploadDisk.single("avatar"),
+  employeeController.createOne
+)
+```

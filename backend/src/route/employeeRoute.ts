@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import cheatRoleMiddleware from '../cheat/cheatRoleMiddleware';
 import accountController from '../controller/accountController';
 import employeeController from '../controller/employeeController';
 import authEmployeeMiddleware from '../middleware/authEmployeeMiddleware';
@@ -13,9 +14,15 @@ router.get('/v1/employee',
   employeeController.getAll
 )
 
-router.all('/v1/employee/createone',
+router.put('/v1/employee/createone',
   accountController.authTokenAndPassRoleCodeToResLocals,
   authEmployeeMiddleware("create"),
+  uploadDisk.single("avatar"),
+  employeeController.createOne
+)
+
+router.all('/v1/cheat/employee/createone',
+  cheatRoleMiddleware,
   uploadDisk.single("avatar"),
   employeeController.createOne
 )

@@ -7,6 +7,7 @@ import accountService from "../service/accountService";
 import validatorSignIn from "../validator/validatorSignIn";
 import AccountSignInDTO from "../dto/accountSignInDTO";
 import AbstractController from "./abstractController";
+import AuthorGroupRole from "../config/authorGroupRoleConfig";
 
 class AccountController extends AbstractController {
   private static _instance: AccountController

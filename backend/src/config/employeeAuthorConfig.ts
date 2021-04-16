@@ -5,20 +5,25 @@ const RESOURCE = "employee";
 
 const employeeAuthorConfig = {
   "create": [
-    AuthorGroupRole.ADMIN
+    AuthorGroupRole.ADMIN,
+    AuthorGroupRole.ROOT,
   ],
   "getAll": [
-    AuthorGroupRole.ADMIN
+    AuthorGroupRole.ADMIN,
+    AuthorGroupRole.ROOT,
   ],
   "delete": [
-    AuthorGroupRole.ADMIN
+    AuthorGroupRole.ADMIN,
+    AuthorGroupRole.ROOT,
   ],
   "update": [
-    AuthorGroupRole.ADMIN
+    AuthorGroupRole.ADMIN,
+    AuthorGroupRole.ROOT,
   ],
   "updatePassword": [
     AuthorGroupRole.ADMIN,
-    AuthorGroupRole.EMPLOYEE
+    AuthorGroupRole.EMPLOYEE,
+    AuthorGroupRole.ROOT,
   ]
 }
 

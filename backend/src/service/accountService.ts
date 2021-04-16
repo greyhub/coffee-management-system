@@ -20,19 +20,20 @@ class AccountService {
       return this._instance || (this._instance = new this());
   }
 
-  // May not use
-  private checkExpiredToken(payload: any) {
-    return systemUtil.getUTCTimestampServer() - payload.data.exp > 0;
+  public extractTokenBearerHeader(authorization: any): string {
+    if (authorization && authorization.split(' ')[0] === 'Bearer') {
+      return authorization.split(' ')[1];
+    }
+    return "";
   }
-  private genTokenByIdPassword(id: string, hashPassword: string) {
+  private genTokenByRoleCodePassword(roleCode: number, hashPassword: string) {
     return jwt.sign({
       exp: Math.floor(systemUtil.getUTCTimestampServer() / 1000) + serverConfig.timeoutToken,
-      data: new TokenDecoded(id, hashPassword)
+      data: new TokenDecoded(roleCode, hashPassword)
     }, env.SECRECT_KEY);
   }
   private decodeToken(token: string) {
     try {
-      // logger.debug("decodeToken:--" + token);
       return jwt.verify(token, env.SECRECT_KEY)
     } catch(err) {
       // expired
@@ -40,15 +41,15 @@ class AccountService {
     }
   }
   private async comparePassword(password: string, hashPassword: string) {
-    return await bcrypt.compare(password, hashPassword, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      return result;
-    });
+    try {
+      return await bcrypt.compare(password, hashPassword);
+    }
+    catch (e) {
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_WRONG_PASSWORD);
+    }
   }
 
-  public async verifyTokenAndGetEmployee(token: string) {
+  public async verifyTokenAndGetRoleCode(token: string) {
     try {
       const payload = this.decodeToken(token);
       if (!payload) {
@@ -56,25 +57,11 @@ class AccountService {
       }
       const decoded = (<any>payload).data;
 
-      if (this.checkExpiredToken(payload)) {
-        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
-      }
-
-      const employee = await employeeService.getById(decoded.id);
-      // logger.debug(JSON.stringify(employee));
-      if (!employee) {
-        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
-      }
-      const hashPassword = employee?.hashPassword;
-      if (!hashPassword) {
-        throw new CustomError(STATUS_CODE.INTERNAL_SERVER_ERROR, ERR_CODE.INTERNAL_SERVER_ERROR);
-      }
-      const isValidToken = this.comparePassword(decoded.hashPassword, hashPassword);
-      if (!isValidToken) {
+      if (!decoded.roleCode) {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
 
-      return employee;
+      return decoded.roleCode;
     }
     catch(e) {
       if (e instanceof QueryFailedError) {
@@ -106,13 +93,13 @@ class AccountService {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_INVALID_ACCOUNT);
       }
       
-      const isRightPassword = this.comparePassword(password, employee.hashPassword);
+      const isRightPassword = await this.comparePassword(password, employee.hashPassword);
       if (!isRightPassword) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_WRONG_PASSWORD);
       }
 
       // Sinh token de tra ve
-      const token = this.genTokenByIdPassword(employee.id, employee.hashPassword);
+      const token = this.genTokenByRoleCodePassword(employee.roleCode, employee.hashPassword);
       return {
         token: token,
         employee: employee

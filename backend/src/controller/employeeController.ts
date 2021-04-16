@@ -40,6 +40,12 @@ class EmployeeController extends AbstractController {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, errCode);
       }
 
+      // Handle role --> Author service --> hard code
+      const roleCode = res.locals.roleCode;
+      if (roleCode <= Number(req.body.roleCode)) {
+        throw new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.ACCOUNT_NO_PERMISSION);
+      }
+
       // Handle file
       if (!req.file || !req.file.path) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);

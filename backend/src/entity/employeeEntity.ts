@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn} from "typeorm"
+import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn, BeforeInsert} from "typeorm"
 import AuthorGroupRole from "../config/authorGroupRoleConfig"
 
 @Entity()
@@ -44,4 +44,7 @@ export class EmployeeEntity {
 
   @Column({type: "varchar", nullable: false})
   hashPassword: string
+
+  @Column({type: "varchar", nullable: false})
+  password: string
 }

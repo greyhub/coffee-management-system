@@ -15,7 +15,8 @@ export default function authEmployeeMiddleware(permission: string) {
       return;
     }
 
-    const roleCode = res.locals.employee.roleCode;
+    const roleCode = res.locals.roleCode;
+
     const isAllow = authorConfig.isAuthorized(resource, [roleCode], permission);
     if (!isAllow) {
       next(new CustomError(STATUS_CODE.NOT_FOUND, ERR_CODE.NOT_FOUND))

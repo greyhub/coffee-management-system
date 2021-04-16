@@ -19,21 +19,28 @@ class AccountController extends AbstractController {
 
   public async authTokenAndPassRoleCodeToResLocals(req: any, res: any, next: any) {
     try {
+      req.header('Authorization')
       logger.info('INPUT:'
       +'\nbody:'+JSON.stringify(req.body)
       +'\nparams:'+JSON.stringify(req.params)
-      +'\nquery:'+JSON.stringify(req.query));
+      +'\nquery:'+JSON.stringify(req.query)
+      +'\nheaders.authorization:'+JSON.stringify(req.headers.authorization));
 
       if (!super.shouldAuth()) {
         next();
         return;
       }
 
-      const employee = await accountService.verifyTokenAndGetEmployee(req.body.token);
-      if (employee === null) {
+      const token = accountService.extractTokenBearerHeader(req.headers['authorization']);
+      if (token == "") {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
-      res.locals.employee = employee;
+
+      const roleCode = await accountService.verifyTokenAndGetRoleCode(token);
+      if (roleCode === null) {
+        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+      }
+      res.locals.roleCode = roleCode;
       next();
     }
     catch (e) {

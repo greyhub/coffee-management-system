@@ -1,9 +1,9 @@
 export default class TokenDecoded {
-  id: string
+  roleCode: number
   hashPassword: string
 
-  constructor(id: string, hashPassword: string) {
-    this.id = id;
+  constructor(roleCode: number, hashPassword: string) {
+    this.roleCode = roleCode;
     this.hashPassword = hashPassword;
 
     Object.setPrototypeOf(this, TokenDecoded.prototype);

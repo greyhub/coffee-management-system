@@ -66,6 +66,7 @@ class EmployeeService {
         position: e.position,
         roleCode: e.roleCode
       });
+      newEmployee.password = e.password;
 
       // Save employee in database
       newEmployee = await employeeDAO.save(newEmployee);

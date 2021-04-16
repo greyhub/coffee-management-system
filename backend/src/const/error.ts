@@ -39,7 +39,15 @@ enum ERR_CODE {
   EMPLOYEE_INVALID_JOIN_DATE = 1011,
   EMPLOYEE_INVALID_EXPIRE_DATE = 1012,
 
-  //OtherModule from 2000, 
+  
+  //Business Error from 2000,
+  //ProductModule
+  PRODUCT_INVALID_NAME = 2000,
+  PRODUCT_INVALID_PRICE = 2001,
+  PRODUCT_INVALID_DESCRIPTION = 2002,
+  PRODUCT_INVALID_ = 2003,
+
+  //OtherModule from 3000, 
   
 }
 

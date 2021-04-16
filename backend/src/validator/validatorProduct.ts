@@ -1,6 +1,7 @@
 import validator from "validator";
 import ERR_CODE from "../const/error";
-import validatorUtil from "../util/validatorUtil";
+import stringUtil from "../util/stringUtil";
+import numberUtil from "../util/numberUtil"
 
 class ValidatorProduct {
   private static _instance: ValidatorProduct
@@ -10,19 +11,15 @@ class ValidatorProduct {
       return this._instance || (this._instance = new this());
   }
 
-  private isValidName(name: any, min: number = 1, max: number = 250) {
-    return name && typeof name === "string" && validator.isLength(name.trim(), {min: min, max: max});
-  }
-  private isValidCCCD(cccd: any) {
-    return validatorUtil.isCCCD(cccd);
-  }
-
   public isProduct(e: any) {
-    if (!this.isValidName(e.firstName, 0) || !this.isValidName(e.lastName)) {
-      return ERR_CODE.EMPLOYEE_INVALID_NAME;
+    if (!stringUtil.isValidString(e.name, 0)) {
+      return ERR_CODE.PRODUCT_INVALID_NAME;
     }
-    if (!this.isValidCCCD(e.cccd)) {
-      return ERR_CODE.EMPLOYEE_INVALID_CCCD;
+    if (!numberUtil.isOnlyDigits(e.price)) {
+      return ERR_CODE.PRODUCT_INVALID_PRICE;
+    }
+    if (!stringUtil.isValidString(e.description,0,3000)){
+      return ERR_CODE.PRODUCT_INVALID_DESCRIPTION;
     }
     return ERR_CODE.OK
   }

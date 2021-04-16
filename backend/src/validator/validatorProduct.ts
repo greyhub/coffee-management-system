@@ -17,7 +17,7 @@ class ValidatorProduct {
     return validatorUtil.isCCCD(cccd);
   }
 
-  public isEmployee(e: any) {
+  public isProduct(e: any) {
     if (!this.isValidName(e.firstName, 0) || !this.isValidName(e.lastName)) {
       return ERR_CODE.EMPLOYEE_INVALID_NAME;
     }
@@ -28,4 +28,4 @@ class ValidatorProduct {
   }
 }
 
-export default ValidatorEmployee.Instance
+export default ValidatorProduct.Instance

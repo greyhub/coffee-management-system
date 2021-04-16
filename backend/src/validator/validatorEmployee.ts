@@ -15,7 +15,7 @@ class ValidatorEmployee {
   private isValidRoleCode(roleCode: any) {
     return roleCode != null && Object.values(AuthorGroupRole).includes(Number(roleCode));
   }
-  private isValidAccount(account: any) {
+  private isValidAccount(account: any, min: number= 6, max: number = 20) {
     return stringUtil.isValidString(account, 6, 20) &&  account.match(/^[0-9a-zA-Z]+$/)
   }
 
@@ -29,7 +29,7 @@ class ValidatorEmployee {
     if (!stringUtil.isValidString(e.position, 1)) {
       return ERR_CODE.EMPLOYEE_INVALID_POSITION;
     }
-    if (!this.isValidAccount(e.account)) {
+    if (!this.isValidAccount(e.account, 6, 20)) {
       return ERR_CODE.EMPLOYEE_INVALID_ACCOUNT;
     }
     if (!stringUtil.isValidString(e.password, 6, 20)) {

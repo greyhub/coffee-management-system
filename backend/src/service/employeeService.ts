@@ -7,6 +7,7 @@ import logger from "../_base/log/logger4js";
 import bcrypt from "bcrypt";
 import moment from "moment";
 import dateUtil from "../util/dateUtil";
+import accountService from "./accountService";
 
 class EmployeeService {
   private static _instance: EmployeeService
@@ -25,19 +26,6 @@ class EmployeeService {
     let nextId = (parseInt(arr[1], 10) + 1).toString().padStart(6, "0");
     return arr[0] + "-" + nextId.toString();
   }
-  private async hashPassword(password: string) {
-    await bcrypt.hash(password, 10, function(err, hash) {
-      if (err) {
-        return ""
-      }
-      else {
-        return hash;
-      }
-    })
-  }
-  private async compareToken(token: string) {
-    return true;
-  }
 
   public async getById(id: string) {
     const employee = await employeeDAO.getById(id);
@@ -54,12 +42,7 @@ class EmployeeService {
       logger.debug("GENERATE" + nextId);
 
       // Hash Password
-      e.hashPassword = await this.hashPassword(e.hashPassword);
-      if (e.hashPassword === "") {
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_INVALID_PASSWORD);
-      }
-
-      logger.debug("joindate" + new Date(e.joinDate))
+      e.hashPassword = await accountService.hashPassword(e.password);
 
       // Gen Date
       e.birthday = dateUtil.fromString(e.birthday)

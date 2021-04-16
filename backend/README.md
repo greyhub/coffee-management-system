@@ -36,3 +36,16 @@ $ DROP PROCEDURE IF EXISTS `drop_all_tables`;
 Step 2: Paste to SQL script in this database on remote and execute<br>
 
 # Guide
+### *Turn off authentication and authorization
+```ruby
+$ cd src/config
+$ #Edit serverConfig.ts
+$ let MODE = ENVIRONMENT_PRODUCT;
+```
+### *In controller/middleware, add this block lines in begin of function
+```ruby
+$ if (!serverConfig.shouldAuth) {
+    next();
+    return;
+  }
+```

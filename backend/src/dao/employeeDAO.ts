@@ -22,9 +22,15 @@ async function getMaxEmployeeId() {
 }
 
 async function getById(id: string) {
-  try {
+    try {
     const repository = getRepository(EmployeeEntity);
-    return (await repository.find({id: id}))[0];
+    const employees = await repository.find({id: id});
+    if (employees.length <= 0) {
+      return null;
+    }
+    else {
+      return employees[0];
+    }
   }
   catch(e) {
     throw e;

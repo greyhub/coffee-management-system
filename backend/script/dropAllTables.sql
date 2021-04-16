@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS `drop_all_tables`;
+DROP PROCEDURE IF EXISTS `test`;
 
 DELIMITER $$
 CREATE PROCEDURE `drop_all_tables`()

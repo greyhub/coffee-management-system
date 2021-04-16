@@ -7,10 +7,12 @@ import sendResAppJson from "../dto/response/sendResAppJson";
 import ValidatorEmployee from "../validator/validatorEmployee";
 import CustomError from "../error/customError";
 import logger from "../_base/log/logger4js";
+import AbstractController from "./abstractController";
 
-class EmployeeController {
+class EmployeeController extends AbstractController {
   private static _instance: EmployeeController
   private constructor() {
+    super()
   }
   public static get Instance() {
       return this._instance || (this._instance = new this());

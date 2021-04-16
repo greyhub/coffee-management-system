@@ -9,6 +9,8 @@ import bcrypt from "bcrypt";
 import accountDAO from "../dao/accountDAO";
 import TokenDecoded from "../model/TokenDecoded";
 import employeeService from "./employeeService";
+import systemUtil from "../util/systemUtil";
+import serverConfig from "../config/serverConfig";
 
 class AccountService {
   private static _instance: AccountService
@@ -18,18 +20,23 @@ class AccountService {
       return this._instance || (this._instance = new this());
   }
 
+  // May not use
+  private checkExpiredToken(payload: any) {
+    return systemUtil.getUTCTimestampServer() - payload.data.exp > 0;
+  }
   private genTokenByIdPassword(id: string, hashPassword: string) {
     return jwt.sign({
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      exp: Math.floor(systemUtil.getUTCTimestampServer() / 1000) + serverConfig.timeoutToken,
       data: new TokenDecoded(id, hashPassword)
     }, env.SECRECT_KEY);
   }
   private decodeToken(token: string) {
     try {
-      // const decoded = jwt.verify(token, env.SECRECT_KEY)//, function(err, decoded) {
+      // logger.debug("decodeToken:--" + token);
       return jwt.verify(token, env.SECRECT_KEY)
     } catch(err) {
-      throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+      // expired
+      throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
     }
   }
   private async comparePassword(password: string, hashPassword: string) {
@@ -44,12 +51,14 @@ class AccountService {
   public async verifyTokenAndGetEmployee(token: string) {
     try {
       const payload = this.decodeToken(token);
-      // console.log(typeof payload);
       if (!payload) {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
       const decoded = (<any>payload).data;
-      const exp = (<any>payload).exp;
+
+      if (this.checkExpiredToken(payload)) {
+        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
+      }
 
       const employee = await employeeService.getById(decoded.id);
       // logger.debug(JSON.stringify(employee));

@@ -40,7 +40,6 @@ class AccountController extends AbstractController {
       next(e);
     }
   }
-
   public async signIn(req: any, res: any, next: any) {
     try {
       // Validate

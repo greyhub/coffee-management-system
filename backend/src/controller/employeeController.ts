@@ -1,13 +1,14 @@
 import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
-import EmployeeCreateDTO from "../dto/employeeCreateDTO";
-import EmployeesListFindDTO from "../dto/employeesListFindDTO";
+import EmployeeCreateDTO from "../dto/employee/employeeCreateDTO";
+import EmployeesListFindDTO from "../dto/employee/employeesListFindDTO";
 import employeeService from "../service/employeeService"
 import sendResAppJson from "../dto/response/sendResAppJson";
 import ValidatorEmployee from "../validator/validatorEmployee";
 import CustomError from "../error/customError";
 import logger from "../_base/log/logger4js";
 import AbstractController from "./abstractController";
+import EmployeesDeleteDTO from "../dto/employee/employeesDeleteDTO";
 
 class EmployeeController extends AbstractController {
   private static _instance: EmployeeController
@@ -22,6 +23,20 @@ class EmployeeController extends AbstractController {
     try {
       const employees = await employeeService.getAll();
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeesListFindDTO(employees));
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+  public async delete(req: any, res: any, next: any) {
+    try {
+      logger.info('INPUT:'
+      +'\nbody:'+JSON.stringify(req.body)
+      +'\nparams:'+JSON.stringify(req.params)
+      +'\nquery:'+JSON.stringify(req.query));
+      
+      const ids = await employeeService.delete(req.body.ids);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeesDeleteDTO(ids));
     }
     catch(error) {
       next(error)

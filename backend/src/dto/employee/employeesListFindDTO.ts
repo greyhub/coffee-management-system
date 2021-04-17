@@ -1,5 +1,5 @@
-import ERR_CODE from "../const/error";
-import { EmployeeEntity } from "../entity/employeeEntity";
+import ERR_CODE from "../../const/error";
+import { EmployeeEntity } from "../../entity/employeeEntity";
 import EmployeeCreateDTO from "./employeeCreateDTO";
 import EmployeeItemFindDTO from "./employeeItemFindDTO";
 

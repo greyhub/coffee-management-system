@@ -4,8 +4,6 @@ import STATUS_CODE from '../const/status';
 import employeeDAO from '../dao/employeeDAO'
 import CustomError from '../error/customError';
 import logger from "../_base/log/logger4js";
-import bcrypt from "bcrypt";
-import moment from "moment";
 import dateUtil from "../util/dateUtil";
 import accountService from "./accountService";
 
@@ -35,9 +33,21 @@ class EmployeeService {
     const employees = await employeeDAO.getAll();
     return employees;
   }
+  public async delete(ids: Array<string>) {
+    try {
+      const employees = await employeeDAO.deleteByIds(ids);
+      const deletedIds = employees.map((e) => e.id);
+      // const deletedIds = employees;
+      logger.debug("Delete" + deletedIds)
+      return deletedIds;
+    }
+    catch {
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_DELETE_ERROR);
+    }
+  }
   public async createOne(e: any, avatarPath: string) {
     try {
-      // Generate Next Id
+      // Generate Next Ids
       const nextId = await this.generateEmployeeId();
       logger.debug("GENERATE" + nextId);
 
@@ -64,7 +74,8 @@ class EmployeeService {
         expireDate: e.expireDate,
         joinDate: e.joinDate,
         position: e.position,
-        roleCode: e.roleCode
+        roleCode: e.roleCode,
+        salary: e.salary
       });
       newEmployee.password = e.password;
 

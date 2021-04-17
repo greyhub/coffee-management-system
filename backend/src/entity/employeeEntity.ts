@@ -36,6 +36,9 @@ export class EmployeeEntity {
   @Column({type: "varchar", default: "", nullable: false})
   avatarUri: string;
 
+  @Column({type: "bigint", nullable: false, default: -1})
+  salary: number
+
   @Column({type: "boolean", default: true, nullable: false})
   isActive: boolean
 

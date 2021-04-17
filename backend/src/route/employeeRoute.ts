@@ -21,6 +21,12 @@ router.put('/v1/employee/createone',
   employeeController.createOne
 )
 
+router.delete('/v1/employee/delete',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authEmployeeMiddleware("delete"),
+  employeeController.delete
+)
+
 router.all('/v1/cheat/employee/createone',
   cheatRoleMiddleware,
   uploadDisk.single("avatar"),

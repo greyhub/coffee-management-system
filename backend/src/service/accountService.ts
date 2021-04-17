@@ -8,7 +8,6 @@ import logger from "../_base/log/logger4js";
 import bcrypt from "bcrypt";
 import accountDAO from "../dao/accountDAO";
 import TokenDecoded from "../model/TokenDecoded";
-import employeeService from "./employeeService";
 import systemUtil from "../util/systemUtil";
 import serverConfig from "../config/serverConfig";
 
@@ -57,7 +56,7 @@ class AccountService {
       }
       const decoded = (<any>payload).data;
 
-      if (!decoded.roleCode) {
+      if (!decoded.roleCode && decoded.roleCode !== 0) {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
 

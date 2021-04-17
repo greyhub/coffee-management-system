@@ -13,4 +13,5 @@ export default interface IEmployee {
   isActive: boolean
   account: string
   hashPassword: string
+  salary: number
 }

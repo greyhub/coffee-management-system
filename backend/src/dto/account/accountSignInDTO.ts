@@ -1,6 +1,6 @@
-import serverConfig from "../config/serverConfig";
-import ERR_CODE from "../const/error";
-import { EmployeeEntity } from "../entity/employeeEntity";
+import serverConfig from "../../config/serverConfig";
+import ERR_CODE from "../../const/error";
+import { EmployeeEntity } from "../../entity/employeeEntity";
 
 export default class AccountSignInDTO {
   error: ERR_CODE = ERR_CODE.OK

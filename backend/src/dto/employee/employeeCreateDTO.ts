@@ -1,6 +1,6 @@
-import serverConfig from "../config/serverConfig";
-import ERR_CODE from "../const/error";
-import { EmployeeEntity } from "../entity/employeeEntity";
+import serverConfig from "../../config/serverConfig";
+import ERR_CODE from "../../const/error";
+import { EmployeeEntity } from "../../entity/employeeEntity";
 
 export default class EmployeeCreateDTO {
   error: ERR_CODE = ERR_CODE.OK
@@ -19,6 +19,7 @@ export default class EmployeeCreateDTO {
   public avatarUri: string
   public isActive: boolean
   public account: string
+  public salary: number
 
   constructor(e: EmployeeEntity) {
     this.id = e.id;
@@ -33,5 +34,6 @@ export default class EmployeeCreateDTO {
     this.cccd = e.cccd;
     this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
     this.isActive = e.isActive;
+    this.salary = e.salary;
   }
 }

@@ -1,10 +1,16 @@
 # API
 Mặc định:
+> Prefix Url:<br>
+```ruby
+localhost:${.env.PORT}/
+ví dụ: localhost:8080/
+# Nếu có đường link ảnh (ví dụ: avatar) thì thêm tiền tố trên
+```
 > Encytype:<br>
 ```ruby
 application/json
 ```
-> Tất cả các response trả về đều có<br>
+> Tất cả các response trả về đều có:<br>
 ```ruby
 Http status
 ```
@@ -17,7 +23,12 @@ message: string
 ```ruby
 Bearer token
 ```
-# Đăng nhập
+# Đăng nhập:
+```ruby
+/v1/account/signin
+`post`
+```
+> Encytpe:
 ```ruby
 multipart/form-data
 ```
@@ -31,7 +42,6 @@ password: string
 > Response:<br>
 ```ruby
 public token: string
-  
 public id: string
 public firstName: string
 public lastName: string
@@ -45,6 +55,10 @@ public avatarUri: string
 ```
 # Employee
 ## Xóa một danh sách nhân viên:
+```ruby
+/v1/employee/delete
+`delete`
+```
 > Chỉ admin có quyền nên phải gắn Header:<br>
 ```ruby
 Bearer token
@@ -54,11 +68,15 @@ Phần body:<br>
 ```ruby
 ids: Array<id: int> - Danh sách những id nhân viên cần xóa
 ```
-> Response<br>
+> Response:<br>
 ```ruby
 ids: Array<id: int> - Danh sách những id đã bị xóa
 ```
 ## Thêm một nhân viên mới:
+```ruby
+/v1/employee/createone
+`put`
+```
 > Chỉ admin có quyền nên phải gắn Header:<br>
 ```ruby
 Bearer token
@@ -101,7 +119,7 @@ account: Độ dài >= 6 <= 20
 password: Đồ dài >= 6 <= 20
 salary: Mặc định = -1
 ```
-> Response<br>
+> Response:<br>
 ```ruby
 id: string
 firstName: string
@@ -119,11 +137,18 @@ account: string
 salary: number
 ```
 ## Lấy tất cả nhân viên:
+```ruby
+/v1/employee
+`get`
+```
 > Chỉ admin có quyền nên phải gắn Header:<br>
 ```ruby
 Bearer token
 ```
 > Request:<br>
+```ruby
+Không
+```
 
 > Response:<br>
 ```ruby

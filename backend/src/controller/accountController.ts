@@ -72,6 +72,22 @@ class AccountController extends AbstractController {
       next(e);
     }
   }
+  // public async signOut(req: any, res: any, next: any) {
+  //   try {
+  //     req.header('Authorization')
+
+  //     const token = accountService.extractTokenBearerHeader(req.headers['authorization']);
+  //     if (token == "") {
+  //       throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+  //     }
+
+  //     await accountService.signOut(token);
+  //     sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK);
+  //   }
+  //   catch(e) {
+  //     next(e);
+  //   }
+  // }
 }
 
 export default AccountController.Instance

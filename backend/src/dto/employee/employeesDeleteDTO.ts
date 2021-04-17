@@ -1,11 +1,9 @@
-import ERR_CODE from "../../const/error";
+import AbstractDTO from "../abstractDTO";
 
-export default class EmployeesDeleteDTO {
-  error: ERR_CODE = ERR_CODE.OK
-  message: ""
-
+export default class EmployeesDeleteDTO extends AbstractDTO {
   private ids: string[]
   constructor(ids: string[]) {
+    super();
     this.ids = ids;
   }
 }

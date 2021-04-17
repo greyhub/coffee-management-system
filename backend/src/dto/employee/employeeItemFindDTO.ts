@@ -1,5 +1,4 @@
 import serverConfig from "../../config/serverConfig";
-import ERR_CODE from "../../const/error";
 import { EmployeeEntity } from "../../entity/employeeEntity";
 
 export default class EmployeeItemFindDTO{
@@ -19,6 +18,5 @@ export default class EmployeeItemFindDTO{
     this.position = e.position;
     this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
     this.isActive = e.isActive;
-
   }
 }

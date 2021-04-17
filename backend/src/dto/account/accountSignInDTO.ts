@@ -1,11 +1,9 @@
 import serverConfig from "../../config/serverConfig";
 import ERR_CODE from "../../const/error";
 import { EmployeeEntity } from "../../entity/employeeEntity";
+import AbstractDTO from "../abstractDTO";
 
-export default class AccountSignInDTO {
-  error: ERR_CODE = ERR_CODE.OK
-  message: ""
-  
+export default class AccountSignInDTO extends AbstractDTO {
   public token: string
   
   public id: string
@@ -20,6 +18,7 @@ export default class AccountSignInDTO {
   public avatarUri: string
   
   constructor(token: string, e: EmployeeEntity) {
+    super()
     this.token = token;
 
     this.id = e.id;

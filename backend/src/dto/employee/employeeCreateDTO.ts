@@ -1,11 +1,8 @@
 import serverConfig from "../../config/serverConfig";
-import ERR_CODE from "../../const/error";
 import { EmployeeEntity } from "../../entity/employeeEntity";
+import AbstractDTO from "../abstractDTO";
 
-export default class EmployeeCreateDTO {
-  error: ERR_CODE = ERR_CODE.OK
-  message: ""
-  
+export default class EmployeeCreateDTO extends AbstractDTO{
   public id: string
   public firstName: string
   public lastName: string
@@ -22,6 +19,8 @@ export default class EmployeeCreateDTO {
   public salary: number
 
   constructor(e: EmployeeEntity) {
+    super();
+
     this.id = e.id;
     this.firstName = e.firstName;
     this.lastName = e.lastName;

@@ -21,6 +21,9 @@ const ormInit = async () => {
       subscribers: [
         "./src/subscriber/*.ts" 
       ],
+      cli: {
+        migrationsDir: 'src/migration',
+      },
       synchronize: true,
       logging: false,
       charset: "utf8mb4_unicode_ci"

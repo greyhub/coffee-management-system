@@ -10,6 +10,7 @@ import accountDAO from "../dao/accountDAO";
 import TokenDecoded from "../model/TokenDecoded";
 import systemUtil from "../util/systemUtil";
 import serverConfig from "../config/serverConfig";
+import blackTokenDAO from "../dao/blackTokenDAO";
 
 class AccountService {
   private static _instance: AccountService
@@ -19,11 +20,9 @@ class AccountService {
       return this._instance || (this._instance = new this());
   }
 
-  public extractTokenBearerHeader(authorization: any): string {
-    if (authorization && authorization.split(' ')[0] === 'Bearer') {
-      return authorization.split(' ')[1];
-    }
-    return "";
+  private async checkBlackList(token: string) {
+    return false;
+    return await blackTokenDAO.checkBlackList(token);
   }
   private genTokenByRoleCodePassword(roleCode: number, hashPassword: string) {
     return jwt.sign({
@@ -48,6 +47,12 @@ class AccountService {
     }
   }
 
+  public extractTokenBearerHeader(authorization: any): string {
+    if (authorization && authorization.split(' ')[0] === 'Bearer') {
+      return authorization.split(' ')[1];
+    }
+    return "";
+  }
   public async verifyTokenAndGetRoleCode(token: string) {
     try {
       const payload = this.decodeToken(token);
@@ -58,6 +63,10 @@ class AccountService {
 
       if (!decoded.roleCode && decoded.roleCode !== 0) {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+      }
+
+      if (await this.checkBlackList(token)) {
+        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
       }
 
       return decoded.roleCode;
@@ -116,6 +125,18 @@ class AccountService {
       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_SIGN_IN_ERROR);
     }
   }
+  // public async signOut(token: string) {
+  //   try {
+  //     await blackTokenDAO.addTokenToBlack(token);
+  //   }
+  //   catch(e) {
+  //     if (e instanceof CustomError) {
+  //       logger.debug('CustomError');
+  //       throw e;
+  //     }
+  //     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_SIGN_OUT_ERROR);
+  //   }
+  // } 
 }
 
 export default AccountService.Instance

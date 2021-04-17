@@ -19,7 +19,7 @@ export default function authEmployeeMiddleware(permission: string) {
 
     const isAllow = authorConfig.isAuthorized(resource, [roleCode], permission);
     if (!isAllow) {
-      next(new CustomError(STATUS_CODE.NOT_FOUND, ERR_CODE.NOT_FOUND))
+      next(new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.UNAUTHORIZED))
     }
     else {
       next()

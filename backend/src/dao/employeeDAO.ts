@@ -85,6 +85,15 @@ async function save(employee: EmployeeEntity) {
     throw e;
   }
 }
+async function update(employee: any) {
+  try {
+    const repository = getRepository(EmployeeEntity);
+    return repository.update(employee.id, employee);
+  }
+  catch(e) {
+    throw e;
+  }
+}
 
 export default {
   getMaxEmployeeId,
@@ -92,5 +101,6 @@ export default {
   getAll,
   create,
   save,
+  update,
   deleteByIds
 }

@@ -9,6 +9,7 @@ export default class EmployeeItemFindDTO{
   public position: string
   public avatarUri: string
   public isActive: boolean
+  public cccd: string
 
   constructor(e: EmployeeEntity) {
     this.id = e.id;
@@ -18,5 +19,6 @@ export default class EmployeeItemFindDTO{
     this.position = e.position;
     this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
     this.isActive = e.isActive;
+    this.cccd = e.cccd;
   }
 }

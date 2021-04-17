@@ -41,19 +41,95 @@ password: string
 ```
 > Response:<br>
 ```ruby
-public token: string
-public id: string
-public firstName: string
-public lastName: string
-public birthday: Date
-public address: string
-public position: string
-public joinDate: Date
-public expireDate: Date
-public cccd: string
-public avatarUri: string
+token: string
+id: string
+firstName: string
+lastName: string
+birthday: Date
+address: string
+position: string
+joinDate: Date
+expireDate: Date
+cccd: string
+avatarUri: string
 ```
 # Employee
+## Lấy thông tin một nhân viên:
+```ruby
+/v1/employee/getbyid
+`get`
+```
+> Gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+```
+
+> Response:<br>
+```ruby
+id: string
+firstName: string
+lastName: string
+birthday: Date
+address: string
+position: string
+joinDate: Date
+expireDate: Date
+roleCode: number
+cccd: string
+avatar: string
+isActive: boolean
+account: string
+salary: number
+```
+## Cập nhật thông tin một nhân viên:
+```ruby
+/v1/employee/update
+`put`
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+
+Phần body:<br>
+```ruby
+id: string
+firstName: string
+lastName: string
+birthday: Date
+address: string
+position: string
+joinDate: Date
+expireDate: Date
+roleCode: number
+cccd: string
+avatar: string
+isActive: boolean
+account: string
+salary: number
+```
+> Response:<br>
+```ruby
+id: string
+firstName: string
+lastName: string
+birthday: Date
+address: string
+position: string
+joinDate: Date
+expireDate: Date
+roleCode: number
+cccd: string
+avatarUri: string
+isActive: boolean
+account: string
+salary: number
+```
 ## Xóa một danh sách nhân viên:
 ```ruby
 /v1/employee/delete
@@ -160,5 +236,6 @@ employees: Array[
   position: string
   avatarUri: string
   isActive: boolean
+  cccd: string
 ]
 ```

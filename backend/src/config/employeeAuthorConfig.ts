@@ -10,6 +10,7 @@ const employeeAuthorConfig = {
   ],
   "getAll": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "delete": [
@@ -18,6 +19,11 @@ const employeeAuthorConfig = {
   ],
   "update": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.ROOT,
+  ],
+  "getById": [
+    AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "updatePassword": [

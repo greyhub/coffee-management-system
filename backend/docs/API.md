@@ -33,8 +33,6 @@ Bearer token
 multipart/form-data
 ```
 > Request:<br>
-
-Phần body
 ```ruby
 account: string
 password: string
@@ -95,8 +93,6 @@ salary: number
 Bearer token
 ```
 > Request:<br>
-
-Phần body:<br>
 ```ruby
 id: string
 firstName: string
@@ -140,7 +136,6 @@ salary: number
 Bearer token
 ```
 > Request:<br>
-Phần body:<br>
 ```ruby
 ids: Array<id: int> - Danh sách những id nhân viên cần xóa
 ```
@@ -157,9 +152,12 @@ ids: Array<id: int> - Danh sách những id đã bị xóa
 ```ruby
 Bearer token
 ```
+> Cheat thêm một nhân viên mới (không cần authentication, authorization):<br>
+```ruby
+/v1/cheat/employee/createone
+`all`
+```
 > Request:<br>
-
-Phần body:<br>
 ```ruby
 firstName: string
 lastName: string

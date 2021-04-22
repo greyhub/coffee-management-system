@@ -11,25 +11,11 @@
 * [Browser Support](#browser-support)
 
 
-## Versions
-
-[<img src="src/assets/github/html.png" width="60" height="60" />](https://www.creative-tim.com/product/material-dashboard)
-[<img src="src/assets/github/react.svg" width="60" height="60" />](https://www.creative-tim.com/product/material-dashboard-react)
-[<img src="src/assets/github/vuejs.png" width="60" height="60" />](https://www.creative-tim.com/product/vue-material-dashboard)
-[<img src="src/assets/github/angular.png" width="60" height="60" />](https://www.creative-tim.com/product/material-dashboard-angular2)
-
-
-| HTML | React | Vue | Angular |
-| --- | --- | --- | --- |
-| [![Material Dashboard HTML](src/assets/github/opt_md_thumbnail.jpg)](https://www.creative-tim.com/product/material-dashboard) | [![Material Dashboard React](src/assets/github/opt_mdr_thumbnail.jpg)](https://www.creative-tim.com/product/material-dashboard-react) | [![Vue Material Dashboard ](src/assets/github/opt_md_vue_thumbnail.jpg)](https://www.creative-tim.com/product/vue-material-dashboard) | [![Material Dashboard Angular](src/assets/github/opt_md_angular_thumbnail.jpg)](https://www.creative-tim.com/product/material-dashboard-angular2)
-
 ## Demo
 
 | Dashboard | User Profile | Tables | Maps | Notification |
 | --- | --- | --- | --- | --- |
-| [![Start page](src/assets/github/dashboard.png)](https://demos.creative-tim.com/material-dashboard-react/#/dashboard) | [![User profile page](src/assets/github/user_profile.png)](https://demos.creative-tim.com/material-dashboard-react/#/user) | [![Tables page ](src/assets/github/tables.png)](https://demos.creative-tim.com/material-dashboard-react/#/table) | [![Maps Page](src/assets/github/maps.png)](https://demos.creative-tim.com/material-dashboard-react/#/maps) | [![Notification page](src/assets/github/notification.png)](https://demos.creative-tim.com/material-dashboard-react/#/notifications)
-
-[View More](https://demos.creative-tim.com/material-dashboard-react/#/dashboard).
+| [![Start page](src/assets/github/dashboard.jpg)]() | [![User profile page](src/assets/github/userprofile.jpg)]() | [![Tables page ](src/assets/github/tables.jpg)]() | [![Maps Page](src/assets/github/map.jpg)]() | [![Notification page](src/assets/github/notifications.jpg)]()
 
 
 ## Quick start
@@ -47,9 +33,6 @@ Within the download you'll find the following directories and files:
 ```
 material-dashboard-react
 .
-├── CHANGELOG.md
-├── ISSUE_TEMPLATE.md
-├── LICENSE.md
 ├── README.md
 ├── bower.json
 ├── gulpfile.js

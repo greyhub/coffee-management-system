@@ -4,7 +4,6 @@
 
 ## Table of Contents
 
-* [Versions](#versions)
 * [Demo](#demo)
 * [Quick Start](#quick-start)
 * [File Structure](#file-structure)

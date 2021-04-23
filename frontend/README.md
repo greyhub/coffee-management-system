@@ -30,7 +30,7 @@ Quick start options:
 Within the download you'll find the following directories and files:
 
 ```
-material-dashboard-react
+coffee-management-system
 .
 ├── README.md
 ├── bower.json

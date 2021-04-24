@@ -28,6 +28,8 @@ import Language from "@material-ui/icons/Language";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
+import Items from "views/Items/Items.js";
+import Statistics from "views/Statistics/Statistics.js";
 import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
@@ -59,6 +61,22 @@ const dashboardRoutes = [
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: TableList,
+    layout: "/admin"
+  },
+  {
+    path: "/items",
+    name: "Items",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: Items,
+    layout: "/admin"
+  },
+  {
+    path: "/statistics",
+    name: "Statistics",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: Statistics,
     layout: "/admin"
   },
   {

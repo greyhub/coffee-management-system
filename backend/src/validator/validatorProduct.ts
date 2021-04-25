@@ -1,28 +1,35 @@
 import validator from "validator";
 import ERR_CODE from "../const/error";
 import stringUtil from "../util/stringUtil";
-import numberUtil from "../util/numberUtil"
+import numberUtil from "../util/numberUtil";
+import dateUtil from "../util/dateUtil";
 
-class ValidatorProduct {
-  private static _instance: ValidatorProduct
+class ValidatorOrder {
+  private static _instance: ValidatorOrder
   private constructor() {
   }
   public static get Instance() {
       return this._instance || (this._instance = new this());
   }
 
-  public isProduct(e: any) {
-    if (!stringUtil.isValidString(e.name, 0)) {
-      return ERR_CODE.PRODUCT_INVALID_NAME;
+  public isOrder(e: any) {
+    if (!stringUtil.isValidString(e.note, 0)) {
+      return ERR_CODE.ORDER_INVALID_NOTE;
     }
-    if (!numberUtil.isOnlyDigits(e.price)) {
-      return ERR_CODE.PRODUCT_INVALID_PRICE;
+    if (!stringUtil.isValidString(e.string, 0)) {
+      return ERR_CODE.ORDER_INVALID_EMPLOYEEID;
     }
-    if (!stringUtil.isValidString(e.description,0,3000)){
-      return ERR_CODE.PRODUCT_INVALID_DESCRIPTION;
+    if (!numberUtil.isOnlyDigits(e.money)) {
+      return ERR_CODE.ORDER_INVALID_MONEY;
+    }
+    if (!numberUtil.isOnlyDigits(e.tableCode)){
+      return ERR_CODE.ORDER_INVALID_TABEL_CODE;
+    }
+    if (!dateUtil.isValidDateBeforeNow(e.updateAt)) {
+      return ERR_CODE.ORDER_INVALID_DATE;
     }
     return ERR_CODE.OK
   }
 }
 
-export default ValidatorProduct.Instance
+export default ValidatorOrder.Instance

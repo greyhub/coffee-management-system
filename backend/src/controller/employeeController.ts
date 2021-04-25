@@ -9,7 +9,6 @@ import CustomError from "../error/customError";
 import logger from "../_base/log/logger4js";
 import AbstractController from "./abstractController";
 import EmployeesDeleteDTO from "../dto/employee/employeesDeleteDTO";
-import EmployeeItemFindDTO from "../dto/employee/employeeItemFindDTO";
 
 class EmployeeController extends AbstractController {
   private static _instance: EmployeeController

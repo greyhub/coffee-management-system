@@ -35,7 +35,7 @@ class AccountService {
       return jwt.verify(token, env.SECRECT_KEY)
     } catch(err) {
       // expired
-      throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
+      throw new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
     }
   }
   private async comparePassword(password: string, hashPassword: string) {
@@ -57,16 +57,16 @@ class AccountService {
     try {
       const payload = this.decodeToken(token);
       if (!payload) {
-        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
       const decoded = (<any>payload).data;
 
       if (!decoded.roleCode && decoded.roleCode !== 0) {
-        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
 
       if (await this.checkBlackList(token)) {
-        throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
       }
 
       return decoded.roleCode;

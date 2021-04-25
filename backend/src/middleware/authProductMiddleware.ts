@@ -3,12 +3,12 @@ import STATUS_CODE from "../const/status";
 import CustomError from "../error/customError";
 import authorConfig from "../_base/author/authorConfig"
 import AuthorGroupRole from "../config/authorGroupRoleConfig"
-import employeeAuthorConfig from "../config/employeeAuthorConfig";
+import productAuthorConfig from "../config/productAuthorConfig";
 import serverConfig from "../config/serverConfig";
 
-const resource: string = employeeAuthorConfig;
+const resource: string = productAuthorConfig;
 
-export default function authEmployeeMiddleware(permission: string) {
+export default function authProductMiddleware(permission: string) {
   return function authMiddleware(req: any, res: any, next: any) {
     if (!serverConfig.shouldAuth) {
       next();

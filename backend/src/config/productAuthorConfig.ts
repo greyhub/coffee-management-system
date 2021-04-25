@@ -1,9 +1,9 @@
 import authorConfig from "../_base/author/authorConfig";
 import AuthorGroupRole from "./authorGroupRoleConfig";
 
-const RESOURCE = "employee";
+const RESOURCE = "product";
 
-const employeeAuthorConfig = {
+const productAuthorConfig = {
   "create": [
     AuthorGroupRole.ADMIN,
     AuthorGroupRole.ROOT,
@@ -26,13 +26,8 @@ const employeeAuthorConfig = {
     AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
-  "updatePassword": [
-    AuthorGroupRole.ADMIN,
-    AuthorGroupRole.EMPLOYEE,
-    AuthorGroupRole.ROOT,
-  ]
 }
 
-authorConfig.addConfig(employeeAuthorConfig, RESOURCE)
+authorConfig.addConfig(productAuthorConfig, RESOURCE)
 
 export default RESOURCE

@@ -1,11 +1,8 @@
-import serverConfig from "../config/serverConfig";
-import ERR_CODE from "../const/error";
-import { ProductEntity } from "../entity/productEntity";
+import serverConfig from "../../config/serverConfig";
+import { ProductEntity } from "../../entity/productEntity";
 
-export default class ProductCreateDTO {
-  error: ERR_CODE = ERR_CODE.OK
-  message: ""
-  
+export default class ProductItemFindDTO{
+
   public id: string
   public name: string
   public price: number

@@ -4,8 +4,6 @@ import STATUS_CODE from '../const/status';
 import productDAO from '../dao/productDAO'
 import CustomError from '../error/customError';
 import logger from "../_base/log/logger4js";
-import bcrypt from "bcrypt";
-import moment from "moment";
 import dateUtil from "../util/dateUtil";
 
 class ProductService {
@@ -25,68 +23,14 @@ class ProductService {
     let nextId = (parseInt(arr[1], 10) + 1).toString().padStart(6, "0");
     return arr[0] + "-" + nextId.toString();
   }
-  private async hashPassword(password: string) {
-    await bcrypt.hash(password, 10, function(err, hash) {
-      if (err) {
-        return ""
-      }
-      else {
-        return hash;
-      }
-    })
-  }
-  private async compareToken(token: string) {
-    return true;
-  }
-
+  
   public async getById(id: string) {
-    const employee = await employeeDAO.getById(id);
-    return employee;
-  }
-  public async getAll() {
-    const employees = await employeeDAO.getAll();
-    return employees;
-  }
-  public async createOne(e: any, avatarPath: string) {
     try {
-      // Generate Next Id
-      const nextId = await this.generateEmployeeId();
-      logger.debug("GENERATE" + nextId);
-
-      // Hash Password
-      e.hashPassword = await this.hashPassword(e.hashPassword);
-      if (e.hashPassword === "") {
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_INVALID_PASSWORD);
+      const product = await productDAO.getById(id);
+      if (!product) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_GET_BY_ID_ERROR);
       }
-
-      logger.debug("joindate" + new Date(e.joinDate))
-
-      // Gen Date
-      e.birthday = dateUtil.fromString(e.birthday)
-      e.joinDate = dateUtil.fromString(e.joinDate)
-      e.expireDate = dateUtil.fromString(e.expireDate)
-
-      // Create Employee to save
-      let newEmployee = employeeDAO.create({
-        id: nextId,
-        firstName: e.firstName,
-        lastName: e.lastName,
-        cccd: e.cccd,
-        avatarUri: avatarPath,
-        isActive: e.isActive === false ? false : true,
-        account: e.account,
-        address: e.address,
-        hashPassword: e.hashPassword,
-        birthday: e.birthday,
-        expireDate: e.expireDate,
-        joinDate: e.joinDate,
-        position: e.position,
-        roleCode: e.roleCode
-      });
-
-      // Save employee in database
-      newEmployee = await employeeDAO.save(newEmployee);
-      return newEmployee;
+      return product;
     }
     catch(e) {
       if (e instanceof QueryFailedError) {
@@ -97,9 +41,89 @@ class ProductService {
         logger.debug('CustomError');
         throw e;
       }
-      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_CREATE_ERROR);
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_GET_BY_ID_ERROR);
+    }
+  }
+  public async getAll() {
+    const products = await productDAO.getAll();
+    return products;
+  }
+  public async createOne(e: any, previewPath: string) {
+    try {
+      // Generate Next Id
+      const nextId = await this.generateProductId();
+      logger.debug("GENERATE" + nextId);
+
+      // Create Product to save
+      let newProduct = productDAO.create({
+        id: nextId,
+        name: e.name,
+        price: e.price,
+        description: e.description,
+        previewUri: previewPath,
+        isActive: e.isActive === false ? false : true,
+      });
+
+      // Save product in database
+      newProduct = await productDAO.save(newProduct);
+      return newProduct;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_CREATE_ERROR);
+    }
+  }
+  public async updateInfo(product: any, previewPath: string) {
+    try {
+
+      const e = await productDAO.getById(product.id);
+      if (e) {
+        let newProduct: any = {
+          id: e.id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          previewUri: previewPath ? previewPath : e.previewUri,
+          isActive: product.isActive === false ? false : true, 
+        };
+        await productDAO.update(newProduct);
+        return newProduct;
+      }
+      else {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPDATE_ERROR);
+      }
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPDATE_ERROR);
+    }
+  }
+  public async delete(ids: Array<string>) {
+    try {
+      const productss = await productDAO.deleteByIds(ids);
+      const deletedIds = productss.map((e) => e.id);
+      // const deletedIds = productss;
+      logger.debug("Delete" + deletedIds)
+      return deletedIds;
+    }
+    catch {
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_DELETE_ERROR);
     }
   }
 }
 
-export default EmployeeService.Instance
+export default ProductService.Instance

@@ -26,6 +26,7 @@ class EnvConfig {
   public readonly DB_NAME = (() => (process.env.DB_NAME) ? process.env.DB_NAME.toString() : "test")() || "test"
   public readonly DB_USERNAME = (() => (process.env.DB_USERNAME) ? process.env.DB_USERNAME.toString() : "root")() || "root"
   public readonly DB_PASSWORD = (() => (process.env.DB_PASSWORD) ? process.env.DB_PASSWORD.toString() : "123456")() || "123456"
+  public readonly SECRECT_KEY = (() => (process.env.SECRECT_KEY) ? process.env.SECRECT_KEY.toString() : "Aa2b3c4d2")() || "Aa2b3c4d2"
 }
 
 const envConfig = EnvConfig.Instance;

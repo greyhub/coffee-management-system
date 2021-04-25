@@ -23,10 +23,15 @@ function isValidDateBeforeNow(str: string) {
   }
 }
 
+function getMillisecondBetween(date1: Date, date2: Date) {
+  return date1.getTime() - date2.getTime();
+}
+
 const dateUtil = {
   isValidDate,
   isValidDateBeforeNow,
-  fromString
+  fromString,
+  getMillisecondBetween
 }
 
 export default dateUtil

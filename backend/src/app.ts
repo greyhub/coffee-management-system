@@ -13,6 +13,8 @@ import employeeRoute from './route/employeeRoute';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { nextTick } from 'node:process';
+import accountRoute from './route/accountRoute';
+import productRoute from './route/productRoute';
 
 const app: Express = express();
 
@@ -42,7 +44,8 @@ app.use(responseTime((req: any, res: any, time: number) => {
  * Business logic
  */
 app.use(employeeRoute);
-
+app.use(accountRoute);
+app.use(productRoute);
 /**
  * For testing
  */

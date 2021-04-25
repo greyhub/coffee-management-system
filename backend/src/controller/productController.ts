@@ -1,18 +1,18 @@
 import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
-import EmployeeCreateDTO from "../dto/employee/employeeCreateDTO";
-import EmployeesListFindDTO from "../dto/employee/employeesListFindDTO";
-import employeeService from "../service/employeeService"
+import ProductCreateDTO from "../dto/product/ProductCreateDTO";
+import ProductListFindDTO from "../dto/product/productListFindDTO";
+import productService from "../service/productService"
 import sendResAppJson from "../dto/response/sendResAppJson";
-import ValidatorEmployee from "../validator/validatorEmployee";
+import ValidatorProduct from "../validator/validatorProduct";
 import CustomError from "../error/customError";
 import logger from "../_base/log/logger4js";
 import AbstractController from "./abstractController";
-import EmployeesDeleteDTO from "../dto/employee/employeesDeleteDTO";
-import EmployeeItemFindDTO from "../dto/employee/employeeItemFindDTO";
+import ProductDeleteDTO from "../dto/product/productDeleteDTO";
+import ProductItemFindDTO from "../dto/product/productItemFindDTO";
 
-class EmployeeController extends AbstractController {
-  private static _instance: EmployeeController
+class ProductController extends AbstractController {
+  private static _instance: ProductController
   private constructor() {
     super()
   }
@@ -23,10 +23,10 @@ class EmployeeController extends AbstractController {
   public async getById(req: any, res: any, next: any) {
     try {
       if (!req.body.id) {
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_INVALID_ID);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_INVALID_ID);
       }
-      const employee = await employeeService.getById(req.body.id);
-      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeeCreateDTO(employee));
+      const product = await productService.getById(req.body.id);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
     }
     catch(error) {
       next(error)
@@ -35,8 +35,8 @@ class EmployeeController extends AbstractController {
 
   public async getAll(req: any, res: any, next: any) {
     try {
-      const employees = await employeeService.getAll();
-      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeesListFindDTO(employees));
+      const products = await productService.getAll();
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductListFindDTO(products));
     }
     catch(error) {
       next(error)
@@ -49,8 +49,8 @@ class EmployeeController extends AbstractController {
       +'\nparams:'+JSON.stringify(req.params)
       +'\nquery:'+JSON.stringify(req.query));
       
-      const ids = await employeeService.delete(req.body.ids);
-      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeesDeleteDTO(ids));
+      const ids = await productService.delete(req.body.ids);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductDeleteDTO(ids));
     }
     catch(error) {
       next(error)
@@ -64,7 +64,7 @@ class EmployeeController extends AbstractController {
       +'\nquery:'+JSON.stringify(req.query));
 
       // Validate input
-      const errCode = ValidatorEmployee.isValidEmployeeWhenUpdate(req.body);
+      const errCode = ValidatorProduct.isProduct(req.body);
       if (errCode !== ERR_CODE.OK) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, errCode);
       }
@@ -84,8 +84,8 @@ class EmployeeController extends AbstractController {
         path = req.file.path;
       }
 
-      const employee = await employeeService.updateInfo(req.body, path);
-      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeeCreateDTO(employee));
+      const product = await productService.updateInfo(req.body, path);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
     }
     catch(error) {
       next(error)
@@ -99,7 +99,7 @@ class EmployeeController extends AbstractController {
       +'\nquery:'+JSON.stringify(req.query));
 
       // Validate input
-      const errCode = ValidatorEmployee.isValidEmployee(req.body);
+      const errCode = ValidatorProduct.isProduct(req.body);
       if (errCode !== ERR_CODE.OK) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, errCode);
       }
@@ -112,12 +112,12 @@ class EmployeeController extends AbstractController {
 
       // Handle file
       if (!req.file || !req.file.path) {
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
       }
       const path = req.file.path;
 
-      const employee = await employeeService.createOne(req.body, path);
-      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new EmployeeCreateDTO(employee));
+      const product = await productService.createOne(req.body, path);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
     }
     catch(error) {
       next(error)
@@ -125,4 +125,4 @@ class EmployeeController extends AbstractController {
   }
 }
 
-export default EmployeeController.Instance
+export default ProductController.Instance

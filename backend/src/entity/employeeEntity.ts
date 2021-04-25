@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn} from "typeorm"
+import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn, BeforeInsert} from "typeorm"
 import AuthorGroupRole from "../config/authorGroupRoleConfig"
 
 @Entity()
@@ -36,6 +36,9 @@ export class EmployeeEntity {
   @Column({type: "varchar", default: "", nullable: false})
   avatarUri: string;
 
+  @Column({type: "bigint", nullable: false, default: -1})
+  salary: number
+
   @Column({type: "boolean", default: true, nullable: false})
   isActive: boolean
 
@@ -44,4 +47,7 @@ export class EmployeeEntity {
 
   @Column({type: "varchar", nullable: false})
   hashPassword: string
+
+  @Column({type: "varchar", nullable: false})
+  password: string
 }

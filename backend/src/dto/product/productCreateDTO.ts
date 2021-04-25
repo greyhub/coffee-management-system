@@ -1,11 +1,10 @@
-import serverConfig from "../config/serverConfig";
-import ERR_CODE from "../const/error";
-import { ProductEntity } from "../entity/productEntity";
+import serverConfig from "../../config/serverConfig";
+import ERR_CODE from "../../const/error";
+import { ProductEntity } from "../../entity/productEntity";
+import AbstractDTO from "../abstractDTO";
 
-export default class ProductItemFindDTO{
-  error: ERR_CODE = ERR_CODE.OK
-  message: ""
-
+export default class ProductCreateDTO extends AbstractDTO{
+  
   public id: string
   public name: string
   public price: number
@@ -14,6 +13,7 @@ export default class ProductItemFindDTO{
   public isActive: boolean
 
   constructor(e: ProductEntity) {
+    super();
     this.id = e.id;
     this.name = e.name;
     this.price = e.price;

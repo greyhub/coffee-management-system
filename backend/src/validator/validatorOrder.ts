@@ -1,7 +1,8 @@
 import validator from "validator";
 import ERR_CODE from "../const/error";
 import stringUtil from "../util/stringUtil";
-import numberUtil from "../util/numberUtil"
+import numberUtil from "../util/numberUtil";
+import dateUlti from "../util/dateUtil"
 
 class ValidatorProduct {
   private static _instance: ValidatorProduct
@@ -11,15 +12,18 @@ class ValidatorProduct {
       return this._instance || (this._instance = new this());
   }
 
-  public isProduct(e: any) {
-    if (!stringUtil.isValidString(e.name, 0)) {
-      return ERR_CODE.PRODUCT_INVALID_NAME;
+  public isOrder(e: any) {
+    if (!dateUlti.isValidDateTimeBeforeNow(e.updateAt)) {
+      return ERR_CODE.ORDER_INVALID_DATE;
     }
-    if (!numberUtil.isOnlyDigits(e.price)) {
-      return ERR_CODE.PRODUCT_INVALID_PRICE;
+    if (!numberUtil.isOnlyDigits(e.money)) {
+      return ERR_CODE.ORDER_INVALID_MONEY;
     }
-    if (!stringUtil.isValidString(e.description,0,3000)){
-      return ERR_CODE.PRODUCT_INVALID_DESCRIPTION;
+    if (!numberUtil.isOnlyDigits(e.tableCode)) {
+      return ERR_CODE.ORDER_INVALID_TABEL_CODE;
+    }
+    if (!stringUtil.isValidString(e.note,0,3000)){
+      return ERR_CODE.ORDER_INVALID_NOTE;
     }
     return ERR_CODE.OK
   }

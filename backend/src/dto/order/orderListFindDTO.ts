@@ -1,7 +1,7 @@
 import ERR_CODE from "../../const/error";
 import { ProductEntity } from "../../entity/productEntity";
 import AbstractDTO from "../abstractDTO";
-import ProductItemFindDTO from "./productItemFindDTO";
+import ProductItemFindDTO from "./orderItemFindDTO";
 
 export default class ProductListFindDTO extends AbstractDTO{
 

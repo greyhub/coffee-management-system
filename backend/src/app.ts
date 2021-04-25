@@ -15,6 +15,7 @@ import path from 'path';
 import { nextTick } from 'node:process';
 import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
+import orderRoute from './route/orderRoute';
 
 const app: Express = express();
 
@@ -46,6 +47,7 @@ app.use(responseTime((req: any, res: any, time: number) => {
 app.use(employeeRoute);
 app.use(accountRoute);
 app.use(productRoute);
+app.use(orderRoute);
 /**
  * For testing
  */

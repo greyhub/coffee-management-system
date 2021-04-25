@@ -48,7 +48,7 @@ class ProductService {
     const products = await productDAO.getAll();
     return products;
   }
-  public async createOne(e: any, previewPath: string) {
+  public async createOne(e: any) {
     try {
       // Generate Next Id
       const nextId = await this.generateProductId();
@@ -60,7 +60,7 @@ class ProductService {
         name: e.name,
         price: e.price,
         description: e.description,
-        previewUri: previewPath,
+        previewUri: "./static/default-avatar.png",
         isActive: e.isActive === false ? false : true,
       });
 
@@ -80,7 +80,7 @@ class ProductService {
       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_CREATE_ERROR);
     }
   }
-  public async updateInfo(product: any, previewPath: string) {
+  public async updateInfo(product: any) {
     try {
 
       const e = await productDAO.getById(product.id);
@@ -90,7 +90,7 @@ class ProductService {
           name: product.name,
           price: product.price,
           description: product.description,
-          previewUri: previewPath ? previewPath : e.previewUri,
+          previewUri: e.previewUri,
           isActive: product.isActive === false ? false : true, 
         };
         await productDAO.update(newProduct);
@@ -124,6 +124,39 @@ class ProductService {
       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_DELETE_ERROR);
     }
   }
+  public async updatePreview(id: string, previewPath: string) {
+    try {
+
+      const e = await productDAO.getById(id);
+      if (e) {
+        let newProduct: any = {
+          id: e.id,
+          name: e.name,
+          price: e.price,
+          description: e.description,
+          previewUri: previewPath ? previewPath : e.previewUri,
+          isActive: e.isActive, 
+        };
+        await productDAO.update(newProduct);
+        return newProduct;
+      }
+      else {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
+      }
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
+    }
+  }
+
 }
 
 export default ProductService.Instance

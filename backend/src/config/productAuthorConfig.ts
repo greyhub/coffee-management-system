@@ -25,7 +25,7 @@ const productAuthorConfig = {
     AuthorGroupRole.ADMIN,
     AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
-  ],
+  ]
 }
 
 authorConfig.addConfig(productAuthorConfig, RESOURCE)

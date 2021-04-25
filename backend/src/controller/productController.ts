@@ -76,15 +76,15 @@ class ProductController extends AbstractController {
       }
 
       // Handle file
-      let path;
-      if (!req.file || !req.file.path) {
-        path = null;
-      }
-      else {
-        path = req.file.path;
-      }
+      // let path;
+      // if (!req.file || !req.file.path) {
+      //   path = null;
+      // }
+      // else {
+      //   path = req.file.path;
+      // }
 
-      const product = await productService.updateInfo(req.body, path);
+      const product = await productService.updateInfo(req.body);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
     }
     catch(error) {
@@ -111,18 +111,53 @@ class ProductController extends AbstractController {
       }
 
       // Handle file
-      if (!req.file || !req.file.path) {
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
-      }
-      const path = req.file.path;
+      // if (!req.file || !req.file.path) {
+      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
+      // }
+      // const path = req.body.previewUri;
 
-      const product = await productService.createOne(req.body, path);
+      const product = await productService.createOne(req.body);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
     }
     catch(error) {
       next(error)
     }
   }
+  public async updatePreview(req: any, res: any, next: any) {
+    try {
+      logger.info('INPUT:'
+      +'\nbody:'+JSON.stringify(req.body)
+      +'\nparams:'+JSON.stringify(req.params)
+      +'\nquery:'+JSON.stringify(req.query));
+
+      // Validate input
+      if (!req.body.id) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_INVALID_ID);
+      }
+
+      // Handle role --> Author service --> hard code
+      const roleCode = res.locals.roleCode;
+      if (roleCode <= Number(req.body.roleCode)) {
+        throw new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.ACCOUNT_NO_PERMISSION);
+      }
+
+      // Handle file
+      let path;
+      if (!req.file || !req.file.path) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
+      }
+      else {
+        path = req.file.path;
+      }
+
+      const product = await productService.updatePreview(req.body.id, path);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+
 }
 
 export default ProductController.Instance

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -9,104 +9,202 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 
-const styles = {
-    cardCategoryWhite: {
-        "&,& a,& a:hover,& a:focus": {
-            color: "rgba(255,255,255,.62)",
-            margin: "0",
-            fontSize: "14px",
-            marginTop: "0",
-            marginBottom: "0"
-        },
-        "& a,& a:hover,& a:focus": {
-            color: "#FFFFFF"
-        }
-    },
-    cardTitleWhite: {
-        color: "#FFFFFF",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-        "& small": {
-            color: "#777",
-            fontSize: "65%",
-            fontWeight: "400",
-            lineHeight: "1"
-        }
+import React from "react";
+// nodejs library that concatenates classes
+import classnames from "classnames";
+//improt css
+import "assets/css/argon-design-system-react.css";
+// reactstrap components
+import {
+    // Card,
+    // CardBody,
+    NavItem,
+    NavLink,
+    Nav,
+    TabContent,
+    TabPane,
+    Row,
+    Col,
+    Button
+} from "reactstrap";
+
+class Items extends React.Component {
+    state = {
+        iconTabs: 1,
+        plainTabs: 1
+    };
+    toggleNavs = (e, state, index) => {
+        e.preventDefault();
+        this.setState({
+            [state]: index
+        });
+    };
+
+    render() {
+        return (
+            <>
+                <h3 className="h4 text-success font-weight-bold mb-4">MENU</h3>
+                <Row className="justify-content-center">
+                    <Col className="mt-5 mt-lg-0" lg="6">
+                        <div className="nav-wrapper">
+                            <Nav
+                                className="nav-fill flex-column flex-md-row"
+                                id="tabs-icons-text"
+                                pills
+                                role="tablist"
+                            >
+                                <NavItem>
+                                    <NavLink
+                                        aria-selected={this.state.plainTabs === 1}
+                                        className={classnames("mb-sm-3 mb-md-0", {
+                                            active: this.state.plainTabs === 1
+                                        })}
+                                        onClick={e => this.toggleNavs(e, "plainTabs", 1)}
+                                        href="#pablo"
+                                        role="tab"
+                                    >
+                                        Cà phê
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        aria-selected={this.state.plainTabs === 2}
+                                        className={classnames("mb-sm-3 mb-md-0", {
+                                            active: this.state.plainTabs === 2
+                                        })}
+                                        onClick={e => this.toggleNavs(e, "plainTabs", 2)}
+                                        href="#pablo"
+                                        role="tab"
+                                    >
+                                        Nước hoa quả
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        aria-selected={this.state.plainTabs === 3}
+                                        className={classnames("mb-sm-3 mb-md-0", {
+                                            active: this.state.plainTabs === 3
+                                        })}
+                                        onClick={e => this.toggleNavs(e, "plainTabs", 3)}
+                                        href="#pablo"
+                                        role="tab"
+                                    >
+                                        Bánh ngọt
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        aria-selected={this.state.plainTabs === 4}
+                                        className={classnames("mb-sm-3 mb-md-0", {
+                                            active: this.state.plainTabs === 4
+                                        })}
+                                        onClick={e => this.toggleNavs(e, "plainTabs", 4)}
+                                        href="#pablo"
+                                        role="tab"
+                                    >
+                                        Đồ uống đá xay
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </div>
+                        <Card className="shadow">
+                            <CardBody>
+                                <TabContent activeTab={"plainTabs" + this.state.plainTabs}>
+                                    <TabPane tabId="plainTabs1">
+                                        <GridContainer>
+                                            <GridItem xs={12} sm={12} md={12}>
+                                                <Card>
+                                                    <CardBody>
+                                                        <Table
+                                                            tableHeaderColor="primary"
+                                                            tableHead={["ảnh", "tên mặt hàng", "mô tả", "giá tiền", "số lượng", "lựa chọn"]}
+                                                            tableData={[
+                                                                ["ko hiển thị", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+
+                                                            ]}
+                                                        />
+                                                    </CardBody>
+                                                </Card>
+                                            </GridItem>
+                                        </GridContainer>
+                                    </TabPane>
+                                    <TabPane tabId="plainTabs2">
+                                        <GridContainer>
+                                            <GridItem xs={12} sm={12} md={12}>
+                                                <Card>
+                                                    <CardBody>
+                                                        <Table
+                                                            tableHeaderColor="primary"
+                                                            tableHead={["ảnh", "tên mặt hàng", "mô tả", "giá tiền", "số lượng", "lựa chọn"]}
+                                                            tableData={[
+                                                                ["ko hiển thị", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                            ]}
+                                                        />
+                                                    </CardBody>
+                                                </Card>
+                                            </GridItem>
+                                        </GridContainer>
+                                    </TabPane>
+                                    <TabPane tabId="plainTabs3">
+                                        <GridContainer>
+                                            <GridItem xs={12} sm={12} md={12}>
+                                                <Card>
+                                                    <CardBody>
+                                                        <Table
+                                                            tableHeaderColor="primary"
+                                                            tableHead={["ảnh", "tên mặt hàng", "mô tả", "giá tiền", "số lượng", "lựa chọn"]}
+                                                            tableData={[
+                                                                ["ko hiển thị", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                            ]}
+                                                        />
+                                                    </CardBody>
+                                                </Card>
+                                            </GridItem>
+                                        </GridContainer>
+                                    </TabPane>
+                                    <TabPane tabId="plainTabs4">
+                                        <GridContainer>
+                                            <GridItem xs={12} sm={12} md={12}>
+                                                <Card>
+                                                    <CardBody>
+                                                        <Table
+                                                            tableHeaderColor="primary"
+                                                            tableHead={["ảnh", "tên mặt hàng", "mô tả", "giá tiền", "số lượng", "lựa chọn"]}
+                                                            tableData={[
+                                                                ["ko hiển thị", "sữa chua xay đá", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                                ["xxx", "cà phê trứng", "cà phê được thêm trứng gà", "50000", "0", "thêm, xóa"],
+                                                            ]}
+                                                        />
+                                                    </CardBody>
+                                                </Card>
+                                            </GridItem>
+                                        </GridContainer>
+                                    </TabPane>
+                                </TabContent>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+                <Button className="btn-1 ml-1" color="success" type="button">
+                    Tổng cộng :
+                </Button>
+                <Button
+                    className="btn-1 btn-neutral ml-1"
+                    color="default"
+                    type="button"
+                >
+                    0Đ
+                </Button>
+            </>
+        );
     }
-};
-
-const useStyles = makeStyles(styles);
-
-export default function Items() {
-    const classes = useStyles();
-    return (
-        <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-                <Card>
-                    <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>menu</h4>
-                        <p className={classes.cardCategoryWhite}>
-                            Here is a subtitle for this menu
-                        </p>
-                    </CardHeader>
-                    <CardBody>
-                        <Table
-                            tableHeaderColor="primary"
-                            tableHead={["Name111", "Country", "City", "Salary"]}
-                            tableData={[
-                                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-                            ]}
-                        />
-                    </CardBody>
-                </Card>
-            </GridItem>
-            {/*<GridItem xs={12} sm={12} md={12}>*/}
-            {/*    <Card plain>*/}
-            {/*        <CardHeader plain color="primary">*/}
-            {/*            <h4 className={classes.cardTitleWhite}>*/}
-            {/*                Table on Plain Background*/}
-            {/*            </h4>*/}
-            {/*            <p className={classes.cardCategoryWhite}>*/}
-            {/*                Here is a subtitle for this table*/}
-            {/*            </p>*/}
-            {/*        </CardHeader>*/}
-            {/*        <CardBody>*/}
-            {/*            <Table*/}
-            {/*                tableHeaderColor="primary"*/}
-            {/*                tableHead={["ID", "Name", "Country", "City", "Salary"]}*/}
-            {/*                tableData={[*/}
-            {/*                    ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],*/}
-            {/*                    ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],*/}
-            {/*                    ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],*/}
-            {/*                    [*/}
-            {/*                        "4",*/}
-            {/*                        "Philip Chaney",*/}
-            {/*                        "$38,735",*/}
-            {/*                        "Korea, South",*/}
-            {/*                        "Overland Park"*/}
-            {/*                    ],*/}
-            {/*                    [*/}
-            {/*                        "5",*/}
-            {/*                        "Doris Greene",*/}
-            {/*                        "$63,542",*/}
-            {/*                        "Malawi",*/}
-            {/*                        "Feldkirchen in Kärnten"*/}
-            {/*                    ],*/}
-            {/*                    ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]*/}
-            {/*                ]}*/}
-            {/*            />*/}
-            {/*        </CardBody>*/}
-            {/*    </Card>*/}
-            {/*</GridItem>*/}
-        </GridContainer>
-    );
 }
+
+export default Items;

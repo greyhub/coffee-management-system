@@ -9,7 +9,7 @@ import CustomError from "../error/customError";
 import logger from "../_base/log/logger4js";
 import AbstractController from "./abstractController";
 import ProductDeleteDTO from "../dto/product/productDeleteDTO";
-import ProductItemFindDTO from "../dto/product/productItemFindDTO";
+
 
 class ProductController extends AbstractController {
   private static _instance: ProductController
@@ -109,12 +109,6 @@ class ProductController extends AbstractController {
       if (roleCode <= Number(req.body.roleCode)) {
         throw new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.ACCOUNT_NO_PERMISSION);
       }
-
-      // Handle file
-      // if (!req.file || !req.file.path) {
-      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
-      // }
-      // const path = req.body.previewUri;
 
       const product = await productService.createOne(req.body);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new ProductCreateDTO(product));

@@ -2,43 +2,41 @@ import express, { Router } from 'express';
 import cheatRoleMiddleware from '../cheat/cheatRoleMiddleware';
 import accountController from '../controller/accountController';
 import orderController from '../controller/orderController';
-import authEmployeeMiddleware from '../middleware/authEmployeeMiddleware';
+import authOrderMiddleware from '../middleware/authOrderMiddleware';
 
-import uploadDisk from '../_base/file/uploadDisk';
+
 
 const router: Router = express.Router();
 
-// router.get('/v1/employee/getbyid',
-//   accountController.authTokenAndPassRoleCodeToResLocals,
-//   authEmployeeMiddleware("getById"),
-//   employeeController.getById
-// )
+router.post('/v1/order/getbyimporterid',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("getById"),
+  orderController.getByImporterId
+)
 
-// router.get('/v1/employee',
-//   accountController.authTokenAndPassRoleCodeToResLocals,
-//   authEmployeeMiddleware("getAll"),
-//   employeeController.getAll
-// )
+router.get('/v1/order',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("getAll"),
+  orderController.getAll
+)
 
 router.put('/v1/order/createone',
-  // accountController.authTokenAndPassRoleCodeToResLocals,
-  // authEmployeeMiddleware("create"),
-  // uploadDisk.single("avatar"),
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("create"),
   orderController.createOne
 )
 
-// router.delete('/v1/employee/delete',
-//   accountController.authTokenAndPassRoleCodeToResLocals,
-//   authEmployeeMiddleware("delete"),
-//   employeeController.delete
-// )
+router.delete('/v1/order/delete',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("delete"),
+  orderController.delete
+)
 
-// router.put('/v1/employee/update',
-//   accountController.authTokenAndPassRoleCodeToResLocals,
-//   authEmployeeMiddleware("update"),
-//   uploadDisk.single("avatar"),
-//   employeeController.updateInfo
-// )
+router.put('/v1/order/update',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("update"),
+  orderController.updateInfo
+)
 
 // /**
 //  * CHEAT

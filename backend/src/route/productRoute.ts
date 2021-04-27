@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import cheatRoleMiddleware from '../cheat/cheatRoleMiddleware';
 import accountController from '../controller/accountController';
 import productController from '../controller/productController';
-import authProductMiddleware from '../middleware/authProductMiddleware';
+import authProductMiddleware from '../middleware/authOrderMiddleware';
 
 import uploadDisk from '../_base/file/uploadDisk';
 

@@ -41,6 +41,9 @@ Bearer <token>
 > Request:<br>
 ```ruby
 id: string
+{
+	"id": "PD-000001"
+}	
 ```
 
 > Response:<br>
@@ -51,12 +54,119 @@ price: string
 description: string
 previewUri: string (link to image file)
 isActive: boolean
-```
-> Example:<br>
-```ruby
 {
-	"id": "PD-000001"
+    "error": 200,
+    "id": "PD-000001",
+    "name": "Bạc xỉu thêm đường",
+    "price": 15000,
+    "description": "Loại caffe ngon nhất thế giới song song",
+    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "isActive": true,
+    "message": "OK"
+}
+```
+## Lấy tất cả product:
+```ruby
+/v1/product
+`get`
+```
+> Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+
+> Response:<br>
+```ruby
+products: Array[
+  id: string
+  name: string
+  price: string
+  description: string
+  previewUri: string (link to image file)
+  isActive: boolean
+]
+{
+    "error": 200,
+    "products": [
+        {
+            "id": "PD-000001",
+            "name": "Bạc xỉu thêm đường",
+            "price": 15000,
+            "description": "Loại caffe ngon nhất thế giới song song",
+            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "isActive": true
+        },
+        {
+            "id": "PD-000002",
+            "name": "Bạc u thêm đường",
+            "price": 10000,
+            "description": "Loại caffe ngon nhất thếg",
+            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "isActive": true
+        },
+        {
+            "id": "PD-000003",
+            "name": "Bạc u thêm đường",
+            "price": 10000,
+            "description": "Loại caffe ngonấdsfgnc nhất thếg",
+            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "isActive": true
+        }
+    ],
+    "message": "OK"
+}
+```
+## Thêm một product mới:
+```ruby
+/v1/product/createone
+`put`
+```
+>Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+name: string
+price: string
+description: string
+isActive: boolean
+{
+	"name": "Bạc u thêm đường",
+	"price": "10000",
+	"description": "Loại caffe ngonấdsfgnc nhất thếg",
+	"isActive": 1
 }	
+```
+Điều kiện hợp lệ:<br>
+```ruby
+name: string Độ dài >= 0
+price: Mặc định = 0
+description: string  0<= độ dài <= 3000
+isActive: bool - product còn bán hay không
+```
+> Response:<br>
+```ruby
+id: string
+name: string
+price: string
+description: string
+previewUri: string (link to image file)
+isActive: boolean
+{
+    "error": 200,
+    "id": "PD-000003",
+    "name": "Bạc u thêm đường",
+    "price": 10000,
+    "description": "Loại caffe ngonấdsfgnc nhất thếg",
+    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "isActive": true,
+    "message": "OK"
+}
 ```
 ## Cập nhật thông tin một product(chưa có ảnh preview):
 ```ruby
@@ -74,6 +184,13 @@ name: string
 price: string
 description: string
 isActive: boolean
+{
+	"id": "PD-000002",
+	"name": "Bạc xỉu gốc",
+    "price": 12000,
+    "description": "Loại caffe hơi ngon",
+    "isActive": 1
+}
 ```
 > Response:<br>
 ```ruby
@@ -83,18 +200,17 @@ price: string
 description: string
 previewUri: string (link to image file)
 isActive: boolean
-```
-> Example:<br>
-```ruby
 {
-	"id": "PD-000002",
-	"name": "Bạc xỉu gốc",
+    "error": 200,
+    "id": "PD-000002",
+    "name": "Bạc xỉu gốc",
     "price": 12000,
     "description": "Loại caffe hơi ngon",
-    "isActive": 1
+    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "isActive": true,
+    "message": "OK"
 }
 ```
-
 ## Cập nhật ảnh preview một product:
 ```ruby
 /v1/product/updateprev
@@ -121,10 +237,16 @@ price: string
 description: string
 previewUri: string (link to image file)
 isActive: boolean
-```
-> Example:<br>
-```ruby
-
+{
+    "error": 200,
+    "id": "PD-000002",
+    "name": "Bạc xỉu gốc",
+    "price": 12000,
+    "description": "Loại caffe hơi ngon",
+    "previewUri": "localhost:8080/static\\bf389003-87d8-4cdf-ae3a-9a9056a1ce04-anh_20172968.jpg",
+    "isActive": true,
+    "message": "OK"
+}
 ```
 
 ## Xóa một danh sách product:
@@ -138,71 +260,22 @@ Bearer token
 ```
 > Request:<br>
 ```ruby
-ids: Array<id: int> - Danh sách những id product cần xóa ex: {"ids": ["PD-000001"]}
+ids: Array<id: int> - Danh sách những id product cần xóa 
+ex: 
+{
+	"ids":["PD-000001","PD-000002"]
+}
 ```
 > Response:<br>
 ```ruby
 ids: Array<id: int> - Danh sách những id đã bị xóa
-```
-## Thêm một product mới:
-```ruby
-/v1/product/createone
-`put`
-```
->Header:<br>
-```ruby
-Bearer token
-```
-> Cheat thêm một nhân viên mới (không cần authentication, authorization):<br>
-```ruby
-/v1/cheat/employee/createone
-`all`
-```
-> Request:<br>
-```ruby
-name: string
-price: string
-description: string
-isActive: boolean
-```
-Điều kiện hợp lệ:<br>
-```ruby
-name: string Độ dài >= 0
-price: Mặc định = 0
-description: string  0<= độ dài <= 3000
-isActive: bool - product còn bán hay không
-```
-> Response:<br>
-```ruby
-id: string
-name: string
-price: string
-description: string
-previewUri: string (link to image file)
-isActive: boolean
-```
-## Lấy tất cả product:
-```ruby
-/v1/product
-`get`
-```
-> Header:<br>
-```ruby
-Bearer token
-```
-> Request:<br>
-```ruby
-Không
+{
+    "error": 200,
+    "ids": [
+        "PD-000001",
+        "PD-000002"
+    ],
+    "message": "OK"
+}
 ```
 
-> Response:<br>
-```ruby
-products: Array[
-  id: string
-  name: string
-  price: string
-  description: string
-  previewUri: string (link to image file)
-  isActive: boolean
-]
-```

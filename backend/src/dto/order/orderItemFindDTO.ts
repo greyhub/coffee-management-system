@@ -1,21 +1,26 @@
-import serverConfig from "../../config/serverConfig";
-import { ProductEntity } from "../../entity/productEntity";
 
-export default class ProductItemFindDTO{
+import { EmployeeEntity } from "../../entity/employeeEntity";
+import { OrderProductEntity } from "../../entity/orderProductEntity";
+import { OrderEntity } from "../../entity/orderEntity";
+
+
+export default class OrderItemFindDTO{
 
   public id: string
-  public name: string
-  public price: number
-  public description: string
-  public previewUri: string
-  public isActive: boolean
+  public updateAt: Date
+  public employee: EmployeeEntity
+  public note: string
+  public money: number
+  public tableCode: number
+  public orderProduct: OrderProductEntity[]
 
-  constructor(e: ProductEntity) {
+  constructor(e: OrderEntity) {
     this.id = e.id;
-    this.name = e.name;
-    this.price = e.price;
-    this.description = e.description;
-    this.previewUri = serverConfig?.urlPrefix + e.previewUri
-    this.isActive = e.isActive;
+    this.updateAt = e.updateAt;
+    this.employee = e.employee;
+    this.note = e.note;
+    this.money = e.money
+    this.tableCode = e.tableCode;
+    this.orderProduct = e.orderProducts;
   }
 }

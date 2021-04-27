@@ -7,6 +7,10 @@ import logger from "../_base/log/logger4js";
 import dateUtil from "../util/dateUtil";
 import { OrderEntity } from "../entity/orderEntity";
 import employeeDAO from "../dao/employeeDAO";
+import orderProductDAO from "../dao/orderProductDAO";
+import OrderProductService from "./orderProductService";
+import orderProductService from "./orderProductService";
+import { OrderProductEntity } from "../entity/orderProductEntity";
 
 class OrderService {
   private static _instance: OrderService
@@ -16,67 +20,85 @@ class OrderService {
       return this._instance || (this._instance = new this());
   }
 
-  // private async generateProductId() {
-  //   let maxId = await productDAO.getMaxProductId();
-  //   if (!maxId) {
-  //     maxId = "PD-000000";
-  //   }
-  //   const arr = maxId.split("-");
-  //   let nextId = (parseInt(arr[1], 10) + 1).toString().padStart(6, "0");
-  //   return arr[0] + "-" + nextId.toString();
-  // }
-  
-  // public async getById(id: string) {
-  //   try {
-  //     const product = await productDAO.getById(id);
-  //     if (!product) {
-  //       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_GET_BY_ID_ERROR);
-  //     }
-  //     return product;
-  //   }
-  //   catch(e) {
-  //     if (e instanceof QueryFailedError) {
-  //       logger.debug(e);
-  //       logger.debug("QueryFailedError");
-  //     }
-  //     if (e instanceof CustomError) {
-  //       logger.debug('CustomError');
-  //       throw e;
-  //     }
-  //     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_GET_BY_ID_ERROR);
-  //   }
-  // }
-  // public async getAll() {
-  //   const products = await productDAO.getAll();
-  //   return products;
-  // }
+  public async getById(id: string) {
+    try {
+      const order = await orderDAO.getById(id);
+      // if(!orders){
+      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      // }
+      // const order = orders[0];
+      // logger.debug("upda"+ order?.id)
+      if (!order) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      }
+      return order;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+    }
+  }
+  public async getByImporterId(id: string) {
+    try {
+      logger.info('INPUT1:')
+      const orders = await orderDAO.getByImporterId(id);
+      logger.info('INPUT:')
+      if (!orders) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_IMPORTER_ID_ERROR);
+      }
+      return orders;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_IMPORTER_ID_ERROR);
+    }
+  }
+  public async getAll() {
+    const orders = await orderDAO.getAll();
+    return orders;
+  }
   public async createOne(e: any) {
     try {
-      // Generate Next Id
-      // const nextId = await this.generateProductId();
-      // logger.debug("GENERATE" + nextId);
-
       // Create Product to save
       let newOrder = new OrderEntity();
-      // newOrder = orderDAO.create({
-      //   id: newOrder.id,
-      //   newOrder.updateAt: e.updateAt,
-      //   newOrder.employee: e.employee,
-      //   newOrder.note: e.note,
-      //   newOrder.money: e.money,
-      //   newOrder.tableCode: e.tableCode,
-      // });
+
       let newemployee = await employeeDAO.getById(e.importerId);
       if (!newemployee){
-        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_CREATE_ERROR);
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
       }
+      let neworderProducts =  Array<OrderProductEntity>();
       newOrder.updateAt = e.updateAt,
       newOrder.employee = newemployee,
       newOrder.note = e.note,
       newOrder.money = e.money,
       newOrder.tableCode = e.tableCode,
+      newOrder.orderProducts = neworderProducts,
       // Save product in database
       newOrder = await orderDAO.save(newOrder);
+      if(!newOrder){
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
+      }
+      // await logger.debug("saveorder: "+e.orderProducts[0].product + ", "+ e.orderProducts[0].count);
+      newOrder.orderProducts = await orderProductService.saveMany(e.orderProducts,newOrder);
+      
+      // await logger.debug("saveorderafter: "+newOrder.orderProducts[0].product + ", "+ newOrder.orderProducts[0].count);
+      if (!newOrder.orderProducts){
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
+      }
       return newOrder;
     }
     catch(e) {
@@ -88,85 +110,102 @@ class OrderService {
         logger.debug('CustomError');
         throw e;
       }
-      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_CREATE_ERROR);
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
     }
   }
-  // public async updateInfo(product: any) {
-  //   try {
+  public async updateInfo(order: any) {
+    try {
+      
+      const e = await orderDAO.getById(order.id);
+      // if (!en){
+      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      // }
+      // const e = en[0] 
+      if (e) {
 
-  //     const e = await productDAO.getById(product.id);
-  //     if (e) {
-  //       let newProduct: any = {
-  //         id: e.id,
-  //         name: product.name,
-  //         price: product.price,
-  //         description: product.description,
-  //         previewUri: e.previewUri,
-  //         isActive: product.isActive === false ? false : true, 
-  //       };
-  //       await productDAO.update(newProduct);
-  //       return newProduct;
-  //     }
-  //     else {
-  //       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPDATE_ERROR);
-  //     }
-  //   }
-  //   catch(e) {
-  //     if (e instanceof QueryFailedError) {
-  //       logger.debug(e);
-  //       logger.debug("QueryFailedError");
-  //     }
-  //     if (e instanceof CustomError) {
-  //       logger.debug('CustomError');
-  //       throw e;
-  //     }
-  //     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPDATE_ERROR);
-  //   }
-  // }
-  // public async delete(ids: Array<string>) {
-  //   try {
-  //     const productss = await productDAO.deleteByIds(ids);
-  //     const deletedIds = productss.map((e) => e.id);
-  //     // const deletedIds = productss;
-  //     logger.debug("Delete" + deletedIds)
-  //     return deletedIds;
-  //   }
-  //   catch {
-  //     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_DELETE_ERROR);
-  //   }
-  // }
-  // public async updatePreview(id: string, previewPath: string) {
-  //   try {
+        let newOrder = new OrderEntity();
+        
+        let newemployee = await employeeDAO.getById(order.importerId);
 
-  //     const e = await productDAO.getById(id);
-  //     if (e) {
-  //       let newProduct: any = {
-  //         id: e.id,
-  //         name: e.name,
-  //         price: e.price,
-  //         description: e.description,
-  //         previewUri: previewPath ? previewPath : e.previewUri,
-  //         isActive: e.isActive, 
-  //       };
-  //       await productDAO.update(newProduct);
-  //       return newProduct;
-  //     }
-  //     else {
-  //       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
-  //     }
-  //   }
-  //   catch(e) {
-  //     if (e instanceof QueryFailedError) {
-  //       logger.debug(e);
-  //       logger.debug("QueryFailedError");
-  //     }
-  //     if (e instanceof CustomError) {
-  //       logger.debug('CustomError');
-  //       throw e;
-  //     }
-  //     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
-  //   }
-  // }
+        if (!newemployee){
+          throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+        }
+        await this.delete([e.id])
+        let neworderProducts =  Array<OrderProductEntity>();
+        newOrder.id = e.id,
+        newOrder.updateAt = order.updateAt,
+        newOrder.employee = newemployee,
+        newOrder.note = order.note,
+        newOrder.money = order.money,
+        newOrder.tableCode = order.tableCode,
+        newOrder.orderProducts = neworderProducts,
+        // Save product in database
+        newOrder = await orderDAO.save(newOrder);
+        // await logger.debug("update2")
+        if (!newOrder){
+          throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+        }
+        // await logger.debug("saveorder: "+e.orderProducts[0].product + ", "+ e.orderProducts[0].count);
+        newOrder.orderProducts = await orderProductService.saveMany(order.orderProducts,newOrder);
+        // await logger.debug("update3")
+        // logger.debug("clm: "+JSON.stringify(newOrder.orderProducts))
+        // await logger.debug("saveorderafter: "+newOrder.orderProducts[0].product + ", "+ newOrder.orderProducts[0].count);
+        if (!newOrder.orderProducts){
+          throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+        }
+        // await orderDAO.update(newOrder);
+        // await logger.debug("update4 "+ e.id)
+        let thisOrder = await this.getById(e.id);
+        if (!thisOrder){
+          throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+        }
+        thisOrder.orderProducts = newOrder.orderProducts;
+        // await logger.debug("update69 "+ JSON.stringify(thisOrder.orderProducts))
+        return thisOrder;
+      }
+      else {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+      }
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_UPDATE_ERROR);
+    }
+  }
+  public async delete(ids: Array<string>) {
+    try {
+      logger.debug("Delete1")
+      const orders = await orderDAO.deleteByIds(ids);
+      // let del = Array.from(orders.affected?.toString());
+      let del: any = orders.affected
+      // logger.debug("Delete1"+ del)
+      let dels: number = del
+      // logger.debug("Delete" + orders.affected)
+      // const deletedIds = dels.map((e: any) => e.id);
+      // const deletedIds = productss;
+      
+      return dels;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_DELETE_ERROR);
+    }
+  }
+  
 
 }
 

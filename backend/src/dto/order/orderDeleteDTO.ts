@@ -1,9 +1,9 @@
 import AbstractDTO from "../abstractDTO";
 
-export default class ProductDeleteDTO extends AbstractDTO {
-  private ids: string[]
-  constructor(ids: string[]) {
+export default class OrderDeleteDTO extends AbstractDTO {
+  private numberDel: number
+  constructor(nb: number) {
     super();
-    this.ids = ids;
+    this.numberDel = nb;
   }
 }

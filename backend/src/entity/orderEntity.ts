@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn} from "typeorm"
+import {Entity, Column, PrimaryColumn, Unique, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToMany} from "typeorm"
 import { EmployeeEntity } from "./employeeEntity";
+import { OrderProductEntity } from "./orderProductEntity";
 
 @Entity()
 export class OrderEntity {
@@ -23,4 +24,8 @@ export class OrderEntity {
 
   @Column({type: "int", default: 0, nullable: false})
   tableCode: number
+  
+  @OneToMany(type => OrderProductEntity,orderProduct => orderProduct.order)
+  orderProducts: OrderProductEntity[]
+
 }

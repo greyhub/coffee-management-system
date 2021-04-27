@@ -1,13 +1,13 @@
 import ERR_CODE from "../../const/error";
-import { ProductEntity } from "../../entity/productEntity";
+import { OrderEntity } from "../../entity/orderEntity";
 import AbstractDTO from "../abstractDTO";
-import ProductItemFindDTO from "./orderItemFindDTO";
+import OrderItemFindDTO from "./orderItemFindDTO";
 
-export default class ProductListFindDTO extends AbstractDTO{
+export default class OrderListFindDTO extends AbstractDTO{
 
-  private products: ProductItemFindDTO[]
-  constructor(products: ProductEntity[]) {
+  private orders: OrderItemFindDTO[]
+  constructor(orders: OrderEntity[]) {
     super();
-    this.products = products.map((e) => new ProductItemFindDTO(e));
+    this.orders = orders.map((e) => new OrderItemFindDTO(e));
   }
 }

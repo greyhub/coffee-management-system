@@ -4,8 +4,8 @@ import stringUtil from "../util/stringUtil";
 import numberUtil from "../util/numberUtil";
 import dateUlti from "../util/dateUtil"
 
-class ValidatorProduct {
-  private static _instance: ValidatorProduct
+class ValidatorOrder {
+  private static _instance: ValidatorOrder
   private constructor() {
   }
   public static get Instance() {
@@ -29,4 +29,4 @@ class ValidatorProduct {
   }
 }
 
-export default ValidatorProduct.Instance
+export default ValidatorOrder.Instance

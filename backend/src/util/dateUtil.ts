@@ -9,9 +9,6 @@ function fromString(str: string) {
 }
 
 function fromTimeString(str: string) {
-  logger.info('time:'
-      + str);
-  console.log(str);
   const [date,time] = str.split(" ")
   const [day, month, year] = date.split("-")
   const [hour,minute,second] = time.split(":")
@@ -23,8 +20,6 @@ function isValidDate(str: string, format: string = "DD-MM-YYYY") {
   return str && typeof str === "string" && moment(str, format, true).isValid();
 }
 function isValidDateBeforeNow(str: string) {
-  logger.info('time:'
-      + str);
   const format = "DD-MM-YYYY";
   const isValid =  str && typeof str === "string" && moment(str, format, true).isValid();
 
@@ -41,18 +36,15 @@ function getMillisecondBetween(date1: Date, date2: Date) {
   return date1.getTime() - date2.getTime();
 }
 
-function isValidDateTime(str: string, format: string = "DD-MM-YYYY HH:MM:SS") {
-  logger.info('time:'
-      + str);
+function isValidDateTime(str: string, format: string = "DD-MM-YYYY HH:mm:ss") {
+
   return str && typeof str === "string" && moment(str, format, true).isValid();
 }
 function isValidDateTimeBeforeNow(str: string) {
-  logger.info('time1:'
-      + str);
+
   const format = "DD-MM-YYYY HH:mm:ss";
   const isValid =  str && typeof str === "string" && moment(str, format, true).isValid();
-  logger.info('time2:'
-  + str + " isvalid:" + moment(str, format, true).isValid());
+
   if (!isValid) {
     return false;
   }

@@ -47,9 +47,9 @@ class OrderService {
   }
   public async getByImporterId(id: string) {
     try {
-      logger.info('INPUT1:')
+      // logger.info('INPUT1:')
       const orders = await orderDAO.getByImporterId(id);
-      logger.info('INPUT:')
+      // logger.info('INPUT:')
       if (!orders) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_IMPORTER_ID_ERROR);
       }
@@ -181,7 +181,7 @@ class OrderService {
   }
   public async delete(ids: Array<string>) {
     try {
-      logger.debug("Delete1")
+      // logger.debug("Delete1")
       const orders = await orderDAO.deleteByIds(ids);
       // let del = Array.from(orders.affected?.toString());
       let del: any = orders.affected

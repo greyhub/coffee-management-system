@@ -97,9 +97,9 @@ class OrderProductService {
       for (const en of e){
         orderProducts.push(await this.createOne(en,order))
       }
-      logger.debug("hoi cham" + JSON.stringify(orderProducts));
+      // logger.debug("hoi cham" + JSON.stringify(orderProducts));
       const neworderProducts = await orderProductDAO.save(orderProducts)
-      logger.debug("hoi cham2" + JSON.stringify(neworderProducts));
+      // logger.debug("hoi cham2" + JSON.stringify(neworderProducts));
       // )
       // orderProducts = await Promise.all(e.map(async (item: any):Promise<any> =>{await this.saveOne(item,order)}))
       // if (neworderProducts.length<=0){

@@ -10,7 +10,7 @@ async function getMaxProductId() {
     .createQueryBuilder("e")
     .select("MAX(e.id)", "max")
     .getRawOne()
-    logger.debug(JSON.stringify(maxId));//{"max": null}
+    // logger.debug(JSON.stringify(maxId));//{"max": null}
     if (!maxId || !maxId.hasOwnProperty("max") || !maxId.max) {
       return null;
     }

@@ -8,9 +8,9 @@ import logger from '../_base/log/logger4js';
 async function getByImporterId(id: string) {
   try {
     const repository = getRepository(OrderEntity);
-    logger.info('INPUT2:' + id)
+    // logger.info('INPUT2:' + id)
     const orders = await repository.find({employee: {id: id}});
-    logger.info('INPUT:'+ orders)
+    // logger.info('INPUT:'+ orders)
     if (orders.length <= 0) {
       return null;
     }
@@ -25,7 +25,7 @@ async function getByImporterId(id: string) {
 async function getById(idx: string) {
   try {
     const repository = getRepository(OrderEntity);
-    logger.info('INPUT2:' + idx)
+    // logger.info('INPUT2:' + idx)
     // const orders = await repository
     //         .createQueryBuilder("order_entity")
     //         // .leftJoinAndSelect("order_entity.orderProducts", "order_product_entity")
@@ -33,7 +33,7 @@ async function getById(idx: string) {
     //         // .where("order_product_entity.orderId = :orderId", { orderId: idx })
     //         .getMany();
     const order = await repository.findOne({id:idx})
-    logger.info('INPUT IDDDDDD:'+ JSON.stringify(order))
+    // logger.info('INPUT IDDDDDD:'+ JSON.stringify(order))
     // logger.info('INPUT ID:'+ orders[0].orderProducts[0].product)
     if (!order) {
       return null;
@@ -49,9 +49,9 @@ async function getById(idx: string) {
 }
 async function getAll() {
   try {
-    logger.info('INPUT1:')
+    // logger.info('INPUT1:')
     const repository = getRepository(OrderEntity);
-    logger.info('INPUT2:')
+    // logger.info('INPUT2:')
     return await repository.find({cache: true});
   }
   catch(e) {
@@ -79,7 +79,7 @@ async function save(order: OrderEntity) {
 async function update(order: OrderEntity) {
   try {
     const repository = getRepository(OrderEntity);
-    logger.debug("update"+ order.id)
+    // logger.debug("update"+ order.id)
     return repository.save(order);
   }
   catch(e) {
@@ -90,14 +90,14 @@ async function deleteByIds(ids: Array<string>) {
   try {
     const repository = getRepository(OrderEntity);
     // logger.debug("Delete2")
-    await logger.debug("debug1"+JSON.stringify(ids))
+    // await logger.debug("debug1"+JSON.stringify(ids))
     const deletedIds = await repository.createQueryBuilder()
                       .delete()
                       .from(OrderEntity)
                       .where("id IN (:idx)",{ idx:(ids)})
                       // .returning("id")
                       .execute();
-    await logger.debug("debug"+JSON.stringify(deletedIds))
+    // await logger.debug("debug"+JSON.stringify(deletedIds))
     // const deletedIds = await repository.delete({id: In(ids)});
     return deletedIds;
   }

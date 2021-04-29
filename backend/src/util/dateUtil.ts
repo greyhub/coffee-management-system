@@ -2,7 +2,7 @@ import moment from "moment";
 import logger from "../_base/log/logger4js";
 
 function fromString(str: string) {
-  console.log(str);
+  // console.log(str);
   const [day, month, year] = str.split("-")
   const date = new Date(Number(year), Number(month) - 1, Number(day))  
   return date;

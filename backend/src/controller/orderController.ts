@@ -22,7 +22,7 @@ class OrderController extends AbstractController {
 
   public async getByImporterId(req: any, res: any, next: any) {
     try {
-      logger.info('INPUT:')
+      // logger.info('INPUT:')
       if (!req.body.id) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_INVALID_ID);
       }
@@ -71,9 +71,9 @@ class OrderController extends AbstractController {
     }
   }
   public async updateInfo(req: any, res: any, next: any) {
-    logger.info('INPUT:');
+    // logger.info('INPUT:');
     try {
-      logger.info('INPUT:');
+      // logger.info('INPUT:');
       logger.info('INPUT:'
       +'\nbody:'+JSON.stringify(req.body)
       +'\nparams:'+JSON.stringify(req.params)
@@ -90,7 +90,7 @@ class OrderController extends AbstractController {
       if (roleCode <= Number(req.body.roleCode)) {
         throw new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.ACCOUNT_NO_PERMISSION);
       }
-      logger.info('INPUT:');
+      // logger.info('INPUT:');
 
       const order = await orderService.updateInfo(req.body);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new OrderCreateDTO(order));
@@ -120,7 +120,7 @@ class OrderController extends AbstractController {
 
 
       const order = await orderService.createOne(req.body);
-      // logger.info("dkm: "+ order.orderProducts.toString())
+
       
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new OrderCreateDTO(order));
     }

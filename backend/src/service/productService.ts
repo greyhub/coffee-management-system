@@ -52,7 +52,7 @@ class ProductService {
     try {
       // Generate Next Id
       const nextId = await this.generateProductId();
-      logger.debug("GENERATE" + nextId);
+      // logger.debug("GENERATE" + nextId);
 
       // Create Product to save
       let newProduct = productDAO.create({
@@ -117,7 +117,7 @@ class ProductService {
       const productss = await productDAO.deleteByIds(ids);
       const deletedIds = productss.map((e) => e.id);
       // const deletedIds = productss;
-      logger.debug("Delete" + deletedIds)
+      // logger.debug("Delete" + deletedIds)
       return deletedIds;
     }
     catch {

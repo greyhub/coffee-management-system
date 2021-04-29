@@ -33,14 +33,6 @@ function clickDelete(prop){
 
 function clickFix(prop){
     //alert(prop); //prop[0],prop[1],....
-    EmployeesInfo['MaNV'] = prop[0]
-    EmployeesInfo['HoVT'] = prop[1]
-    EmployeesInfo['DateOfBirth'] = prop[2]
-    EmployeesInfo['QueQuan'] = prop[3]
-    EmployeesInfo['Luong'] = prop[4]
-    EmployeesInfo['MaVT'] = prop[5]
-    EmployeesInfo['TT'] = prop[6]
-    alert(EmployeesInfo['MaNV'])
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none')
     document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: initial')
     
@@ -80,7 +72,7 @@ export default function EmployeesTable(props) {
             <label>
                 Mã nhân viên:
                 <br/>
-                <input type="text"   onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </label>
             <br/>
             <label>
@@ -158,7 +150,7 @@ export default function EmployeesTable(props) {
             <label>
                 Mã nhân viên:
                 <br/>
-                <input type="text"  value={EmployeesInfo.MaNV} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </label>
             <br/>
             <label>
@@ -290,6 +282,3 @@ EmployeesTable.propTypes = {
   tableHead: PropTypes.arrayOf(PropTypes.string),
   tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
-
-
-

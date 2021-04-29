@@ -8,6 +8,7 @@ import Table from "components/Table/TableEmployess.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import { Router } from '@material-ui/icons';
 
 
 
@@ -43,7 +44,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-var employeesJson = {'header':['Mã nhân viên','Tên','Ngày sinh','Quê quán','Lương(VND)','Vị trí','Tình trạng hiện tại'],'data':[['20173453','Ma Việt Tùng','12/05/1999','Lạng Sơn','12.000.000','Giám đốc','Độc thân'],['20173453','Ma Việt Tùng','12/05/1999','Lạng Sơn','12.000.000','Giám đốc','Độc thân']]}
+var employeesJson = {'header':['Mã nhân viên','Tên','Ngày sinh','Quê quán','Lương(VND)','Vị trí','Tình trạng hiện tại'],'data':[['20173453','Ma Việt Tùng','12/05/1999','Lạng Sơn','12.000.000','Giám đốc','Độc thân'],['20167732','Nguyên Văn Tùng','12/05/3000','Hà Nội','12.000.000','Giám đốc','Đã kết hôn']]}
 
 export default function EmployeesManager(){
     const classes = useStyles();
@@ -52,9 +53,9 @@ export default function EmployeesManager(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Employees Table</h4>
+                        <h4 className={classes.cardTitleWhite}>Employees Panel</h4>
                         <p className={classes.cardCategoryWhite}>
-                        Table show a list of Employees
+                            Panel for managing employees in the company 
                         </p>
                     </CardHeader>
                     <CardBody>

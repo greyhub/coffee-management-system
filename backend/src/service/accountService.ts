@@ -24,10 +24,10 @@ class AccountService {
     return false;
     return await blackTokenDAO.checkBlackList(token);
   }
-  private genTokenByRoleCodePassword(roleCode: number, hashPassword: string) {
+  private genTokenByRoleCodePassword(employeeId: string, roleCode: number, hashPassword: string) {
     return jwt.sign({
       exp: Math.floor(systemUtil.getUTCTimestampServer() / 1000) + serverConfig.timeoutToken,
-      data: new TokenDecoded(roleCode, hashPassword)
+      data: new TokenDecoded(employeeId, roleCode, hashPassword)
     }, env.SECRECT_KEY);
   }
   private decodeToken(token: string) {
@@ -53,7 +53,7 @@ class AccountService {
     }
     return "";
   }
-  public async verifyTokenAndGetRoleCode(token: string) {
+  public async verifyTokenAndGetPayload(token: string) {
     try {
       const payload = this.decodeToken(token);
       if (!payload) {
@@ -69,7 +69,7 @@ class AccountService {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ACCOUNT_TOKEN_EXPIRED);
       }
 
-      return decoded.roleCode;
+      return decoded;
     }
     catch(e) {
       if (e instanceof QueryFailedError) {
@@ -107,7 +107,7 @@ class AccountService {
       }
 
       // Sinh token de tra ve
-      const token = this.genTokenByRoleCodePassword(employee.roleCode, employee.hashPassword);
+      const token = this.genTokenByRoleCodePassword(employee.id, employee.roleCode, employee.hashPassword);
       return {
         token: token,
         employee: employee

@@ -1,11 +1,12 @@
 import authorConfig from "../_base/author/authorConfig";
 import AuthorGroupRole from "./authorGroupRoleConfig";
 
-const RESOURCE = "employee";
+const RESOURCE = "transaction";
 
-const employeeAuthorConfig = {
+const transactionAuthorConfig = {
   "create": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "getAll": [
@@ -15,24 +16,21 @@ const employeeAuthorConfig = {
   ],
   "delete": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "update": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "getById": [
     AuthorGroupRole.ADMIN,
     AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
-  ],
-  "updatePassword": [
-    AuthorGroupRole.ADMIN,
-    AuthorGroupRole.EMPLOYEE,
-    AuthorGroupRole.ROOT,
   ]
 }
 
-authorConfig.addConfig(employeeAuthorConfig, RESOURCE);
+authorConfig.addConfig(transactionAuthorConfig, RESOURCE);
 
 export default RESOURCE

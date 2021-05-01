@@ -14,6 +14,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { nextTick } from 'node:process';
 import accountRoute from './route/accountRoute';
+import transactionRoute from './route/transactionRoute';
 
 const app: Express = express();
 
@@ -44,6 +45,7 @@ app.use(responseTime((req: any, res: any, time: number) => {
  */
 app.use(employeeRoute);
 app.use(accountRoute);
+app.use(transactionRoute);
 
 /**
  * For testing

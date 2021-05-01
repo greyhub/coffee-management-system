@@ -112,8 +112,8 @@ joinDate: Date
 expireDate: Date
 roleCode: number
 cccd: string
-avatar: string
-isActive: boolean
+avatar: string (not require)
+isActive: boolean (not require)
 account: string
 salary: number
 ```

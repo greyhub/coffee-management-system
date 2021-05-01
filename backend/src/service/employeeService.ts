@@ -93,9 +93,9 @@ class EmployeeService {
           newEmployee.account = employee.account;
         }
         await employeeDAO.update(newEmployee);
-        let newEmtity = await this.getById(e.id);
-        newEmtity.password = e.password;
-        return newEmployee;
+        let newEntity = await this.getById(e.id);
+        newEntity.password = e.password;
+        return newEntity;
       }
       else {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPDATE_ERROR);

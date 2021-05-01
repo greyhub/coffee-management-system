@@ -6,8 +6,9 @@
 static/
 # Typescript build folder
 build/
-# Scripts to work
-
+# Temp folder
+temp/
+#
 ### dotenv ###
 .env
 

@@ -18,6 +18,10 @@ Http status
 error: ERR_CODE enum
 message: string
 ```
+> Request:
+```ruby
+Date: dd-mm-yy
+```
 
 > Nếu cần xác thực thì cần gắn Header:<br>
 ```ruby
@@ -88,6 +92,10 @@ salary: number
 /v1/employee/update
 `put`
 ```
+> Encytpe:
+```ruby
+multipart/form-data
+```
 > Chỉ admin có quyền nên phải gắn Header:<br>
 ```ruby
 Bearer token
@@ -104,8 +112,8 @@ joinDate: Date
 expireDate: Date
 roleCode: number
 cccd: string
-avatar: string
-isActive: boolean
+avatar: string (not require)
+isActive: boolean (not require)
 account: string
 salary: number
 ```
@@ -147,6 +155,10 @@ ids: Array<id: int> - Danh sách những id đã bị xóa
 ```ruby
 /v1/employee/createone
 `put`
+```
+> Encytpe:
+```ruby
+multipart/form-data
 ```
 > Chỉ admin có quyền nên phải gắn Header:<br>
 ```ruby

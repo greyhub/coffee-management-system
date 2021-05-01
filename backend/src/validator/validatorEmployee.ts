@@ -2,6 +2,7 @@ import AuthorGroupRole from "../config/authorGroupRoleConfig";
 import ERR_CODE from "../const/error";
 import businessUtil from "../util/businessUtil";
 import dateUtil from "../util/dateUtil";
+import numberUtil from "../util/numberUtil";
 import stringUtil from "../util/stringUtil";
 
 class ValidatorEmployee {
@@ -20,7 +21,7 @@ class ValidatorEmployee {
   }
 
   public isValidEmployee(e: any) {
-    if (!stringUtil.isValidString(e.firstName, 0) || !stringUtil.isValidString(e.lastName)) {
+    if (!e || !stringUtil.isValidString(e.firstName, 0) || !stringUtil.isValidString(e.lastName)) {
       return ERR_CODE.EMPLOYEE_INVALID_NAME;
     }
     if (!stringUtil.isValidString(e.address, 0, 255)) {
@@ -53,7 +54,7 @@ class ValidatorEmployee {
     return ERR_CODE.OK
   }
   public isValidEmployeeWhenUpdate(e: any) {
-    if (!stringUtil.isValidString(e.firstName, 0) || !stringUtil.isValidString(e.lastName)) {
+    if (!e || !stringUtil.isValidString(e.firstName, 0) || !stringUtil.isValidString(e.lastName)) {
       return ERR_CODE.EMPLOYEE_INVALID_NAME;
     }
     if (!stringUtil.isValidString(e.address, 0, 255)) {

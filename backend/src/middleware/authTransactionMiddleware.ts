@@ -2,12 +2,12 @@ import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
 import CustomError from "../error/customError";
 import authorConfig from "../_base/author/authorConfig"
-import employeeAuthorConfig from "../config/employeeAuthorConfig";
+import transactionAuthorConfig from "../config/transactionAuthorConfig";
 import serverConfig from "../config/serverConfig";
 
-const resource: string = employeeAuthorConfig;
+const resource: string = transactionAuthorConfig;
 
-export default function authEmployeeMiddleware(permission: string) {
+export default function authTransactionMiddleware(permission: string) {
   return function authMiddleware(req: any, res: any, next: any) {
     if (!serverConfig.shouldAuth) {
       next();

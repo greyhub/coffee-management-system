@@ -6,10 +6,10 @@ import ormInit from './ormConnection';
 
 async function createExpressApp () {
   await ormInit();
-  app.set('port', env.PORT);
+  app.set('port', process.env.PORT);
 
   const server = http.createServer(app);
-  server.listen(env.PORT);
+  server.listen(process.env.PORT);
   console.table([{ Author: '@vietnha', Contact: 'viet.nha173465@sis.hust.edu.vn', Server: 'localhost:'+env.PORT}]);
   logger.debug(`Service is listening on PORT=${env.PORT}`);
 }

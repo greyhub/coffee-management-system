@@ -14,7 +14,8 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        "../build/entity/*",
+        "/build/entity/*",
+        "/src/entity/*"
       ],
       migrations: [
         "./migrations/*" 

@@ -9,8 +9,6 @@ build/
 # Temp folder
 temp/
 #
-### dotenv ###
-.env
 
 ### Linux ###
 *~

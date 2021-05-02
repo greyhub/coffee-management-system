@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonJS",
+    "target": "es5",
+    "module": "commonjs",
     "rootDir": "./",
     "outDir": "./build",
     "esModuleInterop": true,

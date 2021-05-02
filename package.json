@@ -4,6 +4,7 @@
   "description": "Training",
   "main": "main.ts",
   "scripts": {
+    "prebuild":"rimraf ./static/*.*",
     "start": "ts-node-dev ./src/main.ts",
     "build": "rimraf ./build && tsc --project ./",
     "cheat_d_static": "rimraf ./static/*.*",

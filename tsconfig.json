@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ES5",
     "allowSyntheticDefaultImports": true,
     "module": "CommonJS",
-    "rootDir": "./",
+    "lib": ["ES6"],
+    "rootDir": "./src",
     "outDir": "./build",
     "esModuleInterop": true,
     "strict": true,

@@ -1,5 +1,4 @@
 import app from './app';
-import http from 'http';
 import env from './env';
 import logger from './_base/log/logger4js';
 import ormInit from './ormConnection';
@@ -19,3 +18,4 @@ async function createExpressApp () {
   logger.debug(`Service is listening on PORT=${process.env.PORT}`);
 }
 createExpressApp();
+export default 0;

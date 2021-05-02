@@ -13,16 +13,16 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        "build/entity/*.js"
+        "./entity/*.js"
       ],
       migrations: [
-        "build/migration/*.js"
+        "./migration/*.js"
       ],
       subscribers: [
-        "build/subscriber/*.js" 
+        "./subscriber/*.js" 
       ],
       cli: {
-        migrationsDir: 'build/migration',
+        migrationsDir: './migration',
       },
       synchronize: true,
       logging: false,

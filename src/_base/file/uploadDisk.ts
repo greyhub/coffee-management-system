@@ -3,26 +3,28 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import * as path from "path";
 
-async function createIfNotExistUploadPath(uploadPath: string) {
-  await fs.exists(uploadPath, async function(exists: any) {
-    if(exists) {
+async function createIfNotExistUploadPath(uploadPath: string, func: Function) {
+  fs.exists(uploadPath, function (exists: any) {
+    if (exists) {
+      func();
       return true;
     }
     else {
-      await fs.mkdir(uploadPath, function(err: any) {
-        if(err) {
-          return false; 
-        }  
+      fs.mkdir(uploadPath, function (err: any) {
+        if (err) {
+          return false;
+        }
+        func();
         return true;
-      })
+      });
     }
   })
 }
 
 const storage = multer.diskStorage({
   destination: async function(req: any, file: any, cb: any) {
-    await createIfNotExistUploadPath('./static');
-    cb(null, "static")
+    const func = () => cb(null, "static");
+    createIfNotExistUploadPath('./static', func);
   },
   filename: function(req: any, file: any, cb: any) {
     cb(null, uuidv4()+'-'+file.originalname);

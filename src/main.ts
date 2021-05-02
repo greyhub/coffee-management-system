@@ -4,8 +4,8 @@ import logger from './_base/log/logger4js';
 import ormInit from './ormConnection';
 
 logger.debug("run createExpressApp");
-logger.debug("-->PORT-process" + process.env.PORT);
-logger.debug("--->PORT-env" + env.PORT);
+logger.debug("-->-process" + process.env.PORT);
+logger.debug("-->-env" + env.PORT);
 async function createExpressApp () {
   app.set('port', process.env.PORT || 80);
 

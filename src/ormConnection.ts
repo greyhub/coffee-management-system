@@ -36,7 +36,7 @@ const ormInit = async (callback: Function) => {
       charset: "utf8mb4_unicode_ci"
     })
     logger.debug("SUCCEED: DATABASE CREATED CONNECTION");
-    callback();
+    await callback();
     return connection;
   }
   catch (error) {

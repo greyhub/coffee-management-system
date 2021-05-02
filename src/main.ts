@@ -4,12 +4,13 @@ import logger from './_base/log/logger4js';
 import ormInit from './ormConnection';
 
 logger.debug("run createExpressApp");
+logger.debug("-->PORT-process" + process.env.PORT);
+logger.debug("--->PORT-env" + env.PORT);
 async function createExpressApp () {
-  await ormInit();
   app.set('port', process.env.PORT || 80);
 
-  logger.debug("PORT-process" + process.env.PORT);
-  logger.debug("PORT-env" + env.PORT);
+  logger.debug("SS:PORT-process" + process.env.PORT);
+  logger.debug("SS:PORT-env" + env.PORT);
 
   // const server = http.createServer(app);
   // server.listen(process.env.PORT);
@@ -17,5 +18,5 @@ async function createExpressApp () {
   // server.listen(process.env.PORT || 80, '0.0.0.0');
   logger.debug(`Service is listening on PORT=${process.env.PORT}`);
 }
-createExpressApp();
+ormInit(createExpressApp);
 export default 0;

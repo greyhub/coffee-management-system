@@ -10,7 +10,7 @@ import { ProductEntity } from "./entity/productEntity";
 import { TransactionEntity } from "./entity/transactionEntity";
 import { join } from "node:path";
 
-const ormInit = async () => {
+const ormInit = async (callback: Function) => {
   try {
     const connection = await createConnection({
       type: "mysql",
@@ -36,7 +36,7 @@ const ormInit = async () => {
       charset: "utf8mb4_unicode_ci"
     })
     logger.debug("SUCCEED: DATABASE CREATED CONNECTION");
-    
+    callback();
     return connection;
   }
   catch (error) {

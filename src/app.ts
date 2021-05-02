@@ -27,11 +27,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-logger.debug("DIR"+path.join(__dirname, 'static'));
+logger.debug("DIR" + path.relative(__dirname, '/static'));
 /**
  * TODO: Can be fail when deploy
  */
-app.use('/static',express.static('static'))
+app.use('/static',express.static(path.relative(__dirname, '/static')))
 
 /**
  * Log response time

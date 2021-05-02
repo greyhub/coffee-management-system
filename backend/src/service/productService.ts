@@ -60,7 +60,7 @@ class ProductService {
         name: e.name,
         price: e.price,
         description: e.description,
-        previewUri: "./static/default-avatar.png",
+        previewUri: "public/default-product.jpg",
         isActive: e.isActive === false ? false : true,
       });
 

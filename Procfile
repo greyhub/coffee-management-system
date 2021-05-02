@@ -1,1 +1,1 @@
-web: node --experimental-modules build/src/main.js
+web: node build/src/main.js

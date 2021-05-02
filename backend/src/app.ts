@@ -10,16 +10,10 @@ import globalErrorMiddleware from './error/globalErrorMiddleware';
 import CustomError from './error/customError';
 import env from './env';
 import employeeRoute from './route/employeeRoute';
-import bodyParser from 'body-parser';
-import path from 'path';
-import { nextTick } from 'node:process';
 import accountRoute from './route/accountRoute';
-<<<<<<< HEAD
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
-=======
 import transactionRoute from './route/transactionRoute';
->>>>>>> dac17f2e224531eca81d18aa8b1db271b65f693e
 
 const app: Express = express();
 
@@ -50,13 +44,10 @@ app.use(responseTime((req: any, res: any, time: number) => {
  */
 app.use(employeeRoute);
 app.use(accountRoute);
-<<<<<<< HEAD
 app.use(productRoute);
 app.use(orderRoute);
-=======
 app.use(transactionRoute);
 
->>>>>>> dac17f2e224531eca81d18aa8b1db271b65f693e
 /**
  * For testing
  */

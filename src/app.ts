@@ -31,7 +31,8 @@ app.use(cookieParser());
 /**
  * TODO: Can be fail when deploy
  */
-app.use('/static',express.static("static"))
+app.use('/static',express.static("static"));
+app.use('/public',express.static("public"));
 
 /**
  * Log response time

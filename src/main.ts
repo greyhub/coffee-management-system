@@ -11,8 +11,9 @@ async function createExpressApp () {
   logger.debug("PORT-process" + process.env.PORT);
   logger.debug("PORT-env" + env.PORT);
 
-  const server = http.createServer(app);
-  server.listen(process.env.PORT);
+  // const server = http.createServer(app);
+  // server.listen(process.env.PORT);
+  app.listen(process.env.PORT);
   // server.listen(process.env.PORT || 80, '0.0.0.0');
   logger.debug(`Service is listening on PORT=${env.PORT}`);
 }

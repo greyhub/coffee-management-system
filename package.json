@@ -4,13 +4,8 @@
   "description": "Training",
   "main": "main.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "ts-node-dev ./src/main.ts",
     "build": "rimraf ./build && tsc --project ./",
-=======
-    "start": "ts-node ./src/main.ts -p $PORT",
-    "build": "tsc",
->>>>>>> 54572e31b385e757a9127620504236c117b8e5ff
     "cheat_d_static": "rimraf ./static/*.*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

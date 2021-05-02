@@ -1,1 +1,1 @@
-web: npm start
+web: node build/src/main.js

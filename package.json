@@ -4,8 +4,8 @@
   "description": "Training",
   "main": "main.js",
   "scripts": {
-    "start": "ts-node-dev ./src/main.ts",
-    "build": "rimraf ./build && tsc --project ./",
+    "start": "ts-node ./src/main.ts",
+    "build": "tsc",
     "cheat_d_static": "rimraf ./static/*.*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

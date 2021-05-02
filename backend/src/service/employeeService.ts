@@ -152,8 +152,10 @@ class EmployeeService {
       return newEmployee;
     }
     catch(e) {
+      logger.error(e+"\n");
+      logger.error(JSON.stringify(e));
       if (e instanceof QueryFailedError) {
-        logger.debug(e);
+        // logger.debug(e);
         logger.debug("QueryFailedError");
       }
       if (e instanceof CustomError) {

@@ -3,14 +3,11 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,node,dotenv
 
 # Save files in backend
-static/
 # Typescript build folder
 build/
 # Temp folder
 temp/
 #
-### dotenv ###
-.env
 
 ### Linux ###
 *~

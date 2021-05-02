@@ -14,6 +14,7 @@ import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
+import * as path from 'path';
 
 const app: Express = express();
 
@@ -26,11 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-// console.log("DIR"+path.join(__dirname, 'static'))
+// logger.debug("DIR" + path.relative(__dirname, '/static'));
 /**
  * TODO: Can be fail when deploy
  */
-app.use('/static',express.static('static'))
+app.use('/static',express.static("static"));
+app.use('/public',express.static("public"));
 
 /**
  * Log response time

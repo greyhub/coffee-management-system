@@ -2,20 +2,19 @@
   "name": "expressjs",
   "version": "1.0.0",
   "description": "Training",
-  "main": "main.js",
+  "main": "main.ts",
   "scripts": {
+    "prebuild":"rimraf ./static/*.*",
     "start": "ts-node-dev ./src/main.ts",
     "build": "rimraf ./build && tsc --project ./",
     "cheat_d_static": "rimraf ./static/*.*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vietnha",
-  "license": "VIETNHA",
-  "devDependencies": {
-    "colors": "^1.4.0",
-    "express": "^4.17.1"
-  },
+  "license": "MIT",
   "dependencies": {
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
     "@types/bcrypt": "^3.0.1",
     "@types/body-parser": "^1.19.0",
     "@types/cookie-parser": "^1.4.2",
@@ -35,7 +34,6 @@
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.3.0",
     "moment": "^2.29.1",
@@ -53,8 +51,8 @@
     "uuid": "^8.3.2",
     "validator": "^13.5.2"
   },
-  "engines": {
-    "node": "12.x"
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   },
   "include": [
     "src"

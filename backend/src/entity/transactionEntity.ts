@@ -6,7 +6,7 @@ export class TransactionEntity {
   @PrimaryColumn({type: "varchar", length: 9, nullable: false})
   id: string
 
-  @Column({type: "nvarchar", nullable: false, length: 2000})
+  @Column({type: "nvarchar", nullable: false})
   description: string
 
   @Column({type: "int", default: 0, nullable: false})

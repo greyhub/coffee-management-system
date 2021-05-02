@@ -20,5 +20,6 @@ async function createExpressApp () {
 
   await ormInit();
 }
+createExpressApp();
 // ormInit(createExpressApp);
 export default 0;

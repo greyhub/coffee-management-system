@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import env from "./env";
+import * as path from 'path';
 import logger from "./_base/log/logger4js";
 
 const ormInit = async () => {
@@ -13,7 +14,7 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        "./entity/*"
+        path.resolve(__dirname, './entity/*'),
       ],
       migrations: [
         "./migration/*"

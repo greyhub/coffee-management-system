@@ -1,6 +1,7 @@
 import multer, { diskStorage } from "multer"
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
+import * as path from "path";
 
 async function createIfNotExistUploadPath(uploadPath: string) {
   await fs.exists(uploadPath, async function(exists: any) {
@@ -20,7 +21,7 @@ async function createIfNotExistUploadPath(uploadPath: string) {
 
 const storage = multer.diskStorage({
   destination: async function(req: any, file: any, cb: any) {
-    await createIfNotExistUploadPath("./static");
+    await createIfNotExistUploadPath(__dirname + "/static");
     cb(null, "static")
   },
   filename: function(req: any, file: any, cb: any) {

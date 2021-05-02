@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "umd",
+    "target": "es2017",
+    "module": "commonJS",
     "rootDir": "./",
     "outDir": "./build",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,

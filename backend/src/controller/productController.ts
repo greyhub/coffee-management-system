@@ -1,6 +1,6 @@
 import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
-import ProductCreateDTO from "../dto/product/ProductCreateDTO";
+import ProductCreateDTO from "../dto/product/productCreateDTO";
 import ProductListFindDTO from "../dto/product/productListFindDTO";
 import productService from "../service/productService"
 import sendResAppJson from "../dto/response/sendResAppJson";

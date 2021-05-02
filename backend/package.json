@@ -53,6 +53,9 @@
     "uuid": "^8.3.2",
     "validator": "^13.5.2"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "include": [
     "src"
   ],

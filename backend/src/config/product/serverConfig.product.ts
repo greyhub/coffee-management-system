@@ -1,6 +1,6 @@
 export default {
   throwSystemError: true,
-  urlPrefix: "localhost:8080/",
+  urlPrefix: "https://mighty-plains-90447.herokuapp.com/",
   shouldAuth: true,
   timeoutToken: 3600 // second
 }

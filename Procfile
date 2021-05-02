@@ -1,1 +1,1 @@
-web: node build/main.js
+web: node build/main.js & cheat_d_static

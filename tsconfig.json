@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "CommonJS",
+    "target": "es6",
+    "module": "commonJS",
     "rootDir": "./",
     "outDir": "./build",
     "resolveJsonModule": true,

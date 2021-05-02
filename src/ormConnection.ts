@@ -3,6 +3,11 @@ import {createConnection} from "typeorm";
 import env from "./env";
 import * as path from 'path';
 import logger from "./_base/log/logger4js";
+import { EmployeeEntity } from "./entity/employeeEntity";
+import { OrderEntity } from "./entity/orderEntity";
+import { OrderProductEntity } from "./entity/orderProductEntity";
+import { ProductEntity } from "./entity/productEntity";
+import { TransactionEntity } from "./entity/transactionEntity";
 
 const ormInit = async () => {
   try {
@@ -14,7 +19,11 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        "entity/*",
+        EmployeeEntity,
+        OrderEntity,
+        OrderProductEntity,
+        ProductEntity,
+        TransactionEntity
       ],
       migrations: [
         "./migrations/*" 

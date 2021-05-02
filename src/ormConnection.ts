@@ -10,7 +10,7 @@ import { ProductEntity } from "./entity/productEntity";
 import { TransactionEntity } from "./entity/transactionEntity";
 import { join } from "node:path";
 
-const ormInit = async (callback: Function) => {
+const ormInit = async () => {
   try {
     const connection = await createConnection({
       type: "mysql",
@@ -20,7 +20,11 @@ const ormInit = async (callback: Function) => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        __dirname + '/../**/*'
+        EmployeeEntity,
+        OrderEntity,
+        OrderProductEntity,
+        ProductEntity,
+        TransactionEntity
       ],
       migrations: [
         "./migrations/*" 
@@ -36,7 +40,6 @@ const ormInit = async (callback: Function) => {
       charset: "utf8mb4_unicode_ci"
     })
     logger.debug("SUCCEED: DATABASE CREATED CONNECTION");
-    await callback();
     return connection;
   }
   catch (error) {

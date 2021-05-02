@@ -17,6 +17,8 @@ async function createExpressApp () {
   app.listen(process.env.PORT || 80);
   // server.listen(process.env.PORT || 80, '0.0.0.0');
   logger.debug(`Service is listening on PORT=${process.env.PORT}`);
+
+  await ormInit();
 }
-ormInit(createExpressApp);
+// ormInit(createExpressApp);
 export default 0;

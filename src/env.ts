@@ -1,5 +1,4 @@
 // import dotenv from 'dotenv';
-import ormInit from './ormConnection';
 import logger from './_base/log/logger4js';
 
 // const result = dotenv.config();

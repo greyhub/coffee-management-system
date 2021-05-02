@@ -21,7 +21,7 @@ async function createIfNotExistUploadPath(uploadPath: string) {
 
 const storage = multer.diskStorage({
   destination: async function(req: any, file: any, cb: any) {
-    await createIfNotExistUploadPath(path.relative(__dirname, '/static'));
+    await createIfNotExistUploadPath('./static');
     cb(null, "static")
   },
   filename: function(req: any, file: any, cb: any) {

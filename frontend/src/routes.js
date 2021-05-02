@@ -16,6 +16,8 @@ import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
+import EmployeesManager from "views/EmployeesManagement/EmployeesManagement.js"
+import OrderManagement from 'views/OrderManagement/OrderManagement.js'
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import Purchasing from "views/Purchasing/Purchasing.js"
@@ -38,9 +40,31 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/employees",
-    name: "Employees",
+// <<<<<<< front-end/Oder
+    path: "/EmployeesManagement",
+    name: "Employees Management",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: EmployeesManager,
+    layout: "/admin"
+  },
+  {
+    path: "/OrderManagament",
+    name: "Order Managament",
     rtlName: "",
+    icon: LibraryBooks,
+    component: OrderManagement,
+    layout: "/admin"
+  },
+  {
+    path: "/table",
+    name: "Table List",
+    rtlName: "قائمة الجدول",
+// =======
+//     path: "/employees",
+//     name: "Employees",
+//     rtlName: "",
+// >>>>>>> frontend/purchasing
     icon: "content_paste",
     component: TableList,
     layout: "/admin"

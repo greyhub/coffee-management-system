@@ -4,8 +4,6 @@ import env from "./env";
 import * as path from 'path';
 import logger from "./_base/log/logger4js";
 
-logger.debug("Dirname" + path.relative(__dirname, '/entity/*'));
-
 const ormInit = async () => {
   try {
     const connection = await createConnection({
@@ -16,7 +14,7 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        path.relative(__dirname, '/entity/*'),
+        "../build/entity/*",
       ],
       migrations: [
         "./migrations/*" 

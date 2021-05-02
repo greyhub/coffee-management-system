@@ -8,6 +8,7 @@ import { OrderEntity } from "./entity/orderEntity";
 import { OrderProductEntity } from "./entity/orderProductEntity";
 import { ProductEntity } from "./entity/productEntity";
 import { TransactionEntity } from "./entity/transactionEntity";
+import { join } from "node:path";
 
 const ormInit = async () => {
   try {
@@ -19,11 +20,7 @@ const ormInit = async () => {
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
       entities: [
-        EmployeeEntity,
-        OrderEntity,
-        OrderProductEntity,
-        ProductEntity,
-        TransactionEntity
+        __dirname + '/../**/*'
       ],
       migrations: [
         "./migrations/*" 

@@ -60,7 +60,7 @@ isActive: boolean
     "name": "Bạc xỉu thêm đường",
     "price": 15000,
     "description": "Loại caffe ngon nhất thế giới song song",
-    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "previewUri": "localhost:8080/public/default-product.jpg",
     "isActive": true,
     "message": "OK"
 }
@@ -97,7 +97,7 @@ products: Array[
             "name": "Bạc xỉu thêm đường",
             "price": 15000,
             "description": "Loại caffe ngon nhất thế giới song song",
-            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "previewUri": "localhost:8080/public/default-product.jpg",
             "isActive": true
         },
         {
@@ -105,7 +105,7 @@ products: Array[
             "name": "Bạc u thêm đường",
             "price": 10000,
             "description": "Loại caffe ngon nhất thếg",
-            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "previewUri": "localhost:8080/public/default-product.jpg",
             "isActive": true
         },
         {
@@ -113,7 +113,7 @@ products: Array[
             "name": "Bạc u thêm đường",
             "price": 10000,
             "description": "Loại caffe ngonấdsfgnc nhất thếg",
-            "previewUri": "localhost:8080/./static/default-avatar.png",
+            "previewUri": "localhost:8080/public/default-product.jpg",
             "isActive": true
         }
     ],
@@ -163,7 +163,7 @@ isActive: boolean
     "name": "Bạc u thêm đường",
     "price": 10000,
     "description": "Loại caffe ngonấdsfgnc nhất thếg",
-    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "previewUri": "localhost:8080/public/default-product.jpg",
     "isActive": true,
     "message": "OK"
 }
@@ -206,7 +206,7 @@ isActive: boolean
     "name": "Bạc xỉu gốc",
     "price": 12000,
     "description": "Loại caffe hơi ngon",
-    "previewUri": "localhost:8080/./static/default-avatar.png",
+    "previewUri": "localhost:8080/public/default-product.jpg",
     "isActive": true,
     "message": "OK"
 }

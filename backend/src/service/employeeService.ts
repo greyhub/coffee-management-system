@@ -86,10 +86,10 @@ class EmployeeService {
           roleCode: employee.roleCode,
           salary: employee.salary
         };
-        if (employee.cccd !== e.cccd) {
+        if (employee.cccd.toString() != e.cccd.toString()) {
           newEmployee.cccd = employee.cccd;
         }
-        if (employee.account !== e.account) {
+        if (employee.account.toString() != e.account.toString()) {
           newEmployee.account = employee.account;
         }
         await employeeDAO.update(newEmployee);

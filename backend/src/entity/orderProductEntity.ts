@@ -9,14 +9,12 @@ export class OrderProductEntity {
     cascade: true, onDelete: "CASCADE", onUpdate: "CASCADE", eager: true, persistence: true, nullable: false, primary: true
   })
   @JoinColumn({ name: 'orderId', referencedColumnName: 'id'})
-  @Index({unique: true})
   order: OrderEntity
 
   @ManyToOne(type => ProductEntity, {
     cascade: true, onDelete: "CASCADE", onUpdate: "CASCADE", eager: true, persistence: true, nullable: false, primary: true
   })
   @JoinColumn({ name: 'productId', referencedColumnName: 'id'})
-  @Index({unique: true})
   product: ProductEntity
 
   @Column({type: "int", default: 0, nullable: false})

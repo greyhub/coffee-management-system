@@ -16,7 +16,7 @@ export class OrderEntity {
   @JoinColumn({ name: 'importerId', referencedColumnName: 'id'})
   employee: EmployeeEntity
 
-  @Column({type: "text", default: "", nullable: false})
+  @Column({type: "text", nullable: false})
   note: string
 
   @Column({type: "int", default: 0, nullable: false})

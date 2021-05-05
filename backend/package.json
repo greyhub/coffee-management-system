@@ -4,7 +4,7 @@
   "description": "Training",
   "main": "main.ts",
   "scripts": {
-    "prebuild":"rimraf ./static/*.*",
+    "prebuild": "rimraf ./static/*.*",
     "start": "ts-node-dev ./src/main.ts",
     "build": "rimraf ./build && tsc --project ./",
     "cheat_d_static": "rimraf ./static/*.*",
@@ -13,8 +13,6 @@
   "author": "vietnha",
   "license": "MIT",
   "dependencies": {
-    "colors": "^1.4.0",
-    "express": "^4.17.1",
     "@types/bcrypt": "^3.0.1",
     "@types/body-parser": "^1.19.0",
     "@types/cookie-parser": "^1.4.2",
@@ -32,8 +30,10 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "class-validator": "^0.13.1",
+    "colors": "^1.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.3.0",
     "moment": "^2.29.1",

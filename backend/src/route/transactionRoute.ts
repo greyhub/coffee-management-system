@@ -5,7 +5,7 @@ import authTransactionMiddleware from '../middleware/authTransactionMiddleware';
 
 const router: Router = express.Router();
 
-router.get('/v1/transaction/getbyid',
+router.post('/v1/transaction/getbyid',
   accountController.authTokenAndPassRoleCodeToResLocals,
   authTransactionMiddleware("getById"),
   transactionController.getById

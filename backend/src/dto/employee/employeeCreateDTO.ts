@@ -34,5 +34,6 @@ export default class EmployeeCreateDTO extends AbstractDTO{
     this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
     this.isActive = e.isActive;
     this.salary = e.salary;
+    this.account = e.account;
   }
 }

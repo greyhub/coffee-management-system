@@ -76,7 +76,6 @@ class EmployeeService {
           lastName: employee.lastName,
           avatarUri: avatarPath ? avatarPath : e.avatarUri,
           isActive: employee.isActive === false ? false : true,
-          account: employee.account,
           address: employee.address,
           hashPassword: e.hashPassword,
           birthday: employee.birthday,

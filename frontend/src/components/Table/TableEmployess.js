@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
     BrowserRouter as Router,
@@ -21,213 +21,330 @@ import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/i
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Icon, IconButton } from "@material-ui/core";
-
-const useStyles = makeStyles(styles);
-var classTableEmployess;
-var EmployeesInfo = {'MaNV':' ','HoVT':' ','DateOfBirth':' ','QueQuan':' ','Luong':' ','MaVT':' ','DateOfJoin':' ','HanHD':' ','TT':' ','Link':' ','CMND':' ','BHXH':' '}
-var recordEmployess
-function clickDelete(prop){
-    alert(prop); //prop[0],prop[1],....
-    document.location.reload();
-}
-
-function clickFix(prop){
-    //alert(prop); //prop[0],prop[1],....
-    EmployeesInfo['MaNV'] = prop[0]
-    EmployeesInfo['HoVT'] = prop[1]
-    EmployeesInfo['DateOfBirth'] = prop[2]
-    EmployeesInfo['QueQuan'] = prop[3]
-    EmployeesInfo['Luong'] = prop[4]
-    EmployeesInfo['MaVT'] = prop[5]
-    EmployeesInfo['TT'] = prop[6]
-    alert(EmployeesInfo['MaNV'])
-    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none')
-    document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: initial')
-    
-}
-
-function clickAddStaff(){
-    //alert(classTableEmployess)
-    //alert(document.getElementsByClassName(classTableEmployess)[0]);
-    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none')
-    document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: initial')
-}
-
-function clickReturnToList(){
-    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:initial')
-    document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: none')
-    document.location.reload();
-}
-
-function handleChangeInputTag(e,key){
-    EmployeesInfo[key] = e.target.value;
-}
-
-function handleSubmit(e){
-    alert(EmployeesInfo['DateOfBirth'])
-    e.preventDefault();
-}
+import axios from 'axios'
+import { preProcessFile } from "typescript";
 
 export default function EmployeesTable(props) {
+  const useStyles = makeStyles(styles);
+  var classTableEmployess;
+  var recordEmployess;
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const [maNV,setMaNV] = useState('');
+  const [HoVT,setHT] = useState('');
+  const [DateOfBirth,setDB] = useState('');
+  const [QueQuan,setQQ] = useState('');
+  const [Luong,setLuong] = useState('');
+  const [MaVT,setVT] = useState('');
+  const [DateOfJoin,setDJ] = useState('');
+  const [HanHD,setHHD] = useState('');
+  const [TT,setTT] = useState('');
+  const [Link,setLink] = useState('');
+  const [CMND,setCMND] = useState('');
+  const [TK,setTK] = useState('');
+  const [Q,setQ] = useState('');
+  const [MK,setMK] = useState(0);
+  const [lastName,setLastName] = useState();
+  const EmployeesInfo = {'MaNV':maNV,'lastName':lastName,'HoVT':HoVT,'DateOfBirth':DateOfBirth,'QueQuan':QueQuan,'Luong':Luong,'MaVT':MaVT,'DateOfJoin':DateOfJoin,'HanHD':HanHD,'TT':TT,'Link':Link,'CMND':CMND,'TK':TK,'MK':MK,'Q':Q};
+  const { tableHead, tableData, tableHeaderColor ,token} = props;
   classTableEmployess = classes.table;
-  return (
+  async function clickDelete(e,prop){
+    const res = await axios({
+      method: 'delete',
+      url: "https://mighty-plains-90447.herokuapp.com/v1/employee/delete",
+      headers:{
+        'Encytpe': 'application/json',
+        "Authorization": 'Bearer ' + token
+      },
+      data:{
+        ids: [prop[0]]
+      }
+    }).catch(function(err){
+      alert(err)
+    });
+    document.location.reload();
+  }
+
+  async function clickFix(e,prop){
+    //alert(prop); //prop[0],prop[1],....
+    e.preventDefault();
+    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
+    document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: initial');
+    axios({
+      method: 'post',
+      url: "https://mighty-plains-90447.herokuapp.com/v1/employee/getbyid",
+      headers:{
+        'Encytpe': 'application/json',
+        "Authorization": 'Bearer ' + token,
+      },
+      data: {
+         id: prop[0]
+      }
+    }).then(function(res){
+      setMaNV(res.data['id']);
+      setHT(res.data['firstName']);
+      setLastName(res.data['lastName']); 
+      setDB(res.data['birthday']); 
+      setQQ(res.data['address']);
+      setVT(res.data['position']);
+      setHHD(res.data['expireDate']);
+      setCMND(res.data['cccd']);
+      setLink(res.data['avatarUri']);
+      setTT(res.data['isActive'].toString());
+      setTK(res.data['account']);
+      setLuong(res.data['salary']);
+      setQ(res.data['roleCode']);
+      setDJ(res.data['joinDate']);
+    }).catch(function(err){
+      alert(err)
+    });
+    }
+
+    function clickAddStaff(){
+    //alert(classTableEmployess)
+    //alert(document.getElementsByClassName(classTableEmployess)[0]);
+    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
+    document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: initial');
+    }
+
+    function clickReturnToList(){
+    document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:initial');
+    document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: none');
+    document.location.reload();
+    }
+
+    function handleChangeInputTag(e,func){
+      e.preventDefault();
+      func(e.target.value);
+    }
+
+    async function handleSubmit(e,id){
+      e.preventDefault();
+      var _form = document.getElementById(id);
+      var _data = new FormData(_form);
+      if(id == '1'){
+      const res = await axios({
+        method: 'put',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/employee/createone",
+        headers:{
+          'Encytpe': 'multipart/form-data',
+          "Authorization": 'Bearer ' + token,
+          'Content-Type': 'multipart/form-data'
+        },
+        data: _data
+      }).then(function(res){
+        alert('Submit Success');
+        return res;
+      }
+      ).catch(function(err){
+        alert(err)
+      });
+    }
+    else if(id == '2'){
+      const res = await axios({
+        method: 'put',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/employee/update",
+        headers:{
+          'Encytpe': 'multipart/form-data',
+          "Authorization": 'Bearer ' + token,
+          'Content-Type': 'multipart/form-data'
+        },
+        data: _data
+      }).then(function(res){
+        alert('Submit Success');
+        return res;
+      }
+      ).catch(function(err){
+        alert(err)
+      });
+    }
+    }
+    return (
     <div className={classes.tableResponsive}>
     <div class='FormEmployees' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e)}}>
+        <form id='1' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'1')}}>
             <label>
-                Mã nhân viên:
+                FirstName:
                 <br/>
-                <input type="text"   onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text" name = 'firstName' valur = {HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
             </label>
             <br/>
             <label>
-                Họ tên nhân viên:
+                LastName:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'HoVT')}}/>
+                <input type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
             </label>
             <br/>
             <label>
-                Ngày sinh:
+                Date Of Birth:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'DateOfBirth')}}/>
+                <input type="text" name = 'birthday' placeholder="dd-mm-yy(2 số sau mỗi -)" value={DateOfBirth}   onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
             </label>
             <br/>
             <label>
-                Quê Quán:
+                Address:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'QueQuan')}}/>
+                <input type="text" name = 'address' value = {QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
             </label>
             <br/>
             <label>
-                Lương:
+                Slary:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'Luong')}}/>
+                <input type="number" name = 'salary' value = {Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
             </label>
             <br/>
             <label>
-                Mã VT:
+                Position:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'MaVT')}}/>
+                <input type="text" name = 'position' value = {MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
             </label>
             <br/>
             <label>
-                Ngày gia nhập:
+                Joined Date:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'DateOfJoin')}}/>
+                <input type="text" name = 'joinDate' placeholder="dd-mm-yy(2 số sau mỗi -)" value ={DateOfJoin} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
             </label>
             <br/>
             <label>
-                Hạn HD:
+                Expried Date:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'HanHD')}}/>
+                <input type="text" name = 'expireDate' placeholder="dd-mm-yy(2 số sau mỗi -)" value = {HanHD} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
             </label>
             <br/>
             <label>
-                Tình trạng:
+                Active:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'TT')}}/>
+                <input type="text" name = 'isActive' value={TT} onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
             </label>
             <br/>
             <label>
-                Link ảnh:
+                Picture:
                 <br/>
-                <input type="url"  onChange={(e)=>{handleChangeInputTag(e,'Link')}}/>
+                <input type="file" name = 'avatar' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>
             </label>
             <br/>
             <label>
-                CMND:
+                CCCD:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'CMND')}}/>
+                <input type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
             </label>
             <br/>
             <label>
-                BHXH:
+                Role:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'BHXH')}}/>
+                <input type="number" name = 'roleCode' value={1}/>
             </label>
             <br/>
-            <input type="submit" value="Submit" />
+            <label>
+                Account:
+                <br/>
+                <input type="text" name = 'account' value={TK} onChange={(e)=>{handleChangeInputTag(e,setTK)}}/>
+            </label>
+            <br/>
+            <label>
+                Password:
+                <br/>
+                <input type="text" name = 'password' value={MK} onChange={(e)=>{handleChangeInputTag(e,setMK)}}/>
+            </label>
+            <br/>
+            <input type="Submit" value='Submit'/>
         </form>
     </div>
     <div class='FormFixEmployees' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e)}}>
+        <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
             <label>
-                Mã nhân viên:
+                ID:
                 <br/>
-                <input type="text"  value={EmployeesInfo.MaNV} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text" name = 'id' value={maNV}/>
             </label>
             <br/>
             <label>
-                Họ tên nhân viên:
+                FirstName:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'HoVT')}}/>
+                <input type="text" name = 'firstName' value={HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
             </label>
             <br/>
             <label>
-                Ngày sinh:
+                LastName:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'DateOfBirth')}}/>
+                <input type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
             </label>
             <br/>
             <label>
-                Quê Quán:
+                Date Of Birth:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'QueQuan')}}/>
+                <input type="text" name = 'birthday' value={DateOfBirth.split('-')[2]+'-'+DateOfBirth.split('-')[1]+'-'+DateOfBirth.split('-')[0]}  onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
             </label>
             <br/>
             <label>
-                Lương:
+                Address:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'Luong')}}/>
+                <input type="text" name = 'address' value={QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
             </label>
             <br/>
             <label>
-                Mã VT:
+                Slary:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'MaVT')}}/>
+                <input type="number" name = 'salary' value={Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
             </label>
             <br/>
             <label>
-                Ngày gia nhập:
+                Position:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'DateOfJoin')}}/>
+                <input type="text" name = 'position' value={MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
             </label>
             <br/>
             <label>
-                Hạn HD:
+                Joined Date:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'HanHD')}}/>
+                <input type="text" name = 'joinDate' value={DateOfJoin.split('-')[2]+'-'+DateOfJoin.split('-')[1]+'-'+DateOfJoin.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
             </label>
             <br/>
             <label>
-                Tình trạng:
+                Expried Date:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'TT')}}/>
+                <input type="text" name = 'expireDate' value={HanHD.split('-')[2]+'-'+HanHD.split('-')[1]+'-'+HanHD.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
             </label>
             <br/>
             <label>
-                Link ảnh:
+                Active:
                 <br/>
-                <input type="url"  onChange={(e)=>{handleChangeInputTag(e,'Link')}}/>
+                <input type="text" name = 'isActive' value={TT}  onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
             </label>
             <br/>
             <label>
-                CMND:
+                Picture:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'CMND')}}/>
+                <input type="text" name = 'avatar' value={Link}  onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>
             </label>
             <br/>
             <label>
-                BHXH:
+                CCCD:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'BHXH')}}/>
+                <input type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
             </label>
             <br/>
-            <input type="submit" value="Submit" />
+            <label>
+                Role:
+                <br/>
+                <input type="number" name = 'roleCode' value={Q} onChange={(e)=>{handleChangeInputTag(e,setQ)}}/>
+            </label>
+            <br/>    
+            <label>
+                Account:
+                <br/>
+                <input type="text" name = 'account' value={TK} onChange={(e)=>{handleChangeInputTag(e,setTK)}}/>
+            </label>
+            <br/>
+            <label>
+                Password:
+                <br/>
+                <input type="text" name = 'password' value={MK} onChange={(e)=>{handleChangeInputTag(e,setMK)}}/>
+            </label>
+            <br/>
+          
+            <input type="Submit" value='Submit'/>
         </form>
     </div>
     <div className={classes.table}><Button id='add' onClick={()=>clickAddStaff()}><AddIcon/></Button>
@@ -260,8 +377,8 @@ export default function EmployeesTable(props) {
                   );
                 })}
                 <TableCell>
-                    <Button id='delete' onClick={()=>clickDelete(prop)}><DeleteIcon/></Button> 
-                    <Button id='fix' onClick={()=>clickFix(prop)} ><BorderColorIcon/></Button>
+                    <Button id='delete' onClick={(e)=>clickDelete(e,prop)}><DeleteIcon/></Button> 
+                    <Button id='fix' onClick={(e)=>clickFix(e,prop)} ><BorderColorIcon/></Button>
                 </TableCell>
               </TableRow>
             );

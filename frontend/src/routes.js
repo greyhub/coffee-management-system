@@ -34,7 +34,7 @@ import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import EmployeesManager from "views/EmployeesManagement/EmployeesManagement.js"
-import OrderManagement from 'views/OrderManagement/OrderManagement.js'
+import BillManagement from 'views/BillManagement/BillManagement.js'
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 
@@ -57,18 +57,18 @@ const dashboardRoutes = [
   },
   {
     path: "/EmployeesManagement",
-    name: "Employees Management",
+    name: "Employees",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: EmployeesManager,
     layout: "/admin"
   },
   {
-    path: "/OrderManagament",
-    name: "Order Managament",
+    path: "/BillManagament",
+    name: "Bill",
     rtlName: "",
     icon: LibraryBooks,
-    component: OrderManagement,
+    component: BillManagement,
     layout: "/admin"
   },
   {
@@ -118,14 +118,6 @@ const dashboardRoutes = [
     icon: Language,
     component: RTLPage,
     layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
-    layout: "/admin"
   }
 ];
 

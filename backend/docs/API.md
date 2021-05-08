@@ -20,7 +20,7 @@ message: string
 ```
 > Request:
 ```ruby
-Date (thay vì new Date(`dd-mm-yy`)) => `dd-mm-yy`
+Date (thay vì new Date(`dd-mm-yyyy`)) => `dd-mm-yyyy`
 Ví dụ:
 joinDate: '22-10-2020'
 ```
@@ -84,7 +84,7 @@ joinDate: Date
 expireDate: Date
 roleCode: number
 cccd: string
-avatar: string
+avatarUri: string
 isActive: boolean
 account: string
 salary: number
@@ -195,8 +195,8 @@ lastName: Độ dài > 0
 birthday: < Ngày hiện tại
 address: Độ dài > 0
 position: Độ dài > 0
-joinDate: Ngày gia nhập, định dạng `dd-mm-yy`
-expireDate: Ngày hết hạn hợp đồng, định dạng `dd-mm-yy`
+joinDate: Ngày gia nhập, định dạng `dd-mm-yyyy`
+expireDate: Ngày hết hạn hợp đồng, định dạng `dd-mm-yyyy`
 roleCode: Là 1 trong 2 giá trị
   1: Nhân viên
   2: Admin

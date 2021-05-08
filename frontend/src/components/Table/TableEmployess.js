@@ -69,7 +69,7 @@ export default function EmployeesTable(props) {
     e.preventDefault();
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
     document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: initial');
-    axios({
+    await axios({
       method: 'post',
       url: "https://mighty-plains-90447.herokuapp.com/v1/employee/getbyid",
       headers:{
@@ -88,7 +88,6 @@ export default function EmployeesTable(props) {
       setVT(res.data['position']);
       setHHD(res.data['expireDate']);
       setCMND(res.data['cccd']);
-      setLink(res.data['avatarUri']);
       setTT(res.data['isActive'].toString());
       setTK(res.data['account']);
       setLuong(res.data['salary']);
@@ -316,7 +315,7 @@ export default function EmployeesTable(props) {
             <label>
                 Picture:
                 <br/>
-                <input type="text" name = 'avatar' value={Link}  onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>
+                <input type="file" name = 'avatar'/>
             </label>
             <br/>
             <label>
@@ -328,22 +327,15 @@ export default function EmployeesTable(props) {
             <label>
                 Role:
                 <br/>
-                <input type="number" name = 'roleCode' value={Q} onChange={(e)=>{handleChangeInputTag(e,setQ)}}/>
+                <input type="number" name = 'roleCode' value={Q}/>
             </label>
             <br/>    
             <label>
                 Account:
                 <br/>
-                <input type="text" name = 'account' value={TK} onChange={(e)=>{handleChangeInputTag(e,setTK)}}/>
+                <input type="text" name = 'account' value={TK}/>
             </label>
-            <br/>
-            <label>
-                Password:
-                <br/>
-                <input type="text" name = 'password' value={MK} onChange={(e)=>{handleChangeInputTag(e,setMK)}}/>
-            </label>
-            <br/>
-          
+            <br/>   
             <input type="Submit" value='Submit'/>
         </form>
     </div>

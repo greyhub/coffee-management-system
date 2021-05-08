@@ -20,7 +20,9 @@ message: string
 ```
 > Request:
 ```ruby
-Date: dd-mm-yy
+Date (thay vì new Date(`dd-mm-yy`)) => `dd-mm-yy`
+Ví dụ:
+joinDate: '22-10-2020'
 ```
 
 > Nếu cần xác thực thì cần gắn Header:<br>
@@ -193,8 +195,8 @@ lastName: Độ dài > 0
 birthday: < Ngày hiện tại
 address: Độ dài > 0
 position: Độ dài > 0
-joinDate: Ngày gia nhập, định dạng `dd/mm/yy`
-expireDate: Ngày hết hạn hợp đồng, định dạng `dd/mm/yy`
+joinDate: Ngày gia nhập, định dạng `dd-mm-yy`
+expireDate: Ngày hết hạn hợp đồng, định dạng `dd-mm-yy`
 roleCode: Là 1 trong 2 giá trị
   1: Nhân viên
   2: Admin

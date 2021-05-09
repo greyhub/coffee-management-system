@@ -13,7 +13,6 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import Items from "views/Items/Items.js";
 import Statistics from "views/Statistics/Statistics.js";
-
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import Purchasing from "views/Purchasing/Purchasing.js"

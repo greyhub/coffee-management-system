@@ -21,7 +21,7 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    rtlName: "لوحة القيادة",
+    rtlName: "",
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin"
@@ -29,7 +29,7 @@ const dashboardRoutes = [
   {
     path: "/user",
     name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
+    rtlName: "",
     icon: Person,
     component: UserProfile,
     layout: "/admin"

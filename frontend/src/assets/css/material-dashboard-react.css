@@ -1,18 +1,39 @@
-/*!
+/*!*#delete{*!*/
+/*!*  color: #fff;*!*/
+/*!*  backdrop-color: #f5365c !important;*!*/
+/*!*}*!*/
 
- =========================================================
- * Material Dashboard React - v1.9.0 based on Material Dashboard - v1.2.0
- =========================================================
+/*#fix{*/
+/*  color: #fff;*/
+/*  background-color: #0da5c0 ;*/
+/*}*/
 
- * Product Page: http://www.creative-tim.com/product/material-dashboard-react
- * Copyright 2020 Creative Tim (http://www.creative-tim.com)
- * Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+/*.table1 {*/
+/*  display: initial;*/
+/*  !*display: none;*!*/
+/*}*/
 
- =========================================================
+/*.cardCategoryWhite {*/
+/*  text-align: center;*/
+/*  color: rgba(255, 255, 255, .62);*/
+/*  margin: 0;*/
+/*  font-size: 14px;*/
+/*  margin-top: 0;*/
+/*  margin-bottom: 0;*/
+/*}*/
 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+/*.cardTitleWhite {*/
+/*  text-align: center;*/
+/*  color: #fff;*/
+/*  margin-top: 0px;*/
+/*  min-hieght: auto;*/
+/*  font-weight: 300;*/
+/*  font-family: Roboto, Helvetica, Arial, sans-serif;*/
+/*  margin-Bottom: 3px;*/
+/*  text-decoration: none;*/
 
- */
+/*}*/
+
 .ct-grid {
   stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 1px;

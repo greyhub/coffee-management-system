@@ -40,17 +40,16 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-// <<<<<<< front-end/Oder
     path: "/EmployeesManagement",
-    name: "Employees Management",
-    rtlName: "ملف تعريفي للمستخدم",
+    name: "Employees",
+    rtlName: "",
     icon: Person,
     component: EmployeesManager,
     layout: "/admin"
   },
   {
     path: "/OrderManagament",
-    name: "Order Managament",
+    name: "Order",
     rtlName: "",
     icon: LibraryBooks,
     component: OrderManagement,
@@ -60,11 +59,6 @@ const dashboardRoutes = [
     path: "/table",
     name: "Table List",
     rtlName: "قائمة الجدول",
-// =======
-//     path: "/employees",
-//     name: "Employees",
-//     rtlName: "",
-// >>>>>>> frontend/purchasing
     icon: "content_paste",
     component: TableList,
     layout: "/admin"

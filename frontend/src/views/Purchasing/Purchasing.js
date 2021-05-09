@@ -64,7 +64,7 @@ export default function Purchasing(){
                     <Table
                         tableHeaderColor="info"
                         tableHead={purchasingJson['header']}
-                        tableData={purchasingJson['data']}                        
+                        tableData={purchasingJson['data']}
                     />
                     </CardBody>
                 </Card>

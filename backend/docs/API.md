@@ -293,7 +293,7 @@ employee: {
 ## Lấy thông tin một giao dịch:
 ```ruby
 /v1/transaction/getbyid
-`put`
+`post`
 ```
 > Encytpe:
 ```ruby
@@ -367,7 +367,7 @@ employee: {
 ## Xóa một giao dịch:
 ```ruby
 /v1/transaction/delete
-`put`
+`delete`
 ```
 > Encytpe:
 ```ruby
@@ -388,7 +388,7 @@ ids: Array<string>
 ## Lấy tất cả các giao dịch:
 ```ruby
 /v1/transaction
-`put`
+`get`
 ```
 > Encytpe:
 ```ruby

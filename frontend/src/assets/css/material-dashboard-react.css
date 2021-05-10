@@ -1,39 +1,3 @@
-/*!*#delete{*!*/
-/*!*  color: #fff;*!*/
-/*!*  backdrop-color: #f5365c !important;*!*/
-/*!*}*!*/
-
-/*#fix{*/
-/*  color: #fff;*/
-/*  background-color: #0da5c0 ;*/
-/*}*/
-
-/*.table1 {*/
-/*  display: initial;*/
-/*  !*display: none;*!*/
-/*}*/
-
-/*.cardCategoryWhite {*/
-/*  text-align: center;*/
-/*  color: rgba(255, 255, 255, .62);*/
-/*  margin: 0;*/
-/*  font-size: 14px;*/
-/*  margin-top: 0;*/
-/*  margin-bottom: 0;*/
-/*}*/
-
-/*.cardTitleWhite {*/
-/*  text-align: center;*/
-/*  color: #fff;*/
-/*  margin-top: 0px;*/
-/*  min-hieght: auto;*/
-/*  font-weight: 300;*/
-/*  font-family: Roboto, Helvetica, Arial, sans-serif;*/
-/*  margin-Bottom: 3px;*/
-/*  text-decoration: none;*/
-
-/*}*/
-
 .ct-grid {
   stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 1px;

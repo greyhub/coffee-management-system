@@ -10,6 +10,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
 import axios from 'axios'
+import {render} from "react-dom";
 
 
 const styles = {
@@ -79,8 +80,11 @@ export default function Items(){
                 alert(err1)
             });
             var list = [];
+            var user = [];
             for(var i = 0;i<res1.data['products'].length;i++){
-                list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], res1.data['products'][i]['price'], res1.data['products'][i]['description'],res1.data['products'][i]['previewUri'],res1.data['products'][i]['isActive'].toString()]);
+                if(res1.data['products'][i]['isActive'] ==1){
+                    list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], res1.data['products'][i]['price'], res1.data['products'][i]['description'],<img src ={res1.data['products'][i]['previewUri']} style={{width: '60px', height:'auto'}}/>,res1.data['products'][i]['isActive'].toString()]);
+                }
             }
             setData(list);
             setLoad(false);

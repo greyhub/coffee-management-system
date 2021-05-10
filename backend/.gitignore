@@ -9,7 +9,7 @@ build/
 temp/
 # Bak
 *.bak
-
+static
 ### Linux ###
 *~
 

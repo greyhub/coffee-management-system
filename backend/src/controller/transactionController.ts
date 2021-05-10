@@ -70,6 +70,9 @@ class TransactionController extends AbstractController {
       if (errCode !== ERR_CODE.OK) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, errCode);
       }
+      if (!req.body.id) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.TRANSACTION_INVALID_ID);
+      }
 
       const t = await transactionService.updateInfo(req.body);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new TransactionCreateDTO(t));

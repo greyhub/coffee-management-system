@@ -240,7 +240,7 @@ Không
 
 > Response:<br>
 ```ruby
-employees: Array[
+employees: Array[{
   id: string
   firstName: string
   lastName: string
@@ -249,5 +249,176 @@ employees: Array[
   avatarUri: string
   isActive: boolean
   cccd: string
-]
+}]
+```
+# Transaction
+## Tạo một giao dịch:
+```ruby
+/v1/transaction/createone
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Lấy thông tin một giao dịch:
+```ruby
+/v1/transaction/getbyid
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Cập nhật thông tin một giao dịch:
+```ruby
+/v1/transaction/update
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Xóa một giao dịch:
+```ruby
+/v1/transaction/delete
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+ids: Array<string>
+```
+> Response:<br>
+```ruby
+ids: Array<string>
+```
+## Lấy tất cả các giao dịch:
+```ruby
+/v1/transaction
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+> Response:<br>
+```ruby
+transactions: Array[{
+  id: string
+  description: string
+  price: number
+  supplierName: string
+  time: Date
+  employee: {
+    id: string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    position: string,
+    avatarUri: string,
+    isActive: string,
+    cccd: string
+  }
+}]
 ```

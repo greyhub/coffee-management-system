@@ -73,7 +73,7 @@ export default function Items(){
                 header: res.data['token'],
                 headers:{
                     'Header': res.data['token'],
-                    'Encytype': 'application/json',
+                        'Encytype': 'application/json',
                     "Authorization": 'Bearer ' + res.data['token']
                 }
             }).catch(function(err1){

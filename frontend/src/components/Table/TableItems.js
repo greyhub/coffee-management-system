@@ -16,21 +16,18 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RestoreIcon from '@material-ui/icons/Restore';
 import ImageIcon from '@material-ui/icons/Image';
 import axios from 'axios'
-import Items from "views/Items/Items.js";
-import { preProcessFile } from "typescript";
+
 export default function ItemsTable(props) {
     const useStyles = makeStyles(styles);
     var classTableItems;
-    var recordItems;
     const classes = useStyles();
     const [maSP,setMaSp] = useState('');
     const [name,setName] = useState('');
     const [price,setPrice] = useState('');
     const [description,setDescription] = useState('');
     const [isActive,setIsActive] = useState('');
-    const [Link,setLink] = useState('');
 
-    const ItemsInfo = {'maSP': maSP,'name':name,'price':'price', 'description':description,'isActive':isActive, 'Link':Link};
+    // const [image, setImage] = useState(null);
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTableItems = classes.table;
 
@@ -87,7 +84,6 @@ export default function ItemsTable(props) {
             method: 'post',
             url: "https://mighty-plains-90447.herokuapp.com/v1/product/getbyid",
             headers:{
-                // 'Encytpe': 'application/json',
                 "Authorization": 'Bearer ' + token,
                 'Content-Type': 'application/json'
             },
@@ -96,12 +92,6 @@ export default function ItemsTable(props) {
             }
         }).then(function(res){
             setMaSp(res.data['id']);
-            // setName(res.data['name']);
-            // setPrice(res.data['price']);
-            // setDescription(res.data['description']);
-            // setIsActive(res.data['isActive'].toString());
-            setLink(res.data['previewUri'].toString());
-
         }).catch(function(err){
             alert(err)
         });
@@ -119,6 +109,7 @@ export default function ItemsTable(props) {
         document.getElementsByClassName(classTableItems)[0].setAttribute('style','display:initial');
         document.getElementsByClassName('FormAddItems')[0].setAttribute('style','display: none');
         document.getElementsByClassName('FormFixItems')[0].setAttribute('style','display: none');
+        document.getElementsByClassName('FormFixImageItems')[0].setAttribute('style','display: none');
         document.location.reload();
     }
 
@@ -184,14 +175,10 @@ export default function ItemsTable(props) {
                 url: "https://mighty-plains-90447.herokuapp.com/v1/product/updateprev",
                 headers:{
                     "Authorization": 'Bearer ' + token,
-                    // 'Content-Type': 'application/json'
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Encriptype': 'multipart/form-data',
                 },
-                data:  {
-                    id: _data.get('id'),
-                    previewUri: _data.get('Link'),
-                }
-                // data: _data,
+                data: _data,
             }).then(function(res){
                     alert('Update Image Success');
                     return res;
@@ -273,15 +260,8 @@ export default function ItemsTable(props) {
                         <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
                     </label>
                     <br/>
-                    {/*<label>*/}
-                    {/*    Ảnh*/}
-                    {/*    <br/>*/}
-                    {/*    <input type="file" name = 'image' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>*/}
-                    {/*</label>*/}
                     <br/>
-
                     <br/>
-
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
@@ -301,13 +281,10 @@ export default function ItemsTable(props) {
                     <label>
                         Ảnh
                         <br/>
-                        {/*<input type="file" name = 'Link' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>*/}
-                        <input type="file" name = 'Link' onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>
+                        <input type="file" name = 'preview'/>
                     </label>
                     <br/>
-
                     <br/>
-
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>

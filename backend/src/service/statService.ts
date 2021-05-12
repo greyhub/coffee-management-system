@@ -19,16 +19,22 @@ class StatService {
 
   async viewRevenue(start: string, end: string) {
     try {
-
       //Gen Date
       const startDate = dateUtil.fromString(start);
       const endDate = dateUtil.fromString(end);
+      endDate.setHours(23, 59, 59, 99);
 
       //Compute Diff Days Betweens
       const ONE_DAY = 24 * 60 * 60 * 1000;
-      const diffDays = Math.floor(Math.abs((endDate.getTime() - startDate.getTime() + 0.1) / ONE_DAY));
+      const diffDays = Math.floor(Math.abs((endDate.getTime() - startDate.getTime()) / ONE_DAY));
 
       const orders = await statDAO.filterOrderByTime(startDate, endDate);
+      if (endDate.getTime() < startDate.getTime()) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_END_LESS_THAN_START);
+      }
+      if (diffDays > 365*2) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_OVER_LIMIT_TWO_YEARS);
+      }
       const result = new Array<number>(diffDays + 1);
       for (let i = 0; i < result.length; i++) {
         result[i] = 0;
@@ -38,7 +44,7 @@ class StatService {
       const startTime = startDate.getTime();
       for (let i = 0; i < orders.length; i++) {
         const o = orders[i];
-        const indexDay = Math.floor(Math.abs((o.updateAt.getTime() - startTime + 0.1) / ONE_DAY));
+        const indexDay = Math.floor(Math.abs((o.updateAt.getTime() - startTime) / ONE_DAY));
         if (indexDay < result.length) {
           result[indexDay] += o.money;
         }

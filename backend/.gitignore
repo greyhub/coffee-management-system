@@ -9,9 +9,10 @@ build/
 temp/
 # Bak
 *.bak
-# static/*.png
-# static/*.jpeg
-# static/*.jpg
+static/*.png
+static/*.jpeg
+static/*.jpg
+static/*.txt
 ### Linux ###
 *~
 

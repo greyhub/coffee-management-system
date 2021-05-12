@@ -90,7 +90,8 @@ async function deleteByIds(ids: Array<string>) {
     throw e;
   }
 }
-export default {
+
+const transactionDAO = {
   getMaxTransactionId,
   getById,
   getAll,
@@ -100,3 +101,5 @@ export default {
   update,
   deleteByIds
 }
+
+export default transactionDAO;

@@ -15,6 +15,8 @@ import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
 import * as path from 'path';
+import serverConfig from './config/serverConfig';
+import statRoute from './route/statRoute';
 
 const app: Express = express();
 
@@ -29,7 +31,7 @@ app.use(cookieParser());
 
 // logger.debug("DIR" + path.relative(__dirname, '/static'));
 /**
- * TODO: Can be fail when deploy
+ * TODO: Could be fail when deploy
  */
 app.use('/static',express.static("static"));
 app.use('/public',express.static("public"));
@@ -38,7 +40,7 @@ app.use('/public',express.static("public"));
  * Log response time
  */
 app.use(responseTime((req: any, res: any, time: number) => {
-  logger.info(req.method + " " + "localhost:" + env.PORT + req.url + " in " + time.toFixed(3) + "ms");
+  logger.info(req.method + " " + serverConfig?.urlPrefix.replace(/.$/,"") + req.url + " in " + time.toFixed(3) + "ms");
 }))
 
 /**
@@ -49,6 +51,7 @@ app.use(accountRoute);
 app.use(productRoute);
 app.use(orderRoute);
 app.use(transactionRoute);
+app.use(statRoute);
 
 /**
  * For testing
@@ -62,7 +65,7 @@ app.get('/testerror', (req, res) => {
 
 
 /**
- * Handle Global Error (Custom Error and Not Control Error)
+ * Handle Global Error (Custom Error and Uncontrollable Error)
  */
 app.use(globalErrorMiddleware);
 /**

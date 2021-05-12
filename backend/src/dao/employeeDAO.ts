@@ -95,7 +95,7 @@ async function update(employee: any) {
   }
 }
 
-export default {
+const employeeDAO = {
   getMaxEmployeeId,
   getById,
   getAll,
@@ -104,3 +104,5 @@ export default {
   update,
   deleteByIds
 }
+
+export default employeeDAO;

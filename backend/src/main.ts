@@ -2,6 +2,7 @@ import app from './app';
 import env from './env';
 import logger from './_base/log/logger4js';
 import ormInit from './ormConnection';
+import serverConfig from './config/serverConfig';
 
 logger.debug("run createExpressApp");
 logger.debug("-->-process" + process.env.PORT);
@@ -15,7 +16,7 @@ async function createExpressApp () {
   // const server = http.createServer(app);
   // server.listen(process.env.PORT);
   app.listen(process.env.PORT || 80);
-  console.table([{ Author: '@vietnha', Contact: 'viet.nha173465@sis.hust.edu.vn', Server: 'localhost:'+env.PORT}]);
+  console.table([{ Author: '@vietnha', Contact: 'viet.nha173465@sis.hust.edu.vn', Server: serverConfig?.urlPrefix }]);
   // server.listen(process.env.PORT || 80, '0.0.0.0');
   logger.debug(`Service is listening on PORT=${process.env.PORT}`);
 

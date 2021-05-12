@@ -3,7 +3,7 @@
     "target": "ES5",
     "allowSyntheticDefaultImports": true,
     "module": "CommonJS",
-    "lib": ["ES6"],
+    "lib": ["ES2019"],
     "rootDir": "./src",
     "outDir": "./build",
     "esModuleInterop": true,

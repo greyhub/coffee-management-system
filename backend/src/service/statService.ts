@@ -8,6 +8,7 @@ import CustomError from "../error/customError";
 import dateUtil from "../util/dateUtil";
 import logger from "../_base/log/logger4js";
 import { OrderEntity } from "../entity/orderEntity";
+import productDAO from "../dao/productDAO";
 
 class StatService {
   private static _instance: StatService
@@ -47,6 +48,70 @@ class StatService {
         const indexDay = Math.floor(Math.abs((o.updateAt.getTime() - startTime) / ONE_DAY));
         if (indexDay < result.length) {
           result[indexDay] += o.money;
+        }
+      }
+      return result;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_GET_REVENUE_ERROR);
+    }
+  }
+
+  async viewRevenueProduct(start: string, end: string) {
+    try {
+      //Gen Date
+      const startDate = dateUtil.fromString(start);
+      const endDate = dateUtil.fromString(end);
+      endDate.setHours(23, 59, 59, 99);
+
+      //Compute Diff Days Betweens
+      const ONE_DAY = 24 * 60 * 60 * 1000;
+      const diffDays = Math.floor(Math.abs((endDate.getTime() - startDate.getTime()) / ONE_DAY));
+
+      const rrProduct = await statDAO.filterProductRevenueByTime(startDate, endDate);
+      if (endDate.getTime() < startDate.getTime()) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_END_LESS_THAN_START);
+      }
+      if (diffDays > 365*2) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_OVER_LIMIT_TWO_YEARS);
+      }
+      const result = new Map<string, {counts: Array<number>, price: number}>();
+      if (!rrProduct || rrProduct.length <= 0) {
+        return result;
+      }
+
+      //Init result
+      const products = await productDAO.getAll();
+      logger.debug("rrProduct" + JSON.stringify(products));
+      for (let i = 0; i < products.length; i++) {
+        const arr = new Array<number>(diffDays + 1);
+        for (let j = 0; j < arr.length; j++) {
+          arr[j] = 0;
+        }
+        result.set(products[i].id.toString(), {counts: arr, price: products[i].price});
+      }
+
+      //Reduce result
+      /**
+       * @var: rrProduct: `pd.id, op.count, od.updateAt`[]
+       */
+      const startTime = startDate.getTime();
+      for (let i = 0; i < rrProduct.length; i++) {
+        const o = rrProduct[i];
+        if (!o || !o.id || !o.count || !o.updateAt) continue;
+        const indexDay = Math.floor(Math.abs((o.updateAt.getTime() - startTime) / ONE_DAY));
+        if (indexDay < diffDays + 1) {
+          const arr = result.get(o.id);
+          if (!arr) continue;
+          arr.counts[indexDay] += Number(o.count);
         }
       }
       return result;

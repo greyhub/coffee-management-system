@@ -9,4 +9,9 @@ router.post('/v1/stat/revenue',
   statController.viewRevenue
 )
 
+router.post('/v1/stat/revenue/product',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  statController.viewRevenueProduct
+)
+
 export default router;

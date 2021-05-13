@@ -14,12 +14,9 @@ import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
-<<<<<<< HEAD
-=======
 import * as path from 'path';
 import serverConfig from './config/serverConfig';
 import statRoute from './route/statRoute';
->>>>>>> 70563f23f40da3bde5d6409401d96b7ad237a253
 
 const app: Express = express();
 

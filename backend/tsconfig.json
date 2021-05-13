@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "allowJs": false,
     "isolatedModules": true,
     "emitDecoratorMetadata": true,

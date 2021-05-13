@@ -37,7 +37,6 @@ async function filterProductRevenueByTime(start: Date, end: Date) {
         + "order_product_entity as op, "
         + "product_entity as pd "
       + "where filterOd.id = op.orderId and op.productId = pd.id ", [start, end]);
-    logger.debug("Jsonnnnnnn" + JSON.stringify(res));
     return res;
   }
   catch(e) {

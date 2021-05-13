@@ -14,4 +14,9 @@ router.post('/v1/stat/revenue/product',
   statController.viewRevenueProduct
 )
 
+router.post('/v1/stat/employee/order',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  statController.viewOrderEmployeeByTime
+)
+
 export default router;

@@ -3,7 +3,9 @@ import EmployeeItemFindDTO from "../employee/employeeItemFindDTO"
 
 export default class TransactionItemFindDTO {
   public id: string
+  public materialName: string
   public description: string
+  public count: number
   public price: number
   public supplierName: string
   public time: Date
@@ -11,7 +13,9 @@ export default class TransactionItemFindDTO {
 
   constructor(t: TransactionEntity) {
     this.id = t.id;
+    this.materialName = t.materialName;
     this.description = t.description;
+    this.count = t.count;
     this.price = t.price;
     this.supplierName = t.supplierName;
     this.time = t.time;

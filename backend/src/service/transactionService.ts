@@ -78,7 +78,9 @@ class TransactionService {
       // Create Transaction to save
       let newT = transactionDAO.create({
         id: nextId,
+        materialName: t.materialName,
         description: t.description,
+        count: t.count,
         price: t.price,
         supplierName: t.supplierName,
         time: t.time,
@@ -130,6 +132,12 @@ class TransactionService {
         }
         if (t.supplierName.toString() != transaction.supplierName.toString()) {
           newT.supplierName = transaction.supplierName;
+        }
+        if (t.materialName.toString() != transaction.materialName.toString()) {
+          newT.materialName = transaction.materialName;
+        }
+        if (t.count.toString() != transaction.count.toString()) {
+          newT.count = transaction.count;
         }
         await transactionDAO.update(newT);
         let newEntity = await this.getById(t.id);

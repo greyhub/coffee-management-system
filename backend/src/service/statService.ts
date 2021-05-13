@@ -3,11 +3,9 @@ import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
 import statDAO from "../dao/statDAO";
 import employeeDAO from "../dao/employeeDAO";
-import transactionDAO from "../dao/transactionDAO";
 import CustomError from "../error/customError";
 import dateUtil from "../util/dateUtil";
 import logger from "../_base/log/logger4js";
-import { OrderEntity } from "../entity/orderEntity";
 import productDAO from "../dao/productDAO";
 
 class StatService {

@@ -267,15 +267,19 @@ Bearer token
 ```
 > Request:<br>
 ```ruby
+materialName: string
 description: string
-supplierName: string
+count: number
 price: number
+supplierName: string
 time: `dd-mm-yyyy`
 ```
 > Response:<br>
 ```ruby
 id: string
+materialName: string
 description: string
+count: number
 price: number
 supplierName: string
 time: Date
@@ -310,7 +314,9 @@ id: string
 > Response:<br>
 ```ruby
 id: string
+materialName: string
 description: string
+count: number
 price: number
 supplierName: string
 time: Date
@@ -341,15 +347,19 @@ Bearer token
 > Request:<br>
 ```ruby
 id: string
+materialName: string
 description: string
-supplierName: string
+count: number
 price: number
+supplierName: string
 time: `dd-mm-yyyy`
 ```
 > Response:<br>
 ```ruby
 id: string
+materialName: string
 description: string
+count: number
 price: number
 supplierName: string
 time: Date
@@ -406,7 +416,9 @@ Không
 ```ruby
 transactions: Array[{
   id: string
+  materialName: string
   description: string
+  count: number
   price: number
   supplierName: string
   time: Date

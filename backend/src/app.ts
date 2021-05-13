@@ -10,13 +10,16 @@ import globalErrorMiddleware from './error/globalErrorMiddleware';
 import CustomError from './error/customError';
 import env from './env';
 import employeeRoute from './route/employeeRoute';
-import bodyParser from 'body-parser';
-import path from 'path';
-import { nextTick } from 'node:process';
 import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
+<<<<<<< HEAD
+=======
+import * as path from 'path';
+import serverConfig from './config/serverConfig';
+import statRoute from './route/statRoute';
+>>>>>>> 70563f23f40da3bde5d6409401d96b7ad237a253
 
 const app: Express = express();
 
@@ -29,17 +32,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-// console.log("DIR"+path.join(__dirname, 'static'))
+// logger.debug("DIR" + path.relative(__dirname, '/static'));
 /**
- * TODO: Can be fail when deploy
+ * TODO: Could be fail when deploy
  */
-app.use('/static',express.static('static'))
+app.use('/static',express.static("static"));
+app.use('/public',express.static("public"));
 
 /**
  * Log response time
  */
 app.use(responseTime((req: any, res: any, time: number) => {
-  logger.info(req.method + " " + "localhost:" + env.PORT + req.url + " in " + time.toFixed(3) + "ms");
+  logger.info(req.method + " " + serverConfig?.urlPrefix.replace(/.$/,"") + req.url + " in " + time.toFixed(3) + "ms");
 }))
 
 /**
@@ -47,13 +51,11 @@ app.use(responseTime((req: any, res: any, time: number) => {
  */
 app.use(employeeRoute);
 app.use(accountRoute);
-<<<<<<< HEAD
 app.use(productRoute);
 app.use(orderRoute);
-=======
 app.use(transactionRoute);
+app.use(statRoute);
 
->>>>>>> dac17f2e224531eca81d18aa8b1db271b65f693e
 /**
  * For testing
  */
@@ -66,7 +68,7 @@ app.get('/testerror', (req, res) => {
 
 
 /**
- * Handle Global Error (Custom Error and Not Control Error)
+ * Handle Global Error (Custom Error and Uncontrollable Error)
  */
 app.use(globalErrorMiddleware);
 /**

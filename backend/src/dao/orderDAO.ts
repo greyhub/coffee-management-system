@@ -107,7 +107,7 @@ async function deleteByIds(ids: Array<string>) {
 }
 
 
-export default {
+const orderDAO = {
   // getMaxProductId,
   getById,
   getByImporterId,
@@ -117,3 +117,5 @@ export default {
   update,
   deleteByIds,
 }
+
+export default orderDAO;

@@ -76,7 +76,6 @@ class EmployeeService {
           lastName: employee.lastName,
           avatarUri: avatarPath ? avatarPath : e.avatarUri,
           isActive: employee.isActive === false ? false : true,
-          account: employee.account,
           address: employee.address,
           hashPassword: e.hashPassword,
           birthday: employee.birthday,
@@ -86,10 +85,10 @@ class EmployeeService {
           roleCode: employee.roleCode,
           salary: employee.salary
         };
-        if (employee.cccd !== e.cccd) {
+        if (employee.cccd.toString() != e.cccd.toString()) {
           newEmployee.cccd = employee.cccd;
         }
-        if (employee.account !== e.account) {
+        if (employee.account.toString() != e.account.toString()) {
           newEmployee.account = employee.account;
         }
         await employeeDAO.update(newEmployee);
@@ -152,8 +151,10 @@ class EmployeeService {
       return newEmployee;
     }
     catch(e) {
+      logger.error(e+"\n");
+      logger.error(JSON.stringify(e));
       if (e instanceof QueryFailedError) {
-        logger.debug(e);
+        // logger.debug(e);
         logger.debug("QueryFailedError");
       }
       if (e instanceof CustomError) {

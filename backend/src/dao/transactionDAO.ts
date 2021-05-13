@@ -55,7 +55,7 @@ function create(t: ITransaction) {
 async function save(t: TransactionEntity) {
   try {
     const repository = getRepository(TransactionEntity);
-    return repository.save(t);
+    return await repository.save(t);
   }
   catch(e) {
     throw e;
@@ -64,7 +64,7 @@ async function save(t: TransactionEntity) {
 async function saveMany(t: TransactionEntity[]) {
   try {
     const repository = getRepository(TransactionEntity);
-    return repository.save(t);
+    return await repository.save(t);
   }
   catch(e) {
     throw e;
@@ -73,7 +73,7 @@ async function saveMany(t: TransactionEntity[]) {
 async function update(t: any) {
   try {
     const repository = getRepository(TransactionEntity);
-    return repository.update(t.id, t);
+    return await repository.update(t.id, t);
   }
   catch(e) {
     throw e;
@@ -90,7 +90,8 @@ async function deleteByIds(ids: Array<string>) {
     throw e;
   }
 }
-export default {
+
+const transactionDAO = {
   getMaxTransactionId,
   getById,
   getAll,
@@ -100,3 +101,5 @@ export default {
   update,
   deleteByIds
 }
+
+export default transactionDAO;

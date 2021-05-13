@@ -8,7 +8,7 @@ import uploadDisk from '../_base/file/uploadDisk';
 
 const router: Router = express.Router();
 
-router.get('/v1/employee/getbyid',
+router.post('/v1/employee/getbyid',
   accountController.authTokenAndPassRoleCodeToResLocals,
   authEmployeeMiddleware("getById"),
   employeeController.getById

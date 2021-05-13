@@ -11,10 +11,10 @@ class ValidatorTransaction {
   }
 
   public isValidTransaction(t: any) {
-    if (!t || !stringUtil.isValidString(t.description, 0, 2000)) {
+    if (!t || !stringUtil.isValidString(t.description, 1, 2000)) {
       return ERR_CODE.TRANSACTION_INVALID_DESCRIPTION;
     }
-    if (!stringUtil.isValidString(t.description, 0, 2000)) {
+    if (!stringUtil.isValidString(t.supplierName, 1, 2000)) {
       return ERR_CODE.TRANSACTION_INVALID_SUPPLIER;
     }
     if (!t.price) {

@@ -119,16 +119,16 @@ class TransactionService {
           id: t.id,
           time: transaction.time,
         };
-        if (t.employee.id !== transaction.importerId && transaction.importerId) {
+        if (transaction.importerId && t.employee.id.toString() != transaction.importerId.toString()) {
           newT.employee = employee;
         }
-        if (t.description !== transaction.description) {
+        if (t.description.toString() != transaction.description.toString()) {
           newT.description = transaction.description;
         }
-        if (t.price !== transaction.price) {
+        if (t.price.toString() != transaction.price.toString()) {
           newT.price = transaction.price;
         }
-        if (t.supplierName !== transaction.supplierName) {
+        if (t.supplierName.toString() != transaction.supplierName.toString()) {
           newT.supplierName = transaction.supplierName;
         }
         await transactionDAO.update(newT);

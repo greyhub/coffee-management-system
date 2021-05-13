@@ -1,8 +1,7 @@
-import dotenv from 'dotenv';
-import ormInit from './ormConnection';
+import {config} from 'dotenv';
 import logger from './_base/log/logger4js';
 
-const result = dotenv.config();
+const result = config();
 
 if (result.error) {
   logger.error("FAILED: LOAD .ENV");

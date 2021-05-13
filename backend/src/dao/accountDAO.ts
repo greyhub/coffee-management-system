@@ -33,6 +33,8 @@ async function getEmployeeByAccount(account: string) {
   }
 }
 
-export default {
+const accountDAO = {
   getEmployeeByAccount,
 }
+
+export default accountDAO;

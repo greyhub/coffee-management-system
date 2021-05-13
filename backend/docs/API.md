@@ -20,7 +20,9 @@ message: string
 ```
 > Request:
 ```ruby
-Date: dd-mm-yy
+Date (thay vì new Date(`dd-mm-yyyy`)) => `dd-mm-yyyy`
+Ví dụ:
+joinDate: '22-10-2020'
 ```
 
 > Nếu cần xác thực thì cần gắn Header:<br>
@@ -82,7 +84,7 @@ joinDate: Date
 expireDate: Date
 roleCode: number
 cccd: string
-avatar: string
+avatarUri: string
 isActive: boolean
 account: string
 salary: number
@@ -193,8 +195,8 @@ lastName: Độ dài > 0
 birthday: < Ngày hiện tại
 address: Độ dài > 0
 position: Độ dài > 0
-joinDate: Ngày gia nhập, định dạng `dd/mm/yy`
-expireDate: Ngày hết hạn hợp đồng, định dạng `dd/mm/yy`
+joinDate: Ngày gia nhập, định dạng `dd-mm-yyyy`
+expireDate: Ngày hết hạn hợp đồng, định dạng `dd-mm-yyyy`
 roleCode: Là 1 trong 2 giá trị
   1: Nhân viên
   2: Admin
@@ -238,7 +240,7 @@ Không
 
 > Response:<br>
 ```ruby
-employees: Array[
+employees: Array[{
   id: string
   firstName: string
   lastName: string
@@ -247,5 +249,373 @@ employees: Array[
   avatarUri: string
   isActive: boolean
   cccd: string
-]
+}]
+```
+# Transaction
+## Tạo một giao dịch:
+```ruby
+/v1/transaction/createone
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Lấy thông tin một giao dịch:
+```ruby
+/v1/transaction/getbyid
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Cập nhật thông tin một giao dịch:
+```ruby
+/v1/transaction/update
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Xóa một giao dịch:
+```ruby
+/v1/transaction/delete
+`delete`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+ids: Array<string>
+```
+> Response:<br>
+```ruby
+ids: Array<string>
+```
+## Lấy tất cả các giao dịch:
+```ruby
+/v1/transaction
+`get`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+> Response:<br>
+```ruby
+transactions: Array[{
+  id: string
+  description: string
+  price: number
+  supplierName: string
+  time: Date
+  employee: {
+    id: string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    position: string,
+    avatarUri: string,
+    isActive: string,
+    cccd: string
+  }
+}]
+```
+# Thống kê
+## Doanh thu theo thời gian (tính dựa theo trường money của đơn hàng):
+```ruby
+/v1/stat/revenue
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: Array<number>: Doanh thu theo ngày, index 0 đại diện cho ngày bắt đầu (start)
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": [
+    0,
+    0,
+    2210000,
+    0,
+    0
+  ],
+  "message": "OK"
+}
+```
+## Số lượng sản phẩm bán được theo thời gian:
+```ruby
+/v1/stat/revenue/product
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: {
+  [productId: string]: {
+    counts: [
+      number
+    ],
+    price: number
+  }
+}: Thông tin của sản phẩm `productId`: số lượng bán được theo ngày (index 0 đại diện cho ngày bắt đầu), giá của sản phẩm: `price`
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": {
+    "PD-000001": {
+      "counts": [
+        0,
+        0,
+        26,
+        0,
+        0
+      ],
+      "price": 80001
+    },
+    "PD-000002": {
+      "counts": [
+        0,
+        0,
+        23,
+        0,
+        0
+      ],
+      "price": 90
+    }
+  },
+  "message": "OK"
+}
+```
+## Số lượng đơn hàng mà nhân viên nhập theo thời gian:
+```ruby
+/v1/stat/employee/order
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: {
+  [employeeId: string]: {
+    counts: [
+      number
+    ],
+    money: [
+      number
+    ]
+  }
+}: Thông tin của nhân viên `employeeId`: số lượng order được theo ngày (index 0 đại diện cho ngày bắt đầu), số tiền tổng cộng của các đơn hàng theo ngày
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": {
+    "CF-000001": {
+      "counts": [
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      "money": [
+        0,
+        0,
+        1210000,
+        0,
+        0
+      ]
+    },
+    "CF-000002": {
+      "counts": [
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "money": [
+        0,
+        0,
+        2000000,
+        1000000,
+        0
+      ]
+    }
+  },
+  "message": "OK"
+}
 ```

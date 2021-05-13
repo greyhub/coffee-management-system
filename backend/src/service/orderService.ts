@@ -81,7 +81,7 @@ class OrderService {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
       }
       let neworderProducts =  Array<OrderProductEntity>();
-      newOrder.updateAt = e.updateAt,
+      newOrder.updateAt = dateUtil.fromTimeString(e.updateAt),
       newOrder.employee = newemployee,
       newOrder.note = e.note,
       newOrder.money = e.money,
@@ -133,7 +133,7 @@ class OrderService {
         await this.delete([e.id])
         let neworderProducts =  Array<OrderProductEntity>();
         newOrder.id = e.id,
-        newOrder.updateAt = order.updateAt,
+        newOrder.updateAt = dateUtil.fromTimeString(order.updateAt),
         newOrder.employee = newemployee,
         newOrder.note = order.note,
         newOrder.money = order.money,

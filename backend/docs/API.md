@@ -422,3 +422,200 @@ transactions: Array[{
   }
 }]
 ```
+# Thống kê
+## Doanh thu theo thời gian (tính dựa theo trường money của đơn hàng):
+```ruby
+/v1/stat/revenue
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: Array<number>: Doanh thu theo ngày, index 0 đại diện cho ngày bắt đầu (start)
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": [
+    0,
+    0,
+    2210000,
+    0,
+    0
+  ],
+  "message": "OK"
+}
+```
+## Số lượng sản phẩm bán được theo thời gian:
+```ruby
+/v1/stat/revenue/product
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: {
+  [productId: string]: {
+    counts: [
+      number
+    ],
+    price: number
+  }
+}: Thông tin của sản phẩm `productId`: số lượng bán được theo ngày (index 0 đại diện cho ngày bắt đầu), giá của sản phẩm: `price`
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": {
+    "PD-000001": {
+      "counts": [
+        0,
+        0,
+        26,
+        0,
+        0
+      ],
+      "price": 80001
+    },
+    "PD-000002": {
+      "counts": [
+        0,
+        0,
+        23,
+        0,
+        0
+      ],
+      "price": 90
+    }
+  },
+  "message": "OK"
+}
+```
+## Số lượng đơn hàng mà nhân viên nhập theo thời gian:
+```ruby
+/v1/stat/employee/order
+`post`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+start: `dd-mm-yyyy`
+end: `dd-mm-yyyy`
+```
+```ruby
+Example:
+{
+  "start":"29-04-2021",
+  "end":"03-05-2021"
+}
+Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
+```
+> Response:<br>
+```ruby
+type: string,
+revenue: {
+  [employeeId: string]: {
+    counts: [
+      number
+    ],
+    money: [
+      number
+    ]
+  }
+}: Thông tin của nhân viên `employeeId`: số lượng order được theo ngày (index 0 đại diện cho ngày bắt đầu), số tiền tổng cộng của các đơn hàng theo ngày
+```
+```ruby
+Example:
+{
+  "error": 200,
+  "type": "day",
+  "revenue": {
+    "CF-000001": {
+      "counts": [
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      "money": [
+        0,
+        0,
+        1210000,
+        0,
+        0
+      ]
+    },
+    "CF-000002": {
+      "counts": [
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "money": [
+        0,
+        0,
+        2000000,
+        1000000,
+        0
+      ]
+    }
+  },
+  "message": "OK"
+}
+```

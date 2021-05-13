@@ -61,7 +61,7 @@ async function getById(id: string) {
 async function getAll() {
   try {
     const repository = getRepository(EmployeeEntity);
-    return await repository.find({where: {isActive: true},cache: true});
+    return await repository.find({cache: true});
   }
   catch(e) {
     throw e;

@@ -13,12 +13,13 @@ async function filterOrderByTime(start: Date, end: Date) {
     const repository = getRepository(OrderEntity)
     return await repository
       .find({
-          where: {
-            updateAt: Between(start, end)
-          },
-          order: {
-            updateAt: 'ASC'
-          }
+        where: {
+          updateAt: Between(start, end)
+        },
+        order: {
+          updateAt: 'ASC'
+        },
+        cache: true
       });
   }
   catch(e) {

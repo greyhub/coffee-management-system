@@ -70,6 +70,7 @@ function create (e: IOrder){
 async function save(order: OrderEntity) {
   try {
     const repository = getRepository(OrderEntity);
+    logger.debug("updateAt: "+order.updateAt);
     return repository.save(order);
   }
   catch(e) {

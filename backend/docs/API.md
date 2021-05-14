@@ -456,8 +456,8 @@ end: `dd-mm-yyyy`
 ```ruby
 Example:
 {
-  "start":"29-04-2021",
-  "end":"03-05-2021"
+    "start":"29-04-2021",
+    "end":"03-05-2021"
 }
 Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
 ```
@@ -469,16 +469,16 @@ revenue: Array<number>: Doanh thu theo ngày, index 0 đại diện cho ngày b�
 ```ruby
 Example:
 {
-  "error": 200,
-  "type": "day",
-  "revenue": [
-    0,
-    0,
-    2210000,
-    0,
-    0
-  ],
-  "message": "OK"
+    "error": 200,
+    "type": "day",
+    "revenue": [
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "message": "OK"
 }
 ```
 ## Số lượng sản phẩm bán được theo thời gian:
@@ -502,8 +502,8 @@ end: `dd-mm-yyyy`
 ```ruby
 Example:
 {
-  "start":"29-04-2021",
-  "end":"03-05-2021"
+    "start":"29-04-2021",
+    "end":"03-05-2021"
 }
 Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
 ```
@@ -515,38 +515,195 @@ revenue: {
     counts: [
       number
     ],
-    price: number
+    metadata: {
+      id: string
+      name: string
+      price: string
+      description: string
+      previewUri: string (link to image file)
+      isActive: boolean
+    }
   }
-}: Thông tin của sản phẩm `productId`: số lượng bán được theo ngày (index 0 đại diện cho ngày bắt đầu), giá của sản phẩm: `price`
+}: Thông tin của sản phẩm `productId`: số lượng bán được theo ngày (index 0 đại diện cho ngày bắt đầu), thông tin thêm về sản phẩm
 ```
 ```ruby
 Example:
 {
-  "error": 200,
-  "type": "day",
-  "revenue": {
-    "PD-000001": {
-      "counts": [
-        0,
-        0,
-        26,
-        0,
-        0
-      ],
-      "price": 80001
+    "error": 200,
+    "type": "day",
+    "revenue": {
+        "PD-000001": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000001",
+                "name": "abcdef",
+                "price": 80000,
+                "description": "123456kmnop",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        },
+        "PD-000002": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000002",
+                "name": "abcdef",
+                "price": 80000,
+                "description": "123456kmnop",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        },
+        "PD-000003": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000003",
+                "name": "abcdef",
+                "price": 80001,
+                "description": "123456kmnop",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        },
+        "PD-000004": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000004",
+                "name": "ca phe 16",
+                "price": 30000,
+                "description": "ca phe ngon nhat the gioi ",
+                "previewUri": "static/4c30fbdf-d66d-4502-9ba7-65a55a06786b-anh-dep-ben-ly-cafe-den_110730392.jpg",
+                "isActive": true
+            }
+        },
+        "PD-000005": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000005",
+                "name": "ca phe 11",
+                "price": 50000,
+                "description": "ok",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        },
+        "PD-000006": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000006",
+                "name": "ca phe 12",
+                "price": 50000,
+                "description": "ok ok ok",
+                "previewUri": "static/f9bd0622-1240-492e-a8f9-fbc57050cad6-default-product.jpg",
+                "isActive": true
+            }
+        },
+        "PD-000007": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000007",
+                "name": "nước chanh leo",
+                "price": 50000,
+                "description": "đc làm từ chanh leo",
+                "previewUri": "static/0025dd9d-9a27-409f-8dc5-2af8f58817fb-default-product.jpg",
+                "isActive": true
+            }
+        },
+        "PD-000008": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000008",
+                "name": "Trà",
+                "price": 50000,
+                "description": "Mới",
+                "previewUri": "public/default-product.jpg",
+                "isActive": true
+            }
+        },
+        "PD-000009": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000009",
+                "name": "ca phe 1",
+                "price": 2000000,
+                "description": "ca phe lam tu ca phe",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        },
+        "PD-000010": {
+            "counts": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "PD-000010",
+                "name": "ca phe 2",
+                "price": 300000,
+                "description": "ca phe lam tu ca phe",
+                "previewUri": "public/default-product.jpg",
+                "isActive": false
+            }
+        }
     },
-    "PD-000002": {
-      "counts": [
-        0,
-        0,
-        23,
-        0,
-        0
-      ],
-      "price": 90
-    }
-  },
-  "message": "OK"
+    "message": "OK"
 }
 ```
 ## Số lượng đơn hàng mà nhân viên nhập theo thời gian:
@@ -570,8 +727,8 @@ end: `dd-mm-yyyy`
 ```ruby
 Example:
 {
-  "start":"29-04-2021",
-  "end":"03-05-2021"
+    "start":"30-04-2021",
+    "end":"01-05-2021"
 }
 Khoảng thời gian giữa start và end tối đa là 2 năm (tránh bị quá bộ nhớ)
 ```
@@ -585,49 +742,167 @@ revenue: {
     ],
     money: [
       number
-    ]
+    ],
+    metadata: {
+      id: string
+      firstName: string
+      lastName: string
+      address: string
+      position: string
+      avatarUri: string
+      isActive: boolean
+      cccd: string
+    }
   }
-}: Thông tin của nhân viên `employeeId`: số lượng order được theo ngày (index 0 đại diện cho ngày bắt đầu), số tiền tổng cộng của các đơn hàng theo ngày
+}: Thông tin của nhân viên `employeeId`: số lượng order được theo ngày (index 0 đại diện cho ngày bắt đầu), số tiền tổng cộng của các đơn hàng theo ngày, thông tin thêm về nhân viên
 ```
 ```ruby
 Example:
 {
-  "error": 200,
-  "type": "day",
-  "revenue": {
-    "CF-000001": {
-      "counts": [
-        0,
-        0,
-        4,
-        0,
-        0
-      ],
-      "money": [
-        0,
-        0,
-        1210000,
-        0,
-        0
-      ]
+    "error": 200,
+    "type": "day",
+    "revenue": {
+        "CF-000001": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000001",
+                "firstName": "VBN",
+                "lastName": "Long",
+                "address": "ADAIwjqpe",
+                "position": "Quản lý",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/294daead-e423-405a-9c8a-4b150ef5b859-poster.jpg",
+                "isActive": false,
+                "cccd": "333010112821"
+            }
+        },
+        "CF-000002": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000002",
+                "firstName": "VBN",
+                "lastName": "Long",
+                "address": "ADAIwjqpe",
+                "position": "Lễ Tân",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/27807b35-253b-40a4-8b06-bfb909023a08-king.jpg",
+                "isActive": false,
+                "cccd": "933010112821"
+            }
+        },
+        "CF-000003": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000003",
+                "firstName": "Viet",
+                "lastName": "Long",
+                "address": "Bac Ninh",
+                "position": "Dau bep",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/ec365ebe-0274-4184-8fa5-45844bb6ce2a-poster2.jpg",
+                "isActive": false,
+                "cccd": "125671234599"
+            }
+        },
+        "CF-000004": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000004",
+                "firstName": "huy",
+                "lastName": "vu",
+                "address": "BK haf nooij",
+                "position": "admin",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/fec58134-4a6f-4984-8314-265b0071c912-tkb.PNG",
+                "isActive": false,
+                "cccd": "123456789123"
+            }
+        },
+        "CF-000005": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000005",
+                "firstName": "1231235",
+                "lastName": "12312312",
+                "address": "Lang Son",
+                "position": "nhan vien",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/45a9da24-5119-4378-aff6-0d3a3fb04248-server_information.jpg",
+                "isActive": false,
+                "cccd": "123456789012"
+            }
+        },
+        "CF-000006": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000006",
+                "firstName": "hung",
+                "lastName": "ma",
+                "address": "Lang Son",
+                "position": "nhan vien",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/8a223379-e066-4726-90f2-de284a9e5493-7bf49cc8e519bcea2fdd87b00df971aa.jpg",
+                "isActive": false,
+                "cccd": "341234235673"
+            }
+        },
+        "CF-000007": {
+            "counts": [
+                0,
+                0
+            ],
+            "money": [
+                0,
+                0
+            ],
+            "metadata": {
+                "id": "CF-000007",
+                "firstName": "tung dz",
+                "lastName": "ma",
+                "address": "Lang Son",
+                "position": "Nhan vien cot can",
+                "avatarUri": "https://mighty-plains-90447.herokuapp.com/static/6aae43e1-8daa-4a76-8c05-4736734106aa-Screenshot from 2021-03-28 16-58-51.png",
+                "isActive": false,
+                "cccd": "082343996345"
+            }
+        }
     },
-    "CF-000002": {
-      "counts": [
-        0,
-        0,
-        2,
-        1,
-        0
-      ],
-      "money": [
-        0,
-        0,
-        2000000,
-        1000000,
-        0
-      ]
-    }
-  },
-  "message": "OK"
+    "message": "OK"
 }
 ```

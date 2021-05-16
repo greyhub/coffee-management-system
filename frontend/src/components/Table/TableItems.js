@@ -27,7 +27,6 @@ export default function ItemsTable(props) {
     const [description,setDescription] = useState('');
     const [isActive,setIsActive] = useState('');
 
-    // const [image, setImage] = useState(null);
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTableItems = classes.table;
 

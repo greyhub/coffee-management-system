@@ -11,7 +11,8 @@ import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
 import axios from 'axios'
 import {render} from "react-dom";
-
+import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 const styles = {
     cardCategoryWhite: {
@@ -49,6 +50,13 @@ export default function Items(){
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
     const itemsJson = {'header':['ID','Tên sản phẩm','Giá','Mô tả','Ảnh','Còn hàng','Hành động'],'data':data};
+    // const { exp } = jwtDecode(token)
+    // const expirationTime = (exp * 1000) - 60000
+    // if (Date.now() >= expirationTime) {
+    //     localStorage.clear();
+    //
+    // }
+
     useEffect(()=>{
         getData()
     },[]);

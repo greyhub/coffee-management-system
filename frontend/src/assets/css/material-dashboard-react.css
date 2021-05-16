@@ -1,3 +1,14 @@
+.start{
+  color: #fff;
+  margin-right: 20px;
+}
+
+.end{
+  color: #fff;
+  margin-right: 30px;
+  margin-left: 20px;
+}
+
 .ct-grid {
   stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 1px;

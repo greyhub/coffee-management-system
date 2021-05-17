@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Store from "@material-ui/icons/Store";
-import DateRange from "@material-ui/icons/DateRange";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/Table.js";
@@ -12,15 +11,10 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import axios from "axios";
-import {Button} from "react-bootstrap";
-
 import ChartistGraph from "react-chartist";
 import AccessTime from "@material-ui/icons/AccessTime";
-// const useStyles = makeStyles(styles);
 import {
-    dailySalesChart,
     emailsSubscriptionChart,
-    completedTasksChart
 } from "variables/charts.js";
 
 
@@ -28,36 +22,35 @@ import {
 export default function Statistics(props) {
     const useStyles = makeStyles(styles);
     const classes = useStyles();
-    const [data, setData] = useState([]);
     const [data1, setData1] = useState([]);
-    const [loading, setLoad] = useState(true);
     const [token, setToken] = useState();
     const [revenueData, setRevenueData] = useState();
     const [day, setDay] = useState();
     const [labels, setNamePD] = useState();
     const [series, setCount] = useState();
-    const [start,setStart] = useState('');
-    const [end,setEnd] = useState('');
-    // const today = new Date();
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [high, setHigh] = useState();
     const itemsTimeJson = {
-        'header': ['ID sản phẩm', 'Tên sản phẩm', 'Số lượng sản phẩm đã bán', 'Giá'],
-        'data': {
+        data: {
             labels,
             series
+        },
+        options: {
+            low: 0,
+            high
         },
     };
     const itemsTimeJson1 = {
         'header': ['ID nhân viên', 'Tên nhân viên', 'Số lượng đơn hàng', 'Tổng thu'],
         'data': data1
     };
-    // const {token} = props;
+
     function handleChangeInputTag(e,func){
         e.preventDefault();
         func(e.target.value);
     }
-    // useEffect(() => {
-    //     getData1()
-    // }, []);
+
     async function handleSubmit(e,id) {
         e.preventDefault();
         var _form = document.getElementById(id);
@@ -65,8 +58,7 @@ export default function Statistics(props) {
         if (id == '4'){
 
 
-            // async function getData1() {
-            //     if (loading == true) {
+
                     const res3 = await axios({
                         method: 'post',
                         url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
@@ -136,97 +128,70 @@ export default function Statistics(props) {
                         alert(err1)
                     });
 
-                    var listNamePD = [];
-                    var listCountPD = [[]];
-                    var sumItem = 0;
-                    const arr = Object.keys(res4.data.revenue);// ra productID o dang mang
-                    // const arr1 = Object.keys(arr[0]);
+            var listNamePD = [];
+            var listCountPD = [];
+            var sumItem = 0;
+            var countHigh = 0;
+            const arr = Object.keys(res4.data.revenue);// ra productID o dang mang
 
-                    for (var i = 0; i < arr.length; i++) {
-                        listNamePD.push([
-                            Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1]
-                            + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
-                                .toString()
-                        ])
-                    }
-
-                    for (var i = 0; i < arr.length; i++) {
-                        for (var j = 0; j < Object.values(Object.values(res4.data.revenue)[0])[0].length; j++) {
-                            // if (i == arr.length) break;
-                            sumItem += (Object.values(Object.values(res4.data.revenue)[i])[0][j]+1)/5;
-                        }
-                        listCountPD.push(sumItem.toString());
-                        // sumItem = 0;
-                    }
-                    // const arr4 = Object.values(res4.data.revenue);
-
-                    // const arr5 = Object.keys(arr4[0])[1];//lay dc ten metadata
-                    // const arr6 = Object.values(arr4[0]);// thay doi ++1
-                    // arr6[0][2]     lay dc gia tri ban hang ngay thu 3
-                    // const arr7 = Object.values(arr6[1]);
-                    // arr7[1]   //ra ten cua san pham 1
+//do thi product
+            for (var i = 0; i < arr.length; i++) {
+                listNamePD.push([
+                    Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1]
+                    + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
+                        // + "<br/>" +Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[2]
+                        .toString()
+                ])
+                for (var j = 0; j < Object.values(Object.values(res4.data.revenue)[0])[0].length; j++) {
+                    sumItem += (Object.values(Object.values(res4.data.revenue)[i])[0][j]);
+                }
+                listCountPD.push(sumItem.toString());
+                if (countHigh < sumItem) {
+                    countHigh = sumItem + 4
+                }
 
 
-                    // for (var i = 0; i < arr.length; i++) {
-                    //     // var arr6 = Object.values(arr4[i]);
-                    //     //  arr7[0],arr7[1], arr6[0],arr7[2]
-                    //     for (var j = 0; j < Object.values(Object.values(res4.data.revenue)[0])[0].length; j++) {
-                    //         sumItem += Object.values(Object.values(res4.data.revenue)[i])[0][0];
-                    //     }
-                    //         list.push([
-                    //             Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0],
-                    //             Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1],
-                    //             // Object.values(Object.values(res4.data.revenue)[i])[0],
-                    //             sumItem,
-                    //             Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[2].toString()]);
-                    //     }
-                    //order
-                    var list1 = [];
+                sumItem = 0;
+
+            }
+
+
+            var list1 = [];
                     var sumOrder = 0;
                     var sumMoney = 0;
                     const eo = Object.keys(res5.data.revenue);
                     const eo1 = Object.values(res5.data.revenue);
                     const eo2 = Object.values(eo1[0]);// tang k++
-                    //eo2[0][2] ra so luong don hang ngay 3 cua nhan vien 1
-                    // eo2[1][2] ra so tien ban hang ngay 3 cua nhan vien 1
-                    // const eo3 = Object.values(eo2[2]);
-                    //eo3[1] ra first name nhan vien
                     for (var k=0; k<eo.length; k++) {
-                        for (var j=0; j<eo2[0].length; j++){
-                            sumItem += Object.values(eo1[k])[0][j];
+                        for (var j = 0; j < eo2[0].length; j++) {
+                            sumOrder += Object.values(eo1[k])[0][j];
                             sumMoney += Object.values(eo1[k])[1][j];
                         }
                         list1.push([
                             eo[k],
-                            Object.values(Object.values(eo1[k])[2])[1]+" "+Object.values(Object.values(eo1[k])[2])[2],
+                            Object.values(Object.values(eo1[k])[2])[1] + " " + Object.values(Object.values(eo1[k])[2])[2],
                             sumOrder,
                             sumMoney + " Đ"
                                 .toString()]);
+                        sumOrder = 0;
+                        sumMoney = 0;
                     }
-//thu nhap tong
-                    var sumRevenue = 0;
-                    for(var i=0;i<res6.data.revenue.length; i++){
-                        sumRevenue += res6.data.revenue[i];
-                    }
-// var countDay ;
-// if(res6.data.revenue.length >=7){
-//     return countDay ="tuần"
-// } else if (res6.data.revenue.length<7){
-//     return countDay ="ngày"
-// }
-                    setRevenueData(sumRevenue+" Đồng")
-                    setDay(res6.data.revenue.length + " ngày");
 
-                    setCount([listCountPD]);
-                    setNamePD(listNamePD);
-                    setData1(list1);
-                    setLoad(false);
-                    setToken(res3.data['token']);
-                // }
+            var sumRevenue = 0;
+            for (var i = 0; i < res6.data.revenue.length; i++) {
+                sumRevenue += res6.data.revenue[i];
             }
+
+            setRevenueData(sumRevenue + " Đồng")
+            setDay(res6.data.revenue.length + " ngày");
+            setHigh(countHigh);
+            setCount([listCountPD]);
+            setNamePD(listNamePD);
+            setData1(list1);
+            setToken(res3.data['token']);
+
         }
-    //     window.location.reload();
-    // }
+        }
 
 
 
@@ -234,23 +199,24 @@ export default function Statistics(props) {
         <div>
             <CardHeader color="info">
                 <div className='FormDay'>
-
-                    <form id='4'
-                              onSubmit={(e) => {
-                            handleSubmit(e, '4')
-                        }}
-                    >
+                    <form id='4' onSubmit={(e) => {
+                        handleSubmit(e, '4')
+                    }}>
                         <label className="start">Start</label>
-                        <label className="start">
+                        <label className="start inp">
                             <input type="text" name='start' placeholder="dd-mm-yyyy"
-                            value={start}
-                                   onChange={(e)=>{handleChangeInputTag(e,setStart)}}
-                            />
+                                   value={start}
+                                   onChange={(e) => {
+                                       handleChangeInputTag(e, setStart)
+                                   }}/>
                         </label>
+
                         <label style={{color: '#fff'}}>End</label>
-                        <label className="end">
-                            <input type="text" name = 'end' placeholder="dd-mm-yyyy" value={end}
-                                   onChange={(e)=>{handleChangeInputTag(e,setEnd)}}
+                        <label className="end inp inp1">
+                            <input className="inp1" type="text" name='end' placeholder="dd-mm-yyyy" value={end}
+                                   onChange={(e) => {
+                                       handleChangeInputTag(e, setEnd)
+                                   }}
                             />
                         </label>
 
@@ -258,30 +224,7 @@ export default function Statistics(props) {
                     </form>
                 </div>
             </CardHeader>
-            {/*<div className={classes.tableResponsive}>*/}
-            {/*<div className='FormDay'>*/}
 
-            {/*    <form id='x'*/}
-            {/*    //       onSubmit={(e) => {*/}
-            {/*    //     handleSubmit(e, 'x')*/}
-            {/*    // }}*/}
-            {/*    >*/}
-            {/*        <label>*/}
-            {/*           Start:*/}
-
-            {/*            <input type="text" name='start' placeholder="dd-mm-yyyy"/>*/}
-            {/*        </label>*/}
-
-            {/*        <label>*/}
-            {/*            End:*/}
-
-            {/*            <input type="text" name = 'end' placeholder="dd-mm-yyyy"/>*/}
-            {/*        </label>*/}
-
-            {/*        <input type="Submit" value='Submit'/>*/}
-            {/*    </form>*/}
-            {/*</div>*/}
-            {/*</div>*/}
             <GridContainer>
 
                 <GridItem xs={12} sm={12} md={12}>
@@ -293,12 +236,6 @@ export default function Statistics(props) {
                             <p className={classes.cardCategory}>Tổng doanh thu {day}</p>
                             <h3 className={classes.cardTitle}>{revenueData}</h3>
                         </CardHeader>
-                        {/*<CardFooter stats>*/}
-                        {/*    <div className={classes.stats}>*/}
-                        {/*        <DateRange/>*/}
-                        {/*        {day}*/}
-                        {/*    </div>*/}
-                        {/*</CardFooter>*/}
                     </Card>
                 </GridItem>
 
@@ -309,14 +246,13 @@ export default function Statistics(props) {
                                 className="ct-chart"
                                 data={itemsTimeJson.data}
                                 type="Bar"
-                                options={emailsSubscriptionChart.options}
+                                options={itemsTimeJson.options}
                                 responsiveOptions={emailsSubscriptionChart.responsiveOptions}
                                 listener={emailsSubscriptionChart.animation}
                             />
                         </CardHeader>
                         <CardBody>
                             <h4 className={classes.cardTitle}>Số lượng sản phẩm bán được trên từng sản phẩm</h4>
-                            {/*<p className={classes.cardCategory}>Last Campaign Performance</p>*/}
                         </CardBody>
                         <CardFooter chart>
                             <div className={classes.stats}>

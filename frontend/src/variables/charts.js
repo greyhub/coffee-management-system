@@ -70,35 +70,35 @@ const dailySalesChart = {
 // #############################
 
 const emailsSubscriptionChart = {
-  // data: {
-  //   labels: [
-  //     "Jan",
-  //     "Feb",
-  //     "Mar",
-  //     "Apr",
-  //     "Mai",
-  //     "Jun",
-  //     "Jul",
-  //     "Aug",
-  //     "Sep",
-  //     "Oct",
-  //     "Nov",
-  //     "Dec"
-  //   ],
-  //   series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 100]]
-  // },
+  data: {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 100]]
+  },
   options: {
-    axisX: {
-      showGrid: false
-    },
+    // axisX: {
+    //   showGrid: false
+    // },
     low: 0,
-    high: 100,
-    chartPadding: {
-      top: 0,
-      right: 5,
-      bottom: 0,
-      left: 0
-    }
+    high: 19,
+    // chartPadding: {
+    //   top: 0,
+    //   right: 5,
+    //   bottom: 0,
+    //   left: 0
+    // }
   },
   responsiveOptions: [
     [

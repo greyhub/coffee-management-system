@@ -149,6 +149,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
+
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="warning">
@@ -172,6 +173,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
+
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="danger">

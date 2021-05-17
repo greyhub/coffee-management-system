@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b170594-d648-4649-88e4-defe0c7f00b0" name="Default Changelist" comment="" />
+    <list default="true" id="4b170594-d648-4649-88e4-defe0c7f00b0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/variables/charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/variables/charts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Statistics/Statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Statistics/Statistics.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1rswTbJ3oySLLPobnfZjrl3o6zl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -16,6 +23,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../NLP/test3/sumy" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -25,6 +34,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619778120355</updated>
       <workItem from="1619778123179" duration="6000" />
+      <workItem from="1621241320503" duration="58000" />
     </task>
     <servers />
   </component>

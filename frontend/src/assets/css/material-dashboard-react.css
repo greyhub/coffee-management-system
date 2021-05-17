@@ -1,3 +1,13 @@
+@media all and (max-width: 480px) {
+.inp{
+  display: block;
+}
+  .inp1{
+    margin-left: 0 !important;
+  }
+
+}
+
 .start{
   color: #fff;
   margin-right: 20px;

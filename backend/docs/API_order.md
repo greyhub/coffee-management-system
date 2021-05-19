@@ -182,7 +182,7 @@ không
 
 ## Tạo 1 order:
 ```ruby
-/v1/order/create
+/v1/order/createone
 `put`
 ```
 >Header:<br>

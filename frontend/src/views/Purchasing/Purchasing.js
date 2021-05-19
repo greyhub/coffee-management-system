@@ -44,38 +44,6 @@ const styles = {
     }
   };
 
-// const useStyles = makeStyles(styles);
-
-// var purchasingJson = {
-//     'header':['STT','Ten nguyen lieu','Nha cung cap','Ngay nhap','So luong','Don gia(VND)','Don vi','Chi phi(VND)','Chi tiet'], 
-//     'data':[['1','Hat ca phe','Trung Nguyen','01/04/2021','100','100.000','gram','3.000.000','Chiet khau 10%'], 
-//             ['2','Hat ca phe','Trung Nguyen','01/04/2021','100','100.000','gram','3.000.000','Chiet khau 10%']]}
-
-// export default function Purchasing(){
-//     const classes = useStyles();
-//     return(
-//         <GridContainer>
-//             <GridItem xs={12} sm={12} md={12}>
-//                 <Card>
-//                     <CardHeader color="primary">
-//                         <h4 className={classes.cardTitleWhite}>Thong tin nguyen lieu</h4>
-//                         <p className={classes.cardCategoryWhite}>
-//                         Nguyen lieu thu mua theo thoi gian
-//                         </p>
-//                     </CardHeader>
-//                     <CardBody>
-//                     <Table
-//                         tableHeaderColor="info"
-//                         tableHead={purchasingJson['header']}
-//                         tableData={purchasingJson['data']}
-//                     />
-//                     </CardBody>
-//                 </Card>
-//             </GridItem>
-//       </GridContainer>
-//     );
-// } 
-
 export default function Purchasing(){
     const useStyles = makeStyles(styles);
     const classes = useStyles();
@@ -115,7 +83,11 @@ export default function Purchasing(){
             });
             var list = [];
             for(var i = 0;i<res1.data['products'].length;i++){
-                list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], res1.data['products'][i]['price'], res1.data['products'][i]['description'],res1.data['products'][i]['previewUri'],res1.data['products'][i]['isActive'].toString()]);
+                list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], 
+                res1.data['products'][i]['price'], res1.data['products'][i]['description'],
+                res1.data['products'][i]['previewUri'],res1.data['products'][i]['isActive'],
+                res1.data['products'][i]['name'], res1.data['products'][i]['name'], 
+                res1.data['products'][i]['name'].toString()]);
             }
             setData(list);
             setLoad(false);

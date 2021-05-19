@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -157,50 +156,49 @@ export default function PurchasingTable(props) {
                     <label>
                         Nha cung cap
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
-                    </label>
-                    {/* <label>
-                        Gia
-                        <br/>
                         <input type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
-                    </label> */}
+                    </label>
+                    <br/>
+
                     <label>
                         So luong
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'description' value={description} onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
                     </label>
+                    <br/>
                     <label>
                         Don gia (VND)
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
                     </label>
+                    <br/>
                     <label>
                         Don vi
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
+                    <br/>
                     <label>
                         Chi phi (VND)
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
+                    <br/>
                     <label>
                         Chi tiet
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
                     <br/>
-                    <br/>
 
                     <br/>
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
-            
             <div class='FormFixPurchasing' style={{display:'none'}}>
                 <Button onClick={clickReturnToList}>Back</Button>
                 <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
-                <label>
+                    <label>
                         Ten nguyen lieu
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
@@ -209,35 +207,41 @@ export default function PurchasingTable(props) {
                     <label>
                         Nha cung cap
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
                     </label>
+                    <br/>
+
                     <label>
                         So luong
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'description' value={description} onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
                     </label>
+                    <br/>
                     <label>
                         Don gia (VND)
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
                     </label>
+                    <br/>
                     <label>
                         Don vi
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
+                    <br/>
                     <label>
                         Chi phi (VND)
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
+                    <br/>
                     <label>
                         Chi tiet
                         <br/>
                         <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
                     </label>
-
                     <br/>
+
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
@@ -301,3 +305,6 @@ PurchasingTable.propTypes = {
     tableHead: PropTypes.arrayOf(PropTypes.string),
     tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
+
+
+

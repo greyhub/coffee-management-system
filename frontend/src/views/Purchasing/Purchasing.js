@@ -50,7 +50,7 @@ export default function Purchasing(){
     const [data, setData] = useState([]);
     const [loading, setLoad] = useState(true);
     const [token, setToken] = useState();
-    const purchasingJson = {'header':['STT','Ten nguyen lieu','Nha cung cap','Ngay nhap','So luong','Don gia(VND)','Don vi','Chi phi(VND)','Chi tiet'], 'data':data};
+    const purchasingJson = {'header':['ID','Tên nguyên liệu','Mô tả','Số lượng','Giá (VND)','Nhà cung cấp','Ngày mua'], 'data':data};
     useEffect(()=>{
         getData()
     },[]);
@@ -71,7 +71,7 @@ export default function Purchasing(){
             });
             const res1 = await axios({
                 method: 'get',
-                url: "https://mighty-plains-90447.herokuapp.com/v1/product",
+                url: "https://mighty-plains-90447.herokuapp.com/v1/transaction",
                 header: res.data['token'],
                 headers:{
                     'Header': res.data['token'],
@@ -82,12 +82,12 @@ export default function Purchasing(){
                 alert(err1)
             });
             var list = [];
-            for(var i = 0;i<res1.data['products'].length;i++){
-                list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], 
-                res1.data['products'][i]['price'], res1.data['products'][i]['description'],
-                res1.data['products'][i]['previewUri'],res1.data['products'][i]['isActive'],
-                res1.data['products'][i]['name'], res1.data['products'][i]['name'], 
-                res1.data['products'][i]['name'].toString()]);
+            for(var i = 0;i<res1.data['transactions'].length;i++){
+                list.push([res1.data['transactions'][i]['id'], res1.data['transactions'][i]['materialName'], 
+                res1.data['transactions'][i]['description'],
+                res1.data['transactions'][i]['count'],res1.data['transactions'][i]['price'],
+                res1.data['transactions'][i]['supplierName'],
+                res1.data['transactions'][i]['time'].toString()]);
             }
             setData(list);
             setLoad(false);

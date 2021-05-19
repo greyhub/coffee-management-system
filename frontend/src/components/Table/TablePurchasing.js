@@ -19,14 +19,15 @@ export default function PurchasingTable(props) {
     var classTablePurchasing;
     var recordPurchasing;
     const classes = useStyles();
-    const [maSP,setMaSp] = useState('');
-    const [name,setName] = useState('');
-    const [price,setPrice] = useState('');
+    const [id,setID] = useState('');
+    const [materialName,setMaterialName] = useState('');
     const [description,setDescription] = useState('');
-    const [isActive,setIsActive] = useState('');
-    const [Link,setLink] = useState('');
+    const [count,setCount] = useState('');
+    const [price,setPrice] = useState('');
+    const [supplierName,setSupplierName] = useState('');
+    const [time,setTime] = useState('');
 
-    const PurchasingInfo = {'maSP': maSP,'name':name,'price':'price', 'description':description,'isActive':isActive};
+    // const PurchasingInfo = {'id': id,'name':name,'price':'price', 'description':description,'isActive':isActive};
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTablePurchasing = classes.table;
 
@@ -34,7 +35,7 @@ export default function PurchasingTable(props) {
         const dl = prop[0];
         const res = await axios({
             method: 'delete',
-            url: "https://mighty-plains-90447.herokuapp.com/v1/product/delete",
+            url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/delete",
             headers:{
                 "Authorization": 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ export default function PurchasingTable(props) {
         document.getElementsByClassName('FormFixPurchasing')[0].setAttribute('style','display: initial');
         axios({
             method: 'post',
-            url: "https://mighty-plains-90447.herokuapp.com/v1/product/getbyid",
+            url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/getbyid",
             headers:{
                 // 'Encytpe': 'application/json',
                 "Authorization": 'Bearer ' + token,
@@ -64,18 +65,19 @@ export default function PurchasingTable(props) {
                 id: prop[0]
             }
         }).then(function(res){
-            setMaSp(res.data['id']);
-            setName(res.data['name']);
-            setPrice(res.data['price']);
+            setID(res.data['id']);
+            setMaterialName(res.data['materialName']);
             setDescription(res.data['description']);
-            setIsActive(res.data['isActive'].toString());
+            setCount(res.data['count']);
+            setPrice(res.data['price']);
+            setTime(res.data['time']);
 
         }).catch(function(err){
             alert(err)
         });
     }
 
-    function clickAddStaff(){
+    function clickAdd(){
         document.getElementsByClassName(classTablePurchasing)[0].setAttribute('style','display:none');
         document.getElementsByClassName('FormAddPurchasing')[0].setAttribute('style','display: initial');
     }
@@ -99,19 +101,21 @@ export default function PurchasingTable(props) {
         if(id == '1'){
             const res = await axios({
                 method: 'put',
-                url: "https://mighty-plains-90447.herokuapp.com/v1/product/createone",
+                url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/createone",
                 headers:{
                     "Authorization": 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 },
                 data:  {
-                    name: _data.get('name'),
-                    price: _data.get('price'),
+                    materialName: _data.get('materialName'),
                     description: _data.get('description'),
-                    isActive: _data.get('isActive')
+                    count: _data.get('count'),
+                    price: _data.get('price'),
+                    supplierName: _data.get('supplierName'),
+                    time: _data.get('time')
                 }
             }).then(function(res){
-                    alert('Add Purchasingeji Success');
+                    alert('Add Purchasing Success');
                     return res;
                 }
             ).catch(function(err){
@@ -121,17 +125,19 @@ export default function PurchasingTable(props) {
         else if(id == '2'){
             const res = await axios({
                 method: 'put',
-                url: "https://mighty-plains-90447.herokuapp.com/v1/product/update",
+                url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/update",
                 headers:{
                     "Authorization": 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 },
                 data:  {
                     id: _data.get('id'),
-                    name: _data.get('name'),
-                    price: _data.get('price'),
+                    materialName: _data.get('materialName'),
                     description: _data.get('description'),
-                    isActive: _data.get('isActive')
+                    count: _data.get('count'),
+                    price: _data.get('price'),
+                    supplierName: _data.get('supplierName'),
+                    time: _data.get('time')
                 }
             }).then(function(res){
                     alert('Update Purchasing Success');
@@ -148,46 +154,40 @@ export default function PurchasingTable(props) {
                 <Button onClick={clickReturnToList}>Back</Button>
                 <form id='1' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'1')}}>
                     <label>
-                        Ten nguyen lieu
+                        Tên nguyên liệu
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
                     </label>
                     <br/>
                     <label>
-                        Nha cung cap
+                        Mô tả
                         <br/>
-                        <input type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
+                        <input type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
                     </label>
                     <br/>
 
                     <label>
-                        So luong
+                        Số lượng
                         <br/>
-                        <input type="text" name = 'description' value={description} onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
+                        <input type="number" name = 'count' value={count} onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
                     </label>
                     <br/>
                     <label>
-                        Don gia (VND)
+                        Giá (VND)
                         <br/>
-                        <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
+                        <input type="number" name = 'price' value={price} onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
                     </label>
                     <br/>
                     <label>
-                        Don vi
+                        Nhà cung cấp
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'supplierName' value = {supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
                     </label>
                     <br/>
                     <label>
-                        Chi phi (VND)
+                        Ngày mua
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Chi tiet
-                        <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
                     </label>
                     <br/>
 
@@ -199,53 +199,53 @@ export default function PurchasingTable(props) {
                 <Button onClick={clickReturnToList}>Back</Button>
                 <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
                     <label>
-                        Ten nguyen lieu
+                        ID
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'id' value = {id} />
                     </label>
                     <br/>
                     <label>
-                        Nha cung cap
+                        Tên nguyên liệu
                         <br/>
-                        <input type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
+                        <input type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
+                    </label>
+                    <br/>
+                    <label>
+                        Mô tả
+                        <br/>
+                        <input type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
                     </label>
                     <br/>
 
                     <label>
-                        So luong
+                        Số lượng
                         <br/>
-                        <input type="text" name = 'description' value={description} onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
+                        <input type="number" name = 'count' value={count} onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
                     </label>
                     <br/>
                     <label>
-                        Don gia (VND)
+                        Giá (VND)
                         <br/>
-                        <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
+                        <input type="number" name = 'price' value={price} onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
                     </label>
                     <br/>
                     <label>
-                        Don vi
+                        Nhà cung cấp
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'supplierName' value = {supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
                     </label>
                     <br/>
                     <label>
-                        Chi phi (VND)
+                        Ngày mua
                         <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Chi tiet
-                        <br/>
-                        <input type="text" name = 'name' value = {name}  onChange={(e)=>{handleChangeInputTag(e,setName)}}/>
+                        <input type="text" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
                     </label>
                     <br/>
 
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
-            <div className={classes.table}><Button id='add' onClick={()=>clickAddStaff()}><AddIcon/></Button>
+            <div className={classes.table}><Button id='add' onClick={()=>clickAdd()}><AddIcon/></Button>
                 <Table className={classes.table}>
                     {tableHead !== undefined ? (
                         <TableHead className={classes[tableHeaderColor + "TableHeader"]}>

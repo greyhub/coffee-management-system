@@ -9,6 +9,7 @@ import logger from "../_base/log/logger4js";
 import productDAO from "../dao/productDAO";
 import { ProductEntity } from "../entity/productEntity";
 import EmployeeItemFindDTO from "../dto/employee/employeeItemFindDTO";
+import ProductItemFindDTO from "../dto/product/productItemFindDTO";
 
 class StatService {
   private static _instance: StatService
@@ -83,7 +84,7 @@ class StatService {
       if (diffDays > 365*2) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_OVER_LIMIT_TWO_YEARS);
       }
-      const result = new Map<string, {counts: Array<number>, metadata: ProductEntity}>();
+      const result = new Map<string, {counts: Array<number>, metadata: ProductItemFindDTO}>();
       if (!rrProduct) {
         rrProduct = [];
       }
@@ -95,7 +96,7 @@ class StatService {
         for (let j = 0; j < arr.length; j++) {
           arr[j] = 0;
         }
-        result.set(products[i].id.toString(), {counts: arr, metadata: products[i]});
+        result.set(products[i].id.toString(), {counts: arr, metadata: new ProductItemFindDTO(products[i])});
       }
 
       //Reduce result

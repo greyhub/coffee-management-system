@@ -21,41 +21,46 @@ import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/i
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Icon, IconButton } from "@material-ui/core";
-
+import axios from 'axios';
 
 export default function BillsTable(props) {
   const useStyles = makeStyles(styles);
   var classTableEmployess;
   var recordEmployess;
   const classes = useStyles();
-  const [maNV,setMaNV] = useState('');
-  const [maDH,setMaDH] = useState('');
-  const [ngayTao,setNT] = useState('');
-  const [giaTri,setGT] = useState('');
-  const [tenKH,setTKH] = useState('');
-  const [sdt,setSDT] = useState('');
-  const [ghichu,setGC] = useState('');
-  const [TT,setTT] = useState('');
-  const BillsInfo = {'MaNV':maNV,'MaDH':maDH,'ngayTao':ngayTao,'GiaTri':giaTri,'tenKH':tenKH,'sdt':sdt,'GhiChu':ghichu,'TT':TT};
-  const { tableHead, tableData, tableHeaderColor } = props;
+  var tmp = {'MaNV':'','MaDH':'','ngayTao':'','GiaTri':'','tenKH':'','GhiChu':'','sdt':'','TT':'','products':[]};
+  const [BillsInfo,setBills] = useState(tmp)
+  const { tableHead, tableData, tableHeaderColor,token } = props;
   classTableEmployess = classes.table;
-  function clickDelete(e,prop){
-    alert(prop); //prop[0],prop[1],....
-    document.location.reload();
+  async function clickDelete(e,prop){
+    e.preventDefault();
+    const res = await axios({
+        url: "https://mighty-plains-90447.herokuapp.com/v1/order/delete",
+        method:"delete",
+        headers:{
+          "Authorization": 'Bearer ' + token
+        },
+        data:{
+          ids: [prop[0]]
+        }
+    }).then(res=>{
+      document.location.reload();
+    }).catch(err=>{
+      alert(err);
+    })
   }
 
   function clickFix(e,prop){
     //alert(prop); //prop[0],prop[1],....
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
     document.getElementsByClassName('BillFixForm')[0].setAttribute('style','display: initial');
-    setMaDH(prop[0]);
-    setMaNV(prop[1]);
-    setNT(prop[2]);
-    setGT(prop[3]);
-    setTKH(prop[4]);
-    setSDT(prop[5]);
-    setGC(prop[6]);
-    setTT(prop[7]);
+    tmp['MaDH']=prop[0];
+    tmp['MaNV']=prop[1];
+    tmp['ngayTao'] = prop[2];
+    tmp['GiaTri'] = prop[3];
+    tmp['tenKH'] = prop[4];
+    tmp['GhiChu'] = prop[5]
+    setBills(tmp);
     e.preventDefault();
     
     }
@@ -75,65 +80,109 @@ export default function BillsTable(props) {
     }
 
     function handleChangeInputTag(e,key){
-    BillsInfo[key] = e.target.value;
-    e.preventDefault();
+      e.preventDefault();
+      for(const i in BillsInfo){
+         tmp[i] = BillsInfo[i];
+      }
+      if(key!='products'){
+      tmp[key] = e.target.value;
+      setBills(tmp);
+      }else{
+        var rows = e.target.value.split(',');
+        tmp['products']=[];
+        for(var i = 0;i<rows.length;i++){
+          var columns = rows[i].split('/');
+          tmp['products'].push({'product':columns[0],'count':parseInt(columns[1])});
+      }
+      setBills(tmp);
     }
+  }
 
-    function handleSubmit(e){
-    alert(BillsInfo['ngayTao'])
+   async function handleSubmit(e,id){
     e.preventDefault();
+    if(id == 'BillFixForm'){
+      const res = await axios({
+        url: "https://mighty-plains-90447.herokuapp.com/v1/order/update",
+        method:"put",
+        headers:{
+          "Authorization": 'Bearer ' + token
+        },
+        data:{
+          "id": BillsInfo['MaDH'], 
+	        "updateAt": "05-01-2009 21:34:23",//BillsInfo['ngayTao'],
+	        "importerId":BillsInfo['MaNV'],
+	        "note":BillsInfo['GhiChu'],
+	        "money": BillsInfo['GiaTri'],
+	        "tableCode":1,
+	        "orderProducts": BillsInfo['products']
+        }
+    }).then(res=>{
+      document.location.reload();
+    }).catch(err=>{
+      alert(err);
+    });
+    }else{
+      const res = await axios({
+        url: "https://mighty-plains-90447.herokuapp.com/v1/order/createone",
+        method:"put",
+        headers:{
+          "Authorization": 'Bearer ' + token,
+          "Encytpe": "application/json"
+        },
+        data:{
+	        "updateAt": "05-01-2009 21:34:23",//BillsInfo['ngayTao'],
+	        "importerId":BillsInfo['MaNV'],
+	        "note":BillsInfo['GhiChu'],
+	        "money": parseInt(BillsInfo['GiaTri']),
+	        "tableCode":1,
+	        "orderProducts": BillsInfo['products']
+        }
+    }).then(res=>{
+      document.location.reload();
+    }).catch(err=>{
+      alert(err);
+    });
+    }
     }
     return (
     <div className={classes.tableResponsive}>
     <div class='BillForm' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e)}}>
-            <label>
-                Mã đơn hàng:
-                <br/>
-                <input type="text"   onChange={(e)=>{handleChangeInputTag(e,'MaDH')}}/>
-            </label>
-            <br/>
+        <form id='BillForm' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'BillForm')}}>
             <label>
                 Mã nhân viên:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text"  value={BillsInfo['MaNV']} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </label>
             <br/>
             <label>
                 Ngày tạo:
                 <br/>
-                <input type="date"  onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
+                <input type="date"  value={BillsInfo['ngayTao']} onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
             </label>
             <br/>
             <label>
                 Giá trị:
                 <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'GiaTri')}}/>
+                <input type="number"  value={BillsInfo['GiaTri']} onChange={(e)=>{handleChangeInputTag(e,'GiaTri')}}/>
             </label>
             <br/>
             <label>
                 Tên khách hàng:
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
-            </label>
-            <br/>
-            <label>
-                SDT:
-                <br/>
-                <input type="number"  onChange={(e)=>{handleChangeInputTag(e,'sdt')}}/>
+                <input type="text"  value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
             </label>
             <br/>
             <label>
                 Ghi chú: 
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
+                <input type="text" value={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
             </label>
             <br/>
             <label>
-                Trạng thái:
+                Products: MaSP(1)/SL,MaSP(2)/SL,...
                 <br/>
-                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'TT')}}/>
+                <input type="text"  onChange={(e)=>{handleChangeInputTag(e,'products')}}/>
             </label>
             <br/>
             <input type="submit" value="Submit" />
@@ -141,56 +190,49 @@ export default function BillsTable(props) {
     </div>
     <div class='BillFixForm' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e)}}>
+        <form id='BillFixForm' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'BillFixForm')}}>
             <label>
                 Mã đơn hàng:
                 <br/>
-                <input type="text" placeholder={maDH}   onChange={(e)=>{handleChangeInputTag(e,'MaDH')}}/>
+                <input type="text" placeholder={BillsInfo['MaDH']}   onChange={(e)=>{handleChangeInputTag(e,'MaDH')}}/>
             </label>
             <br/>
             <label>
                 Mã nhân viên:
                 <br/>
-                <input type="text" placeholder={maNV} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text" placeholder={BillsInfo['MaNV']} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </label>
             <br/>
             <label>
                 Ngày tạo:
                 <br/>
-                <input type="date"  placeholder={ngayTao} onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
+                <input type="date"  placeholder={BillsInfo['ngayTao']} onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
             </label>
             <br/>
             <label>
                 Giá trị:
                 <br/>
-                <input type="number" placeholder={giaTri} onChange={(e)=>{handleChangeInputTag(e,'GiaTri')}}/>
+                <input type="number" placeholder={BillsInfo['GiaTri']} onChange={(e)=>{handleChangeInputTag(e,'GiaTri')}}/>
             </label>
             <br/>
             <label>
                 Tên khách hàng:
                 <br/>
-                <input type="text"  placeholder={tenKH} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
-            </label>
-            <br/>
-            <label>
-                SDT:
-                <br/>
-                <input type="number"  placeholder={sdt} onChange={(e)=>{handleChangeInputTag(e,'sdt')}}/>
+                <input type="text"  placeholder={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
             </label>
             <br/>
             <label>
                 Ghi chú: 
                 <br/>
-                <input type="text"  placeholder={ghichu} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
+                <input type="text"  placeholder={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
             </label>
             <br/>
             <label>
-                Trạng thái:
+                Products: MaSP(1)/SL,MaSP(2)/SL,...
                 <br/>
-                <input type="text"  placeholder={TT} onChange={(e)=>{handleChangeInputTag(e,'TT')}}/>
+                <input type="text"  placeholder={BillsInfo['products']} onChange={(e)=>{handleChangeInputTag(e,'products')}}/>
             </label>
             <br/>
-
             <input type="submit" value="Submit" />
         </form>
     </div>

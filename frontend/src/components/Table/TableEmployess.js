@@ -58,10 +58,11 @@ export default function EmployeesTable(props) {
       data:{
         ids: [prop[0]]
       }
+    }).then(res=>{
+      document.location.reload();
     }).catch(function(err){
       alert(err)
     });
-    document.location.reload();
   }
 
   async function clickFix(e,prop){
@@ -165,7 +166,7 @@ export default function EmployeesTable(props) {
             <label>
                 FirstName:
                 <br/>
-                <input type="text" name = 'firstName' valur = {HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
+                <input type="text" name = 'firstName' value = {HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
             </label>
             <br/>
             <label>

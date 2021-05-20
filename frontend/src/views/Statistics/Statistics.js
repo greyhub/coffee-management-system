@@ -18,7 +18,6 @@ import {
 } from "variables/charts.js";
 
 
-
 export default function Statistics(props) {
     const useStyles = makeStyles(styles);
     const classes = useStyles();
@@ -46,94 +45,98 @@ export default function Statistics(props) {
         'data': data1
     };
 
-    function handleChangeInputTag(e,func){
+    function handleChangeInputTag(e, func) {
         e.preventDefault();
         func(e.target.value);
     }
 
-    async function handleSubmit(e,id) {
+    async function handleSubmit(e, id) {
         e.preventDefault();
         var _form = document.getElementById(id);
         var _data = new FormData(_form);
-        if (id == '4'){
+        if (id == '4') {
 
 
-
-                    const res3 = await axios({
-                        method: 'post',
-                        url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
-                        headers: {
-                            'Encriptype': 'multipart/form-data',
-                        },
-                        data: {
-                            account: "huykkk",
-                            password: "000000"
-                        }
-                    }).catch(function (err) {
-                        alert(err)
-                    });
-                    // so luong san pham ban hang
-                    const res4 = await axios({
-                        method: 'post',
-                        url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/product",
-                        header: res3.data['token'],
-                        headers: {
-                            'Header': res3.data['token'],
-                            'Encytype': 'application/json',
-                            "Authorization": 'Bearer ' + res3.data['token'],
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            start: _data.get('start'),
-                            end: _data.get('end')
-                        }
-                    }).catch(function (err1) {
-                        alert(err1)
-                    });
+            const res3 = await axios({
+                method: 'post',
+                url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+                headers: {
+                    'Encriptype': 'multipart/form-data',
+                },
+                data: {
+                    account: "huykkk",
+                    password: "000000"
+                }
+            }).catch(function (err) {
+                alert(err)
+            });
+            // so luong san pham ban hang
+            const res4 = await axios({
+                method: 'post',
+                url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/product",
+                header: res3.data['token'],
+                headers: {
+                    'Header': res3.data['token'],
+                    'Encytype': 'application/json',
+                    "Authorization": 'Bearer ' + res3.data['token'],
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    start: _data.get('start').split("-").reverse().join("-"),
+                    end: _data.get('end').split("-").reverse().join("-")
+                }
+            }).catch(function (err1) {
+                alert(err1)
+            });
 //nhan vien và don dat hang
 
-                    const res5 = await axios({
-                        method: 'post',
-                        url: "https://mighty-plains-90447.herokuapp.com/v1/stat/employee/order",
-                        header: res3.data['token'],
-                        headers: {
-                            'Header': res3.data['token'],
-                            'Encytype': 'application/json',
-                            "Authorization": 'Bearer ' + res3.data['token'],
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            start: _data.get('start'),
-                            end: _data.get('end')
-                        }
-                    }).catch(function (err1) {
-                        alert(err1)
-                    });
-
-                    const res6 = await axios({
-                        method: 'post',
-                        url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue",
-                        header: res3.data['token'],
-                        headers: {
-                            'Header': res3.data['token'],
-                            'Encytype': 'application/json',
-                            "Authorization": 'Bearer ' + res3.data['token'],
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            start: _data.get('start'),
-                            end: _data.get('end')
-                        }
-                    }).catch(function (err1) {
-                        alert(err1)
-                    });
-
+            const res5 = await axios({
+                method: 'post',
+                url: "https://mighty-plains-90447.herokuapp.com/v1/stat/employee/order",
+                header: res3.data['token'],
+                headers: {
+                    'Header': res3.data['token'],
+                    'Encytype': 'application/json',
+                    "Authorization": 'Bearer ' + res3.data['token'],
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    start: _data.get('start').split("-").reverse().join("-"),
+                    end: _data.get('end').split("-").reverse().join("-")
+                }
+            }).catch(function (err1) {
+                alert(err1)
+            });
+//thong ke thu nhap
+            const res6 = await axios({
+                method: 'post',
+                url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue",
+                header: res3.data['token'],
+                headers: {
+                    'Header': res3.data['token'],
+                    'Encytype': 'application/json',
+                    "Authorization": 'Bearer ' + res3.data['token'],
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    start: _data.get('start').split("-").reverse().join("-"),
+                    end: _data.get('end').split("-").reverse().join("-")
+                }
+            }).catch(function (err1) {
+                alert(err1)
+            });
             var listNamePD = [];
             var listCountPD = [];
+            var list1 = [];
+            var sumOrder = 0;
+            var sumMoney = 0;
             var sumItem = 0;
             var countHigh = 0;
+            var sumRevenue = 0;
             const arr = Object.keys(res4.data.revenue);// ra productID o dang mang
-
+            const eo = Object.keys(res5.data.revenue);
+            const eo1 = Object.values(res5.data.revenue);
+            const eo2 = Object.values(eo1[0]);// tang k++
 //do thi product
             for (var i = 0; i < arr.length; i++) {
                 listNamePD.push([
@@ -149,35 +152,22 @@ export default function Statistics(props) {
                 if (countHigh < sumItem) {
                     countHigh = sumItem + 4
                 }
-
-
                 sumItem = 0;
-
             }
-
-
-            var list1 = [];
-                    var sumOrder = 0;
-                    var sumMoney = 0;
-                    const eo = Object.keys(res5.data.revenue);
-                    const eo1 = Object.values(res5.data.revenue);
-                    const eo2 = Object.values(eo1[0]);// tang k++
-                    for (var k=0; k<eo.length; k++) {
-                        for (var j = 0; j < eo2[0].length; j++) {
-                            sumOrder += Object.values(eo1[k])[0][j];
-                            sumMoney += Object.values(eo1[k])[1][j];
-                        }
-                        list1.push([
-                            eo[k],
-                            Object.values(Object.values(eo1[k])[2])[1] + " " + Object.values(Object.values(eo1[k])[2])[2],
-                            sumOrder,
-                            sumMoney + " Đ"
-                                .toString()]);
-                        sumOrder = 0;
-                        sumMoney = 0;
-                    }
-
-            var sumRevenue = 0;
+            for (var k = 0; k < eo.length; k++) {
+                for (var j = 0; j < eo2[0].length; j++) {
+                    sumOrder += Object.values(eo1[k])[0][j];
+                    sumMoney += Object.values(eo1[k])[1][j];
+                }
+                list1.push([
+                    eo[k],
+                    Object.values(Object.values(eo1[k])[2])[1] + " " + Object.values(Object.values(eo1[k])[2])[2],
+                    sumOrder,
+                    sumMoney + " Đ"
+                        .toString()]);
+                sumOrder = 0;
+                sumMoney = 0;
+            }
             for (var i = 0; i < res6.data.revenue.length; i++) {
                 sumRevenue += res6.data.revenue[i];
             }
@@ -191,9 +181,138 @@ export default function Statistics(props) {
             setToken(res3.data['token']);
 
         }
+    }
+
+    useEffect(() => {
+        getData1()
+    }, []);
+
+    async function getData1() {
+        var today = new Date();
+        var dateC = today.getDate() + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        var dateB = (today.getDate() - 6) + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        const res3 = await axios({
+            method: 'post',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+            headers: {
+                'Encriptype': 'multipart/form-data',
+            },
+            data: {
+                account: "huykkk",
+                password: "000000"
+            }
+        }).catch(function (err) {
+            alert(err)
+        });
+
+        const res4 = await axios({
+            method: 'post',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/product",
+            header: res3.data['token'],
+            headers: {
+                'Header': res3.data['token'],
+                'Encytype': 'application/json',
+                "Authorization": 'Bearer ' + res3.data['token'],
+                'Content-Type': 'application/json'
+            },
+            data: {
+                start: dateB,
+                end: dateC
+            }
+        }).catch(function (err1) {
+            alert(err1)
+        });
+
+        const res5 = await axios({
+            method: 'post',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/stat/employee/order",
+            header: res3.data['token'],
+            headers: {
+                'Header': res3.data['token'],
+                'Encytype': 'application/json',
+                "Authorization": 'Bearer ' + res3.data['token'],
+                'Content-Type': 'application/json'
+            },
+            data: {
+                start: dateB,
+                end: dateC
+            }
+        }).catch(function (err1) {
+            alert(err1)
+        });
+
+        const res6 = await axios({
+            method: 'post',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue",
+            header: res3.data['token'],
+            headers: {
+                'Header': res3.data['token'],
+                'Encytype': 'application/json',
+                "Authorization": 'Bearer ' + res3.data['token'],
+                'Content-Type': 'application/json'
+            },
+            data: {
+                start: dateB,
+                end: dateC
+            }
+        }).catch(function (err1) {
+            alert(err1)
+        });
+        var listNamePD = [];
+        var listCountPD = [];
+        var list1 = [];
+        var sumOrder = 0;
+        var sumMoney = 0;
+        var sumItem = 0;
+        var countHigh = 0;
+        var sumRevenue = 0;
+        const arr = Object.keys(res4.data.revenue);// ra productID o dang mang
+        const eo = Object.keys(res5.data.revenue);
+        const eo1 = Object.values(res5.data.revenue);
+        const eo2 = Object.values(eo1[0]);// tang k++
+//do thi product
+        for (var i = 0; i < arr.length; i++) {
+            listNamePD.push([
+                Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1]
+                + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
+                    // + "<br/>" +Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[2]
+                    .toString()
+            ])
+            for (var j = 0; j < Object.values(Object.values(res4.data.revenue)[0])[0].length; j++) {
+                sumItem += (Object.values(Object.values(res4.data.revenue)[i])[0][j]);
+            }
+            listCountPD.push(sumItem.toString());
+            if (countHigh < sumItem) {
+                countHigh = sumItem + 4
+            }
+            sumItem = 0;
+        }
+        for (var k = 0; k < eo.length; k++) {
+            for (var j = 0; j < eo2[0].length; j++) {
+                sumOrder += Object.values(eo1[k])[0][j];
+                sumMoney += Object.values(eo1[k])[1][j];
+            }
+            list1.push([
+                eo[k],
+                Object.values(Object.values(eo1[k])[2])[1] + " " + Object.values(Object.values(eo1[k])[2])[2],
+                sumOrder,
+                sumMoney + " Đ"
+                    .toString()]);
+            sumOrder = 0;
+            sumMoney = 0;
+        }
+        for (var i = 0; i < res6.data.revenue.length; i++) {
+            sumRevenue += res6.data.revenue[i];
         }
 
-
+        setRevenueData(sumRevenue + " Đồng")
+        setDay(res6.data.revenue.length + " ngày gần nhất");
+        setHigh(countHigh);
+        setCount([listCountPD]);
+        setNamePD(listNamePD);
+        setData1(list1);
+        setToken(res3.data['token']);
+    }
 
     return (
         <div>
@@ -204,16 +323,17 @@ export default function Statistics(props) {
                     }}>
                         <label className="start">Start</label>
                         <label className="start inp">
-                            <input type="text" name='start' placeholder="dd-mm-yyyy"
+                            <input type="date" name='start' placeholder="dd-mm-yyyy"
                                    value={start}
                                    onChange={(e) => {
                                        handleChangeInputTag(e, setStart)
                                    }}/>
                         </label>
 
+
                         <label style={{color: '#fff'}}>End</label>
                         <label className="end inp inp1">
-                            <input className="inp1" type="text" name='end' placeholder="dd-mm-yyyy" value={end}
+                            <input className="inp1" type="date" name='end' placeholder="dd-mm-yyyy" value={end}
                                    onChange={(e) => {
                                        handleChangeInputTag(e, setEnd)
                                    }}
@@ -256,7 +376,7 @@ export default function Statistics(props) {
                         </CardBody>
                         <CardFooter chart>
                             <div className={classes.stats}>
-                                <AccessTime /> thời gian : {day}
+                                <AccessTime/> thời gian : {day}
                             </div>
                         </CardFooter>
                     </Card>
@@ -265,14 +385,15 @@ export default function Statistics(props) {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Số lượng đơn hàng mà nhân viên nhập theo thời gian</h4>
+                            <h4 className={classes.cardTitleWhite}>Số lượng đơn hàng mà nhân viên nhập theo thời
+                                gian</h4>
                         </CardHeader>
                         <CardBody>
                             <Table
                                 tableHeaderColor="info"
                                 tableHead={itemsTimeJson1['header']}
                                 tableData={itemsTimeJson1['data']}
-                                token = {token}
+                                token={token}
                             />
                         </CardBody>
                     </Card>

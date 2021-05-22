@@ -29,6 +29,13 @@ joinDate: '22-10-2020'
 ```ruby
 Bearer token
 ```
+> Danh sách cã mã quyền (roleCode)
+```ruby
+0: Khách (Chưa đăng nhập)
+1: Employee (Nhân viên)
+2: Admin (Quản lý)
+3: Root (Tài khoản gốc)
+```
 # Đăng nhập:
 ```ruby
 /v1/account/signin
@@ -56,6 +63,7 @@ joinDate: Date
 expireDate: Date
 cccd: string
 avatarUri: string
+roleCode: number
 ```
 # Employee
 ## Lấy thông tin một nhân viên:

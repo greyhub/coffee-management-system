@@ -37,6 +37,10 @@ router.put('/v1/order/update',
   authOrderMiddleware("update"),
   orderController.updateInfo
 )
+router.get('/v1/stat/revenue/24h',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  orderController.viewRev24h
+)
 
 // /**
 //  * CHEAT

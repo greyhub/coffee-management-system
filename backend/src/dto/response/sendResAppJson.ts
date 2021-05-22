@@ -1,26 +1,22 @@
 import ERR_CODE from "../../const/error";
 import STATUS_CODE from "../../const/status";
-import AbstractDTO from "../abstractDTO";
 import objectUtil from "../../util/objectUtil";
 import logger from "../../_base/log/logger4js";
-import GeneralSuccessResponse from "./generalSuccessResponse";
-import GeneralErrorResponse from "./generalErrorResponse";
+import ErrorDTO from "../errorDTO";
 
-const sendResAppJson = (res: any, status: STATUS_CODE, error: ERR_CODE, body?: AbstractDTO) => {
+const sendResAppJson = (res: any, status: STATUS_CODE, error: ERR_CODE, body?: any) => {
   res.type('application/json');
   let output;
-  if (body && body instanceof AbstractDTO) {
-    output = new GeneralSuccessResponse({
-      error: error,
-      body: body
-    })
+  let message = objectUtil.getKeyByValue(ERR_CODE, error);
+  if (body && typeof body === "object") {
+    output = body;
   }
   else {
-    output = new GeneralErrorResponse({
-      error: error,
-      message: objectUtil.getKeyByValue(ERR_CODE, error).toString()
-    })
+    output = new ErrorDTO();
   }
+  output.error = error;
+  output.message = message;
+
   logger.info('OUTPUT: ' + JSON.stringify(output));
   return res.status(status).json(output);
 }

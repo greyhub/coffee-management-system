@@ -10,10 +10,14 @@ class AuthorConfig {
       return this._instance || (this._instance = new this());
   }
 
-  public setConfig(config: any, resource: string) {
+  public addConfig(config: any, resource: string) {
+    if (this._config.hasOwnProperty(resource) && this._config[resource]) {
+      logger.error(`ERROR: Author config has already added \`${resource}\` resource property`)
+      return;
+    }
     this._config[resource] = config;
   }
-  public isAuthorized(resource: string, group: number, permission: string): boolean {
+  public isAuthorized(resource: string, group: number[], permission: string): boolean {
     let resCf, pmsCf;
     if (!this._config.hasOwnProperty(resource) || !this._config[resource]) {
       logger.error(`ERROR: Author config has not \`${resource}\` resource property`)
@@ -26,7 +30,7 @@ class AuthorConfig {
     }
     pmsCf = resCf[permission];
     const groupAllow: any = pmsCf;
-    return groupAllow.indexOf(group) !== -1
+    return group.some( g => groupAllow.includes(g))
   }
 }
 

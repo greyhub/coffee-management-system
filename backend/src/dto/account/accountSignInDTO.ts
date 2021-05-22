@@ -1,5 +1,4 @@
 import serverConfig from "../../config/serverConfig";
-import ERR_CODE from "../../const/error";
 import { EmployeeEntity } from "../../entity/employeeEntity";
 import AbstractDTO from "../abstractDTO";
 
@@ -16,6 +15,7 @@ export default class AccountSignInDTO extends AbstractDTO {
   public expireDate: Date
   public cccd: string
   public avatarUri: string
+  public roleCode: number
   
   constructor(token: string, e: EmployeeEntity) {
     super()
@@ -30,6 +30,7 @@ export default class AccountSignInDTO extends AbstractDTO {
     this.joinDate = e.joinDate;
     this.expireDate = e.expireDate;
     this.cccd = e.cccd;
-    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
+    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
+    this.roleCode = e.roleCode;
   }
 }

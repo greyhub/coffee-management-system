@@ -18,7 +18,9 @@ async function checkBlackList(token: string) {
   }
 }
 
-export default {
+const blackTokenDAO = {
   addTokenToBlack,
   checkBlackList
 }
+
+export default blackTokenDAO;

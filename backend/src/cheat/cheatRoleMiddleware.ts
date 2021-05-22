@@ -1,7 +1,4 @@
-import AuthorGroupRole from "../config/authorGroupRoleConfig"
-import employeeAuthorConfig from "../config/employeeAuthorConfig";
-
-const resource: string = employeeAuthorConfig;
+import AuthorGroupRole from "../config/authorGroupRoleConfig";
 
 export default function cheatRoleMiddleware(req: any, res: any, next: any) {
   const roleCode = AuthorGroupRole.ROOT;

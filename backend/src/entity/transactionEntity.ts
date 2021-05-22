@@ -6,8 +6,14 @@ export class TransactionEntity {
   @PrimaryColumn({type: "varchar", length: 9, nullable: false})
   id: string
 
-  @Column({type: "nvarchar", nullable: false, length: 2000})
+  @Column({type: "nvarchar", nullable: false})
+  materialName: string
+
+  @Column({type: "text", nullable: false})
   description: string
+
+  @Column({type: "int", default: 1, nullable: false})
+  count: number
 
   @Column({type: "int", default: 0, nullable: false})
   price: number

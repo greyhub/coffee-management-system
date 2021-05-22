@@ -33,6 +33,6 @@ const employeeAuthorConfig = {
   ]
 }
 
-authorConfig.addConfig(employeeAuthorConfig, RESOURCE)
+authorConfig.addConfig(employeeAuthorConfig, RESOURCE);
 
 export default RESOURCE

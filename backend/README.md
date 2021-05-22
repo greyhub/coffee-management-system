@@ -1,3 +1,9 @@
+# Remote:
+```ruby
+url: https://mighty-plains-90447.herokuapp.com/
+adminAccount: 222222352ab80
+adminPassword: 2310-12a
+```
 # How to run/build
 
 ### Install packages
@@ -14,11 +20,12 @@ $ Add new account in phpmyadmin
 ```ruby
 $ Create a .env file, set up like:
 PORT=8080
-DB_HOST=127.0.0.1
+DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=test
 DB_USERNAME=test
 DB_PASSWORD=123456
+SECRECT_KEY=1a2b3c4d
 ```
 ### Run
 ```ruby

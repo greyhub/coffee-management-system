@@ -37,11 +37,14 @@ class AccountController extends AbstractController {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
 
-      const roleCode = await accountService.verifyTokenAndGetRoleCode(token);
+      const payload = await accountService.verifyTokenAndGetPayload(token);
+      const roleCode = payload.roleCode;
+      const id = payload.id;
       if (roleCode === null) {
         throw new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.ACCOUNT_INVALID_TOKEN);
       }
       res.locals.roleCode = roleCode;
+      res.locals.id = id;
       next();
     }
     catch (e) {

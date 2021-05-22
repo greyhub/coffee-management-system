@@ -11,7 +11,7 @@ export class ProductEntity {
   @Column({type: "int", default: 0, nullable: false})
   price: number
 
-  @Column({type: "nvarchar", default: "", nullable: false, length: 20000})
+  @Column({type: "text", nullable: false})
   description: string
 
   @Column({type: "varchar", default: "", nullable: false})

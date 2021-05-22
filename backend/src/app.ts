@@ -10,12 +10,13 @@ import globalErrorMiddleware from './error/globalErrorMiddleware';
 import CustomError from './error/customError';
 import env from './env';
 import employeeRoute from './route/employeeRoute';
-import bodyParser from 'body-parser';
-import path from 'path';
-import { nextTick } from 'node:process';
 import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
+import transactionRoute from './route/transactionRoute';
+import * as path from 'path';
+import serverConfig from './config/serverConfig';
+import statRoute from './route/statRoute';
 
 const app: Express = express();
 
@@ -28,17 +29,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-// console.log("DIR"+path.join(__dirname, 'static'))
+// logger.debug("DIR" + path.relative(__dirname, '/static'));
 /**
- * TODO: Can be fail when deploy
+ * TODO: Could be fail when deploy
  */
-app.use('/static',express.static('static'))
+app.use('/static',express.static("static"));
+app.use('/public',express.static("public"));
 
 /**
  * Log response time
  */
 app.use(responseTime((req: any, res: any, time: number) => {
-  logger.info(req.method + " " + "localhost:" + env.PORT + req.url + " in " + time.toFixed(3) + "ms");
+  logger.info(req.method + " " + serverConfig?.urlPrefix.replace(/.$/,"") + req.url + " in " + time.toFixed(3) + "ms");
 }))
 
 /**
@@ -48,6 +50,9 @@ app.use(employeeRoute);
 app.use(accountRoute);
 app.use(productRoute);
 app.use(orderRoute);
+app.use(transactionRoute);
+app.use(statRoute);
+
 /**
  * For testing
  */
@@ -60,7 +65,7 @@ app.get('/testerror', (req, res) => {
 
 
 /**
- * Handle Global Error (Custom Error and Not Control Error)
+ * Handle Global Error (Custom Error and Uncontrollable Error)
  */
 app.use(globalErrorMiddleware);
 /**

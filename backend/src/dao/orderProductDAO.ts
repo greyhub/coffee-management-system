@@ -116,7 +116,7 @@ async function create(orderProducts: OrderProductEntity) {
 //   }
 // }
 
-export default {
+const orderProductDAO = {
   // getMaxEmployeeId,
   // getById,
   // getAll,
@@ -125,3 +125,5 @@ export default {
   // update,
   // deleteByIds
 }
+
+export default orderProductDAO;

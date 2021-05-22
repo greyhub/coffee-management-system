@@ -70,6 +70,7 @@ function create (e: IOrder){
 async function save(order: OrderEntity) {
   try {
     const repository = getRepository(OrderEntity);
+    logger.debug("updateAt: "+order.updateAt);
     return repository.save(order);
   }
   catch(e) {
@@ -107,7 +108,7 @@ async function deleteByIds(ids: Array<string>) {
 }
 
 
-export default {
+const orderDAO = {
   // getMaxProductId,
   getById,
   getByImporterId,
@@ -117,3 +118,5 @@ export default {
   update,
   deleteByIds,
 }
+
+export default orderDAO;

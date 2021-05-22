@@ -2,7 +2,6 @@ import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
 import CustomError from "../error/customError";
 import authorConfig from "../_base/author/authorConfig"
-import AuthorGroupRole from "../config/authorGroupRoleConfig"
 import employeeAuthorConfig from "../config/employeeAuthorConfig";
 import serverConfig from "../config/serverConfig";
 
@@ -19,7 +18,7 @@ export default function authEmployeeMiddleware(permission: string) {
 
     const isAllow = authorConfig.isAuthorized(resource, [roleCode], permission);
     if (!isAllow) {
-      next(new CustomError(STATUS_CODE.UNAUTHORIZED, ERR_CODE.UNAUTHORIZED))
+      next(new CustomError(STATUS_CODE.FORBIDDEN, ERR_CODE.FORBIDDEN))
     }
     else {
       next()

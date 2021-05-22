@@ -906,3 +906,34 @@ Example:
     "message": "OK"
 }
 ```
+## Doanh thu và chi phí đã bỏ ra trong tháng hiện tại
+```ruby
+/v1/stat/revenue/cost
+`get`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+> Response:<br>
+```ruby
+revenue: number
+cost: number
+```
+```ruby
+Example:
+{
+    "error": 200,
+    "revenue": "4900000",
+    "cost": "100",
+    "message": "OK"
+}
+```

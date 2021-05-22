@@ -19,4 +19,9 @@ router.post('/v1/stat/employee/order',
   statController.viewOrderEmployeeByTime
 )
 
+router.get('/v1/stat/revenue/cost',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  statController.viewRevenueCost
+)
+
 export default router;

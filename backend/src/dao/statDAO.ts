@@ -45,9 +45,30 @@ async function filterProductRevenueByTime(start: Date, end: Date) {
   }
 }
 
+async function getRevenueCost(start:Date, end: Date) {
+  try {
+    const entityManager = getManager();
+    const res = await entityManager.query(
+      "SELECT *"
+    + "from (select sum(filter.money) as revenue "
+    + "from (SELECT od.money "
+    + "FROM order_entity as od "
+    + "where od.updateAt BETWEEN ? and ?) as filter) as total, "
+    + "(select sum(filter.price) as cost "
+    + "from (SELECT ts.price "
+    + "from transaction_entity as ts "
+    + "where ts.time BETWEEN ? and ?) as filter) as cost", [start, end, start, end]);
+    return res;
+  }
+  catch(e) {
+    throw e;
+  }
+}
+
 const statDAO = {
   filterOrderByTime,
-  filterProductRevenueByTime
+  filterProductRevenueByTime,
+  getRevenueCost
 }
 
 export default statDAO;

@@ -193,6 +193,46 @@ class StatService {
       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_GET_REVENUE_ERROR);
     }
   }
+
+  async viewRevenueCostNowMonth() {
+    try {
+      const nowDate = new Date();
+      
+      const month = nowDate.getMonth();
+      const year = nowDate.getFullYear();
+      const startDateMonth = new Date(year, month, 1);
+      logger.debug("startDateMonth" + startDateMonth + "nowDate" + nowDate);
+
+      const res = {
+        "revenue": 0,
+        "cost":0
+      }
+      const result = await statDAO.getRevenueCost(startDateMonth, nowDate);
+      if (!result || result.length < 1) {
+        return res;
+      }
+      res.revenue = result[0].revenue;
+      res.cost = result[0].cost;
+      if (!result[0].revenue) {
+        res.revenue = 0;
+      }
+      if (!result[0].cost) {
+        res.cost = 0;
+      }
+      return res;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_GET_REVENUE_COST_ERROR);
+    }
+  }
 }
 
 export default StatService.Instance

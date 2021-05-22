@@ -2,6 +2,7 @@ import ERR_CODE from "../const/error";
 import STATUS_CODE from "../const/status";
 import sendResAppJson from "../dto/response/sendResAppJson";
 import statOrderEmployeeDTO from "../dto/stat/statOrderEmployeeDTO";
+import StatRevenueCostDTO from "../dto/stat/statRevenueCostDTO";
 import StatRevenueDTO from "../dto/stat/statRevenueDTO";
 import StatRevenueProductDTO from "../dto/stat/statRevenueProductDTO";
 import CustomError from "../error/customError";
@@ -76,6 +77,16 @@ class StatController extends AbstractController {
 
       const stat = await statService.viewOrderEmployeeByTime(req.body.start, req.body.end);
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new statOrderEmployeeDTO(stat));
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+
+  public async viewRevenueCost(req: any, res: any, next: any) {
+    try {
+      const rrCost = await statService.viewRevenueCostNowMonth();
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new StatRevenueCostDTO(rrCost.revenue, rrCost.cost));
     }
     catch(error) {
       next(error)

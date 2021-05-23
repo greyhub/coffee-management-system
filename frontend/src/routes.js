@@ -5,6 +5,13 @@ import Person from "@material-ui/icons/Person";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
+import Typography from "views/Typography/Typography.js";
+import Icons from "views/Icons/Icons.js";
+import Maps from "views/Maps/Maps.js";
+import NotificationsPage from "views/Notifications/Notifications.js";
+import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
+import EmployeesManager from "views/EmployeesManagement/EmployeesManagement.js"
+import BillManagement from 'views/BillManagement/BillManagement.js'
 import Items from "views/Items/Items.js";
 import Statistics from "views/Statistics/Statistics.js";
 // core components/views for RTL layout
@@ -37,6 +44,26 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+
+    path: "/EmployeesManagement",
+    name: "Employees",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: EmployeesManager,
+    layout: "/admin"
+  },
+  {
+    path: "/BillManagament",
+    name: "Bill",
+    rtlName: "",
+    icon: LibraryBooks,
+    component: BillManagement,
+    layout: "/admin"
+  },
+  {
+    path: "/table",
+    name: "Table List",
+    rtlName: "قائمة الجدول",
     path: "/employees",
     name: "Employees",
     rtlName: "",

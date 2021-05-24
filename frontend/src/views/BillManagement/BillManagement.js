@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/TableOrder.js";
+import Table from "components/Table/TableBills.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
@@ -44,7 +44,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên khách hàng','SDT','Ghi chú','Tình trạng'],'data':[['20173453','2345234','12/05/1999','12.000.000','Ma Việt Tùng','039503007','Cần liên hệ vào giờ hành chính','Chưa thanh toán']]}
+var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên khách hàng','SDT','Ghi chú','Tình trạng'],'data':[['20173453','2345234','12-05-1999','12.000.000','Ma Việt Tùng','039503007','Cần liên hệ vào giờ hành chính','Chưa thanh toán']]}
 
 
 
@@ -61,9 +61,9 @@ export default function OrderManagement(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Orders Panel</h4>
+                        <h4 className={classes.cardTitleWhite}>Bill Panel</h4>
                         <p className={classes.cardCategoryWhite}>
-                            Panel for managing oders in selling 
+                            Panel for managing bills in selling 
                         </p>
                     </CardHeader>
                     <CardBody>

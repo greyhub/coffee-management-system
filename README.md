@@ -9,21 +9,20 @@
     - Vu Quang Huy
 
 
-Topic: Coffee Management System 
-> Hệ thống quản lý quán cà phê
+Topic: 
+    
+    Coffee Management System                Hệ thống quản lý quán cà phê
 
 ## Grey Coffee
 
 Features:
-- Human resources management 
-> Quản lý nhân sự
-- Items management 
-> Quản lý mặt hàng
-- Purchasing management 
-> Quản lý thu mua
-- Bill management 
-> Quản lý đơn hàng
-- Statistics of revenue situation 
-> Thống kê tình hình doanh thu
+    
+    - Human resources management            Quản lý nhân sự
+    - Items management                      Quản lý mặt hàng
+    - Purchasing management                 Quản lý thu mua
+    - Bill management                       Quản lý đơn hàng
+    - Statistics of revenue situation       Thống kê tình hình doanh thu
 
-Technologies: ReactJS, NodeJS, MySQL
+Technologies: 
+
+    ReactJS, NodeJS, MySQL

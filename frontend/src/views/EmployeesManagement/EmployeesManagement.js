@@ -80,7 +80,7 @@ export default function EmployeesManager(){
       });
        var list = [];
        for(var i = 0;i<res1.data['employees'].length;i++){
-         list.push([res1.data['employees'][i]['id'], res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString()]);
+         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString()]);
        }
        setData(list);
        setLoad(false);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 //core compontment
@@ -9,7 +9,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
-
+import axios from 'axios'
 
 
 const styles = {
@@ -42,20 +42,52 @@ const styles = {
     }
   };
 
-const useStyles = makeStyles(styles);
-
-var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên khách hàng','SDT','Ghi chú','Tình trạng'],'data':[['20173453','2345234','12-05-1999','12.000.000','Ma Việt Tùng','039503007','Cần liên hệ vào giờ hành chính','Chưa thanh toán']]}
-
-
-
-
-
-
-
-
-
 export default function OrderManagement(){
+    const useStyles = makeStyles(styles);
     const classes = useStyles();
+    const [data,setData] = useState([]);
+    const [loading,setLoad] = useState(true);
+    const [token, setToken] = useState();
+    var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên khách hàng','Ghi chú'],'data':data}
+    useEffect(()=>{
+      getData()
+    },[]);
+    async function getData(){
+      if(loading == true){
+      const res = await axios({
+        method: 'post',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+        headers:{
+          'Encytpe': 'multipart/form-data',
+        },
+        data:{
+          account: '222222352ab80',
+          password: '2310-12a'
+        }
+      }).catch(function(err){
+        alert(err)
+      });
+      const res1 = await axios({
+        method: 'get',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/order",
+        header: res.data['token'],
+        headers:{
+            'Header': res.data['token'],
+            'Encytype': 'application/json',
+            "Authorization": 'Bearer ' + res.data['token']
+        }
+      }).catch(function(err1){
+        alert(err1)
+      });
+       var list = [];
+       for(var i =0 ; i < res1.data["orders"].length;i++){
+        list.push([res1.data["orders"][i]["id"],res1.data["orders"][i]["employee"]["id"],res1.data["orders"][i]["updateAt"],res1.data["orders"][i]["money"],res1.data["orders"][i]["employee"]["firstName"],res1.data["orders"][i]["note"]]);
+       }
+       setData(list);
+       setLoad(false);
+       setToken(res.data['token']);
+    }
+    }
     return(
         <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
@@ -70,7 +102,8 @@ export default function OrderManagement(){
                     <Table
                         tableHeaderColor="info"
                         tableHead={employeesJson['header']}
-                        tableData={employeesJson['data']}                        
+                        tableData={employeesJson['data']}      
+                        token = {token}                  
                     />
                     </CardBody>
                 </Card>

@@ -1,5 +1,6 @@
 # Remote:
 ```ruby
+First
 url: https://mighty-plains-90447.herokuapp.com/
 adminAccount: 222222352ab80
 adminPassword: 2310-12a
@@ -14,7 +15,7 @@ $ npm install
 ```ruby
 $ Install xampp
 $ Start Apache and MySQL modules
-$ Add new account in phpmyadmin
+$ Add new account in phpmyadmin with your name and password
 ```
 ### Setup environment
 ```ruby
@@ -23,8 +24,8 @@ PORT=8080
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=test
-DB_USERNAME=test
-DB_PASSWORD=123456
+DB_USERNAME=test   #as your name  
+DB_PASSWORD=123456  # as your password
 SECRECT_KEY=1a2b3c4d
 ```
 ### Run

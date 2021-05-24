@@ -43,6 +43,10 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+  if (!localStorage.getItem("islogged") || localStorage.getItem("roleCode") != 2){
+    window.location.href = "/login";
+    return (<></>)
+  }
   return (
     <div>
       <GridContainer>
@@ -149,6 +153,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
+
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="warning">
@@ -172,6 +177,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
+
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="danger">

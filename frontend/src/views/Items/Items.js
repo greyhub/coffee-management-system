@@ -51,13 +51,7 @@ export default function Items(){
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
     const itemsJson = {'header':['ID','Tên sản phẩm','Giá','Mô tả','Ảnh','Còn hàng','Hành động'],'data':data};
-    // const { exp } = jwtDecode(token)
-    // const expirationTime = (exp * 1000) - 60000
-    // if (Date.now() >= expirationTime) {
-    //     localStorage.clear();
-    //
-    // }
-
+  
     useEffect(()=>{
         getData()
     },[]);

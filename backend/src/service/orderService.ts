@@ -210,6 +210,7 @@ class OrderService {
   public async viewRev24h() {
     try {
       const nowTime = new Date();
+      nowTime.setHours(nowTime.getHours() + 7);
       let startHour = new Date();
       const hour = nowTime.getHours();
       // logger.debug('TIme:', hour);

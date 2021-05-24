@@ -1,6 +1,7 @@
-import { getManager, getRepository, Repository } from 'typeorm';
+import { getManager, getRepository, In, Repository } from 'typeorm';
 import { EmployeeEntity } from '../entity/employeeEntity';
 import IEmployee from '../model/IEmployee';
+import logger from '../_base/log/logger4js';
 
 async function getMaxEmployeeId() {
   try {
@@ -9,7 +10,6 @@ async function getMaxEmployeeId() {
     .createQueryBuilder("e")
     .select("MAX(e.id)", "max")
     .getRawOne()
-    console.log(JSON.stringify(maxId));//{"max": null}
     if (!maxId || !maxId.hasOwnProperty("max") || !maxId.max) {
       return null;
     }
@@ -20,10 +20,39 @@ async function getMaxEmployeeId() {
   }
 }
 
+async function deleteByIds(ids: Array<string>) {
+  try {
+    const repository = getRepository(EmployeeEntity);
+    // const deletedEmployees = await repository
+    // .createQueryBuilder()
+    // .update<EmployeeEntity>(EmployeeEntity, { isActive: false})
+    // .set({ isActive: false})
+    // .where("id = :id", { id: In(ids) })
+    // .returning(['id'])
+    // .updateEntity(true)
+    // .execute();
+    // logger.debug(JSON.stringify(deletedEmployees));
+    // return deletedEmployees.generatedMaps.map((id) => id.toString());
+    const employees = await repository.find({where: {id: In(ids), isActive: true}});
+    employees.map((e) => e.isActive = false);
+    const deletedIds = await repository.save(employees);
+    return deletedIds;
+  }
+  catch(e) {
+    throw e;
+  }
+}
+
 async function getById(id: string) {
   try {
     const repository = getRepository(EmployeeEntity);
-    return (await repository.find({id: id}))[0];
+    const employees = await repository.find({id: id});
+    if (employees.length <= 0) {
+      return null;
+    }
+    else {
+      return employees[0];
+    }
   }
   catch(e) {
     throw e;
@@ -56,11 +85,24 @@ async function save(employee: EmployeeEntity) {
     throw e;
   }
 }
+async function update(employee: any) {
+  try {
+    const repository = getRepository(EmployeeEntity);
+    return repository.update(employee.id, employee);
+  }
+  catch(e) {
+    throw e;
+  }
+}
 
-export default {
+const employeeDAO = {
   getMaxEmployeeId,
   getById,
   getAll,
   create,
   save,
+  update,
+  deleteByIds
 }
+
+export default employeeDAO;

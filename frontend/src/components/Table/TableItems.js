@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React, {useEffect, useState} from 'react'
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -12,21 +13,21 @@ import styles from "assets/jss/material-dashboard-react/components/tableStyle.js
 import AddIcon from '@material-ui/icons/Add';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreIcon from '@material-ui/icons/Restore';
+import ImageIcon from '@material-ui/icons/Image';
 import axios from 'axios'
 
 export default function ItemsTable(props) {
     const useStyles = makeStyles(styles);
     var classTableItems;
-    var recordItems;
     const classes = useStyles();
     const [maSP,setMaSp] = useState('');
     const [name,setName] = useState('');
     const [price,setPrice] = useState('');
     const [description,setDescription] = useState('');
     const [isActive,setIsActive] = useState('');
-    const [Link,setLink] = useState('');
 
-    const ItemsInfo = {'maSP': maSP,'name':name,'price':'price', 'description':description,'isActive':isActive};
+    // const [image, setImage] = useState(null);
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTableItems = classes.table;
 
@@ -75,14 +76,40 @@ export default function ItemsTable(props) {
         });
     }
 
-    function clickAddStaff(){
+    async function clickFixImage(e,prop){
+        e.preventDefault();
+        document.getElementsByClassName(classTableItems)[0].setAttribute('style','display:none');
+        document.getElementsByClassName('FormFixImageItems')[0].setAttribute('style','display: initial');
+        axios({
+            method: 'post',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/product/getbyid",
+            headers:{
+                "Authorization": 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: {
+                id: prop[0]
+            }
+        }).then(function(res){
+            setMaSp(res.data['id']);
+        }).catch(function(err){
+            alert(err)
+        });
+    }
+
+    function clickAddItems(){
         document.getElementsByClassName(classTableItems)[0].setAttribute('style','display:none');
         document.getElementsByClassName('FormAddItems')[0].setAttribute('style','display: initial');
+    }
+
+    function clickRestore(e,prop){
     }
 
     function clickReturnToList(){
         document.getElementsByClassName(classTableItems)[0].setAttribute('style','display:initial');
         document.getElementsByClassName('FormAddItems')[0].setAttribute('style','display: none');
+        document.getElementsByClassName('FormFixItems')[0].setAttribute('style','display: none');
+        document.getElementsByClassName('FormFixImageItems')[0].setAttribute('style','display: none');
         document.location.reload();
     }
 
@@ -111,7 +138,7 @@ export default function ItemsTable(props) {
                     isActive: _data.get('isActive')
                 }
             }).then(function(res){
-                    alert('Add Itemeji Success');
+                    alert('Add Items Success');
                     return res;
                 }
             ).catch(function(err){
@@ -136,11 +163,31 @@ export default function ItemsTable(props) {
             }).then(function(res){
                     alert('Update Item Success');
                     return res;
+            }
+
+            ).catch(function(err){
+                alert(err)
+            });
+        }
+        else if(id == '3'){
+            const res = await axios({
+                method: 'put',
+                url: "https://mighty-plains-90447.herokuapp.com/v1/product/updateprev",
+                headers:{
+                    "Authorization": 'Bearer ' + token,
+                    'Content-Type': 'multipart/form-data',
+                    'Encriptype': 'multipart/form-data',
+                },
+                data: _data,
+            }).then(function(res){
+                    alert('Update Image Success');
+                    return res;
                 }
             ).catch(function(err){
                 alert(err)
             });
         }
+
     }
     return (
         <div className={classes.tableResponsive}>
@@ -158,16 +205,9 @@ export default function ItemsTable(props) {
                         <br/>
                         <input type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
                     </label>
-                    <br/>
-                    <br/>
+
 
                     <br/>
-                    {/*<label>*/}
-                    {/*   Ảnh*/}
-                    {/*    <br/>*/}
-                    {/*    <input type="file" name = 'image' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>*/}
-                    {/*</label>*/}
-                    {/*<br/>*/}
                     <label>
                         Mô tả
                         <br/>
@@ -181,9 +221,12 @@ export default function ItemsTable(props) {
                     </label>
 
                     <br/>
+                    <br/>
+                    <br/>
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
+
             <div class='FormFixItems' style={{display:'none'}}>
                 <Button onClick={clickReturnToList}>Back</Button>
                 <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
@@ -217,19 +260,38 @@ export default function ItemsTable(props) {
                         <input type="text" name = 'isActive' value={isActive} onChange={(e)=>{handleChangeInputTag(e,setIsActive)}}/>
                     </label>
                     <br/>
-                    {/*<label>*/}
-                    {/*    Ảnh*/}
-                    {/*    <br/>*/}
-                    {/*    <input type="file" name = 'image' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>*/}
-                    {/*</label>*/}
                     <br/>
-
                     <br/>
-
                     <input type="Submit" value='Submit'/>
                 </form>
             </div>
-            <div className={classes.table}><Button id='add' onClick={()=>clickAddStaff()}><AddIcon/></Button>
+
+            <div className='FormFixImageItems' style={{display: 'none'}}>
+                <Button onClick={clickReturnToList}>Back</Button>
+                <form id='3' style={{textAlign: 'center'}} onSubmit={(e) => {
+                    handleSubmit(e, '3')
+                }}>
+                    <label>
+                        ID:
+                        <br/>
+                        <input type="text" name='id' value={maSP}/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>
+                        Ảnh
+                        <br/>
+                        <input type="file" name = 'preview'/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <input type="Submit" value='Submit'/>
+                </form>
+            </div>
+
+            <div className={classes.table}>
+                <Button id='add' onClick={()=>clickAddItems()}><AddIcon/></Button>
+                {/*<Button id='restore' onClick={()=>clickRestore()}><RestoreIcon/></Button>*/}
                 <Table className={classes.table}>
                     {tableHead !== undefined ? (
                         <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -260,6 +322,7 @@ export default function ItemsTable(props) {
                                     })}
                                     <TableCell>
                                         <Button id='fix' onClick={(e)=>clickFix(e,prop)} ><BorderColorIcon/></Button>
+                                        <Button id='fixImage' onClick={(e)=>clickFixImage(e,prop)} ><ImageIcon/></Button>
                                         <Button id='delete' onClick={(e)=>clickDelete(e,prop)}><DeleteIcon/></Button>
                                     </TableCell>
                                 </TableRow>

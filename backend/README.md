@@ -15,7 +15,7 @@ $ npm install
 ```ruby
 $ Install xampp
 $ Start Apache and MySQL modules
-$ Add new account in phpmyadmin with your name and password
+$ Add new account in phpmyadmin
 ```
 ### Setup environment
 ```ruby
@@ -27,6 +27,7 @@ DB_NAME=test
 DB_USERNAME=test   #as your name  
 DB_PASSWORD=123456  # as your password
 SECRECT_KEY=1a2b3c4d
+And put in backend folder
 ```
 ### Run
 ```ruby

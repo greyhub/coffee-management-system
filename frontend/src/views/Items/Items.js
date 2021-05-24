@@ -10,6 +10,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
 import axios from 'axios'
+import {render} from "react-dom";
+import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 
 const styles = {
@@ -47,7 +50,14 @@ export default function Items(){
     const [data,setData] = useState([]);
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
-    const itemsJson = {'header':['ID','Tên sản phẩm','Giá','Mô tả','Ảnh','Còn hàng'],'data':data};
+    const itemsJson = {'header':['ID','Tên sản phẩm','Giá','Mô tả','Ảnh','Còn hàng','Hành động'],'data':data};
+    // const { exp } = jwtDecode(token)
+    // const expirationTime = (exp * 1000) - 60000
+    // if (Date.now() >= expirationTime) {
+    //     localStorage.clear();
+    //
+    // }
+
     useEffect(()=>{
         getData()
     },[]);
@@ -72,15 +82,21 @@ export default function Items(){
                 header: res.data['token'],
                 headers:{
                     'Header': res.data['token'],
-                    'Encytype': 'application/json',
+                        'Encytype': 'application/json',
                     "Authorization": 'Bearer ' + res.data['token']
                 }
             }).catch(function(err1){
                 alert(err1)
             });
             var list = [];
+            var user = [];
             for(var i = 0;i<res1.data['products'].length;i++){
-                list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], res1.data['products'][i]['price'], res1.data['products'][i]['description'],res1.data['products'][i]['previewUri'],res1.data['products'][i]['isActive'].toString()]);
+                if(res1.data['products'][i]['isActive'] ==1){
+                    list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'],
+                        res1.data['products'][i]['price'], res1.data['products'][i]['description'],
+                        <img src ={res1.data['products'][i]['previewUri']} style={{width: '120px', height:'120px'}}/>,
+                        res1.data['products'][i]['isActive'].toString()]);
+                }
             }
             setData(list);
             setLoad(false);

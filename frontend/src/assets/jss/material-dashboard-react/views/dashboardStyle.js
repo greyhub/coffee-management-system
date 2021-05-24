@@ -40,7 +40,8 @@ const dashboardStyle = {
     fontSize: "14px",
     marginTop: "0",
     paddingTop: "10px",
-    marginBottom: "0"
+    marginBottom: "0",
+    textAlign: "center"
   },
   cardCategoryWhite: {
     color: "rgba(" + hexToRgb(whiteColor) + ",.62)",
@@ -50,6 +51,7 @@ const dashboardStyle = {
     marginBottom: "0"
   },
   cardTitle: {
+    textAlign: "center",
     color: grayColor[2],
     marginTop: "0px",
     minHeight: "auto",

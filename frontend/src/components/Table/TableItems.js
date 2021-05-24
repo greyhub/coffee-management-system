@@ -16,6 +16,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RestoreIcon from '@material-ui/icons/Restore';
 import ImageIcon from '@material-ui/icons/Image';
 import axios from 'axios'
+import Edit from "@material-ui/icons/Edit";
+import Close from "@material-ui/icons/Close";
+import Cloud from "@material-ui/icons/Cloud";
 
 export default function ItemsTable(props) {
     const useStyles = makeStyles(styles);
@@ -26,8 +29,6 @@ export default function ItemsTable(props) {
     const [price,setPrice] = useState('');
     const [description,setDescription] = useState('');
     const [isActive,setIsActive] = useState('');
-
-    // const [image, setImage] = useState(null);
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTableItems = classes.table;
 

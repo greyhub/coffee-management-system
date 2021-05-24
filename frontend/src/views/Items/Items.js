@@ -11,6 +11,8 @@ import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
 import axios from 'axios'
 import {render} from "react-dom";
+import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 
 const styles = {
@@ -49,6 +51,7 @@ export default function Items(){
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
     const itemsJson = {'header':['ID','Tên sản phẩm','Giá','Mô tả','Ảnh','Còn hàng','Hành động'],'data':data};
+  
     useEffect(()=>{
         getData()
     },[]);
@@ -83,7 +86,10 @@ export default function Items(){
             var user = [];
             for(var i = 0;i<res1.data['products'].length;i++){
                 if(res1.data['products'][i]['isActive'] ==1){
-                    list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'], res1.data['products'][i]['price'], res1.data['products'][i]['description'],<img src ={res1.data['products'][i]['previewUri']} style={{width: '120px', height:'120px'}}/>,res1.data['products'][i]['isActive'].toString()]);
+                    list.push([res1.data['products'][i]['id'], res1.data['products'][i]['name'],
+                        res1.data['products'][i]['price'], res1.data['products'][i]['description'],
+                        <img src ={res1.data['products'][i]['previewUri']} style={{width: '120px', height:'120px'}}/>,
+                        res1.data['products'][i]['isActive'].toString()]);
                 }
             }
             setData(list);

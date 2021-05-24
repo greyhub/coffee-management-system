@@ -1,6 +1,5 @@
 # Remote:
 ```ruby
-First
 url: https://mighty-plains-90447.herokuapp.com/
 adminAccount: 222222352ab80
 adminPassword: 2310-12a
@@ -28,6 +27,7 @@ DB_USERNAME=test   #as your name
 DB_PASSWORD=123456  # as your password
 SECRECT_KEY=1a2b3c4d
 And put in backend folder
+# remember do exactly
 ```
 ### Run
 ```ruby

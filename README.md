@@ -1,10 +1,12 @@
 # Coffee Management System
-Author:
-- Nguyen Van Luong
-- Bui Pho Ben
-- Nguyen Huu Anh Viet
-- Ma Viet Tung - KS-K62-Đại học bách khoa hà nội
-- Vu Quang Huy
+
+@Author:
+
+    - Nguyen Van Luong
+    - Bui Pho Ben
+    - Nguyen Huu Anh Viet
+    - Ma Viet Tung
+    - Vu Quang Huy
 
 
 Topic: Coffee Management System 

@@ -43,6 +43,10 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+  if (!localStorage.getItem("islogged") || localStorage.getItem("roleCode") != 2){
+    window.location.href = "/login";
+    return (<></>)
+  }
   return (
     <div>
       <GridContainer>

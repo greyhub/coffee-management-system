@@ -7,9 +7,7 @@ export default class Stat24hDTO extends AbstractDTO {
 
   constructor(revenue: any, type: string = "hour") {
     super();
-    logger.debug("hoicham",revenue)
     this.type = type;
     this.revenue = revenue;
-    logger.debug("hoicham2",this.revenue)
   }
 }

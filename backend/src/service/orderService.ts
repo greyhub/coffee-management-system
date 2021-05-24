@@ -212,7 +212,7 @@ class OrderService {
       const nowTime = new Date();
       let startHour = new Date();
       const hour = nowTime.getHours();
-      logger.debug('TIme:', hour);
+      // logger.debug('TIme:', hour);
       nowTime.setMinutes(0);
       startHour.setHours(nowTime.getHours() - 24);
       // logger.debug('TIme:', startHour);
@@ -239,7 +239,7 @@ class OrderService {
         result.set(hour,income);
       }
       const res = Array.from(result.entries())
-      logger.debug("haha",res)
+      // logger.debug("haha",res)
       return res;
     }
     catch(e) {

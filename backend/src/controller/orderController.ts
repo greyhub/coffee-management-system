@@ -134,8 +134,8 @@ class OrderController extends AbstractController {
     try {
 
       const stat = await orderService.viewRev24h();
-      logger.debug("hoho",stat)
-      logger.debug("hihi",JSON.stringify(new Stat24hDTO(stat,"hour")));
+      // logger.debug("hoho",stat)
+      // logger.debug("hihi",JSON.stringify(new Stat24hDTO(stat,"hour")));
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new Stat24hDTO(stat,"hour"));
     }
     catch(error) {

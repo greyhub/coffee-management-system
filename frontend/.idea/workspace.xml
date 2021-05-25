@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4b170594-d648-4649-88e4-defe0c7f00b0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Table/TableItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Table/TableItems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Items/Items.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Items/Items.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Statistics/Statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Statistics/Statistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tham khao/coffee-management-system" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="E:\Downloads\20202\chuyên đề\coffee-management-system\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -52,6 +49,8 @@
       <workItem from="1619778123179" duration="6000" />
       <workItem from="1621241320503" duration="58000" />
       <workItem from="1621413385159" duration="8872000" />
+      <workItem from="1621497681122" duration="714000" />
+      <workItem from="1621786226463" duration="92000" />
     </task>
     <servers />
   </component>
@@ -64,13 +63,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/views/Statistics/Statistics.js</url>
           <line>327</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/views/Statistics/Statistics.js</url>
           <line>52</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

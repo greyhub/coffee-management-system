@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 //core compontment
@@ -9,7 +9,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Router } from '@material-ui/icons';
-
+import axios from 'axios'
 
 
 const styles = {
@@ -41,13 +41,52 @@ const styles = {
       }
     }
   };
-
-const useStyles = makeStyles(styles);
-
-var employeesJson = {'header':['Mã nhân viên','Tên','Ngày sinh','Quê quán','Lương(VND)','Vị trí','Tình trạng hiện tại'],'data':[['20173453','Ma Việt Tùng','12/05/1999','Lạng Sơn','12.000.000','Giám đốc','Độc thân'],['20167732','Nguyên Văn Tùng','12/05/3000','Hà Nội','12.000.000','Giám đốc','Đã kết hôn']]}
-
-export default function EmployeesManager(){
+export default function EmployeesManager(){ 
+    const useStyles = makeStyles(styles);
     const classes = useStyles();
+    const [data,setData] = useState([]);
+    const [loading,setLoad] = useState(true);
+    const [token, setToken] = useState();
+    const employeesJson = {'header':['Mã nhân viên','Tên','Quê quán','Vị trí','Tình trạng hiện tại'],'data':data};
+    useEffect(()=>{
+      getData()
+    },[]);
+    async function getData(){
+      if(loading == true){
+      const res = await axios({
+        method: 'post',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+        headers:{
+          'Encytpe': 'multipart/form-data',
+        },
+        data:{
+          account: '222222352ab80',
+          password: '2310-12a'
+        }
+      }).catch(function(err){
+        alert(err)
+      });
+      const res1 = await axios({
+        method: 'get',
+        url: "https://mighty-plains-90447.herokuapp.com/v1/employee",
+        header: res.data['token'],
+        headers:{
+            'Header': res.data['token'],
+            'Encytype': 'application/json',
+            "Authorization": 'Bearer ' + res.data['token']
+        }
+      }).catch(function(err1){
+        alert(err1)
+      });
+       var list = [];
+       for(var i = 0;i<res1.data['employees'].length;i++){
+         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString()]);
+       }
+       setData(list);
+       setLoad(false);
+       setToken(res.data['token']);
+    }
+    }
     return(
         <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
@@ -62,7 +101,8 @@ export default function EmployeesManager(){
                     <Table
                         tableHeaderColor="info"
                         tableHead={employeesJson['header']}
-                        tableData={employeesJson['data']}                        
+                        tableData={employeesJson['data']}
+                        token = {token}                     
                     />
                     </CardBody>
                 </Card>

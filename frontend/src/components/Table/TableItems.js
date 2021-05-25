@@ -29,7 +29,6 @@ export default function ItemsTable(props) {
     const [price,setPrice] = useState('');
     const [description,setDescription] = useState('');
     const [isActive,setIsActive] = useState('');
-
     const { tableHead, tableData, tableHeaderColor ,token} = props;
     classTableItems = classes.table;
 
@@ -324,7 +323,6 @@ export default function ItemsTable(props) {
                                     })}
                                     <TableCell>
                                         <Button id='fix' onClick={(e)=>clickFix(e,prop)} ><BorderColorIcon/></Button>
-                                        {/*<Button id='fix' onClick={(e)=>clickFix(e,prop)} ><Edit/></Button>*/}
                                         <Button id='fixImage' onClick={(e)=>clickFixImage(e,prop)} ><ImageIcon/></Button>
                                         <Button id='delete' onClick={(e)=>clickDelete(e,prop)}><DeleteIcon/></Button>
                                     </TableCell>

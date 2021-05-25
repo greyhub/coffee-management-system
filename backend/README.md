@@ -1,8 +1,8 @@
 # Remote:
 ```ruby
 url: https://mighty-plains-90447.herokuapp.com/
-adminAccount: 222222352ab80
-adminPassword: 2310-12a
+adminAccount: huykkk
+adminPassword: 000000
 ```
 # How to run/build
 

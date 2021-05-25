@@ -56,27 +56,27 @@ export default function Purchasing(){
     },[]);
     async function getData(){
         if(loading == true){
-            const res = await axios({
-                method: 'post',
-                url   : "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
-                headers:{
-                    'Encriptype': 'multipart/form-data',
-                },
-                data:{
-                    account : "huykkk",
-                    password: "000000"
-                }
-            }).catch(function(err){
-                alert(err)
-            });
+            // const res = await axios({
+            //     method: 'post',
+            //     url   : "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+            //     headers:{
+            //         'Encriptype': 'multipart/form-data',
+            //     },
+            //     data:{
+            //         account : "huykkk",
+            //         password: "000000"
+            //     }
+            // }).catch(function(err){
+            //     alert(err)
+            // });
             const res1 = await axios({
                 method: 'get',
                 url: "https://mighty-plains-90447.herokuapp.com/v1/transaction",
-                header: res.data['token'],
+                header: localStorage.getItem("token"),
                 headers:{
-                    'Header': res.data['token'],
+                    'Header': localStorage.getItem("token"),
                     'Encytype': 'application/json',
-                    "Authorization": 'Bearer ' + res.data['token']
+                    "Authorization": 'Bearer ' + localStorage.getItem("token")
                 }
             }).catch(function(err1){
                 alert(err1)
@@ -91,7 +91,7 @@ export default function Purchasing(){
             }
             setData(list);
             setLoad(false);
-            setToken(res.data['token']);
+            setToken(localStorage.getItem("token"));
         }
     }
     return(

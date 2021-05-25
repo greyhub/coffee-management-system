@@ -53,27 +53,27 @@ export default function EmployeesManager(){
     },[]);
     async function getData(){
       if(loading == true){
-      const res = await axios({
-        method: 'post',
-        url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
-        headers:{
-          'Encytpe': 'multipart/form-data',
-        },
-        data:{
-          account: '222222352ab80',
-          password: '2310-12a'
-        }
-      }).catch(function(err){
-        alert(err)
-      });
+      // const res = await axios({
+      //   method: 'post',
+      //   url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+      //   headers:{
+      //     'Encytpe': 'multipart/form-data',
+      //   },
+      //   data:{
+      //     account: '222222352ab80',
+      //     password: '2310-12a'
+      //   }
+      // }).catch(function(err){
+      //   alert(err)
+      // });
       const res1 = await axios({
         method: 'get',
         url: "https://mighty-plains-90447.herokuapp.com/v1/employee",
-        header: res.data['token'],
+        header: localStorage.getItem("token"),
         headers:{
-            'Header': res.data['token'],
+            'Header': localStorage.getItem("token"),
             'Encytype': 'application/json',
-            "Authorization": 'Bearer ' + res.data['token']
+            "Authorization": 'Bearer ' + localStorage.getItem("token")
         }
       }).catch(function(err1){
         alert(err1)
@@ -84,7 +84,7 @@ export default function EmployeesManager(){
        }
        setData(list);
        setLoad(false);
-       setToken(res.data['token']);
+       setToken(localStorage.getItem("token"));
     }
     }
     return(

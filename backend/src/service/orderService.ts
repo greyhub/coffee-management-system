@@ -23,12 +23,15 @@ class OrderService {
 
   public async getById(id: string) {
     try {
+      // let order = new OrderEntity();
       const order = await orderDAO.getById(id);
-      // if(!orders){
-      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
-      // }
+      if(!order){
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      }
       // const order = orders[0];
       // logger.debug("upda"+ order?.id)
+      const orderProducts = await orderProductDAO.getById(id);
+      order.orderProducts = orderProducts;
       if (!order) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
       }

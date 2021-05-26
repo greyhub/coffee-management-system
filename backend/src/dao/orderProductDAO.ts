@@ -106,6 +106,22 @@ async function create(orderProducts: OrderProductEntity) {
     throw e;
   }
 }
+async function getById(id: string) {
+  try {
+    // await logger.debug("proIdDAO"+orderProducts.product.id);
+    const repository = getRepository(OrderProductEntity);
+    // let neworderProducts: any = await repository.create(orderProducts);
+    // logger.debug("ĐÂUUDUAUDA"+JSON.stringify(orderProducts));
+    logger.debug(" id "+id);
+    const neworderProducts = await repository.find({where: [{ order: id}]});
+    logger.debug("orderProducts "+JSON.stringify(neworderProducts));
+    // console.log("hahaha"+re)
+    return neworderProducts;
+  }
+  catch(e) {
+    throw e;
+  }
+}
 // async function update(employee: any) {
 //   try {
 //     const repository = getRepository(EmployeeEntity);
@@ -118,7 +134,7 @@ async function create(orderProducts: OrderProductEntity) {
 
 const orderProductDAO = {
   // getMaxEmployeeId,
-  // getById,
+  getById,
   // getAll,
   create,
   save,

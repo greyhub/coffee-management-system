@@ -19,6 +19,11 @@ router.get('/v1/order',
   authOrderMiddleware("getAll"),
   orderController.getAll
 )
+router.post('/v1/order/getbyid',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("getById"),
+  orderController.getById
+)
 
 router.put('/v1/order/createone',
   accountController.authTokenAndPassRoleCodeToResLocals,

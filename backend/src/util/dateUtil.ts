@@ -53,7 +53,7 @@ function isValidDateTimeBeforeNow(str: string) {
   else {
     const datetime = fromTimeString(str);
     let nowDate = new Date();
-    nowDate.setHours(nowDate.getHours()+7);s
+    nowDate.setHours(nowDate.getHours()+7);
     return datetime < nowDate;
   }
 }

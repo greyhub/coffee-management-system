@@ -119,6 +119,34 @@ class OrderProductService {
       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
     }
   }
+
+  public async getByOrderId(id: any){
+    try{
+      // logger.debug("tupe" + Array.from(e) )
+      let orderProducts: OrderProductEntity[]  = []
+      // await Promise.all( 
+      // logger.debug("hoi cham" + JSON.stringify(orderProducts));
+      const neworderProducts = await orderProductDAO.getById(id);
+      // logger.debug("hoi cham2" + JSON.stringify(neworderProducts));
+      // )
+      // orderProducts = await Promise.all(e.map(async (item: any):Promise<any> =>{await this.saveOne(item,order)}))
+      // if (neworderProducts.length<=0){
+      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_INVALID_ID);
+      // }
+      return neworderProducts
+    }
+    catch(e){
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_CREATE_ERROR);
+    }
+  }
   // public async updateInfo(product: any) {
   //   try {
 

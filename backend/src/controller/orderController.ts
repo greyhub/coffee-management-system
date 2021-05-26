@@ -10,6 +10,7 @@ import AbstractController from "./abstractController";
 import OrderListFindDTO from "../dto/order/orderListFindDTO";
 import OrderDeleteDTO from "../dto/order/orderDeleteDTO";
 import OrderItemFindDTO from "../dto/order/orderItemFindDTO";
+import Stat24hDTO from "../dto/order/stat24hDTO";
 
 class OrderController extends AbstractController {
   private static _instance: OrderController
@@ -33,19 +34,20 @@ class OrderController extends AbstractController {
       next(error)
     }
   }
-  // public async getById(req: any, res: any, next: any) {
-  //   try {
-  //     logger.info('INPUT:')
-  //     if (!req.body.id) {
-  //       throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_INVALID_ID);
-  //     }
-  //     const orders = await orderService.getById(req.body.id);
-  //     sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new OrderItemFindDTO(orders));
-  //   }
-  //   catch(error) {
-  //     next(error)
-  //   }
-  // }
+
+  public async getById(req: any, res: any, next: any) {
+    try {
+      logger.info('INPUT:')
+      if (!req.body.id) {
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_INVALID_ID);
+      }
+      const orders = await orderService.getById(req.body.id);
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new OrderCreateDTO(orders));
+    }
+    catch(error) {
+      next(error)
+    }
+  }
 
   public async getAll(req: any, res: any, next: any) {
     try {
@@ -123,6 +125,19 @@ class OrderController extends AbstractController {
 
       
       sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new OrderCreateDTO(order));
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+
+  public async viewRev24h(req: any, res: any, next: any) {
+    try {
+
+      const stat = await orderService.viewRev24h();
+      // logger.debug("hoho",stat)
+      // logger.debug("hihi",JSON.stringify(new Stat24hDTO(stat,"hour")));
+      sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, new Stat24hDTO(stat,"hour"));
     }
     catch(error) {
       next(error)

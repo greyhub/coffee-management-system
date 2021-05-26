@@ -23,6 +23,7 @@ import Statistics from "views/Statistics/Statistics.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import Purchasing from "views/Purchasing/Purchasing.js"
+import { Equalizer, LocalCafe, People, Receipt, Store } from "@material-ui/icons";
 
 const dashboardRoutes = [
   {
@@ -45,7 +46,7 @@ const dashboardRoutes = [
     path: "/employees",
     name: "Employees",
     rtlName: "",
-    icon: "content_paste",
+    icon: People,
     component: EmployeesManager,
     layout: "/admin"
   },
@@ -53,7 +54,7 @@ const dashboardRoutes = [
     path: "/items",
     name: "Items",
     rtlName: "",
-    icon: "content_paste",
+    icon: LocalCafe,
     component: Items,
     layout: "/admin"
   },
@@ -61,7 +62,7 @@ const dashboardRoutes = [
     path: "/purchasing",
     name: "Purchasing",
     rtlName: "",
-    icon: "content_paste",
+    icon: Store,
     component: Purchasing,
     layout: "/admin"
   },
@@ -69,7 +70,7 @@ const dashboardRoutes = [
     path: "/bill",
     name: "Bill",
     rtlName: "",
-    icon: "content_paste",
+    icon: Receipt,
     component: BillManagement,
     layout: "/admin"
   },
@@ -77,7 +78,7 @@ const dashboardRoutes = [
     path: "/statistics",
     name: "Statistics",
     rtlName: "",
-    icon: "content_paste",
+    icon: Equalizer,
     component: Statistics,
     layout: "/admin"
   },

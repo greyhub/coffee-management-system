@@ -945,3 +945,68 @@ Example:
     "message": "OK"
 }
 ```
+## Doanh thu trong 24h qua (tính tổng 3h 1 lần)
+```ruby
+/v1/stat/revenue/24h
+`get`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+> Response:<br>
+```ruby
+revenue: Array<hour,money>
+type: hour
+```
+```ruby
+Example:
+{
+    "error": 200,
+    "type": "hour",
+    "revenue": [
+        [
+            1,
+            80000
+        ],
+        [
+            4,
+            130000
+        ],
+        [
+            7,
+            335000
+        ],
+        [
+            10,
+            490000
+        ],
+        [
+            13,
+            800000
+        ],
+        [
+            16,
+            985500
+        ],
+        [
+            19,
+            1090000
+        ],
+        [
+            22,
+            1108000
+        ]
+    ],
+    "message": "OK"
+}
+
+```

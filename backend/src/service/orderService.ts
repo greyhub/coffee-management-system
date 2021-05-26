@@ -11,6 +11,7 @@ import orderProductDAO from "../dao/orderProductDAO";
 import OrderProductService from "./orderProductService";
 import orderProductService from "./orderProductService";
 import { OrderProductEntity } from "../entity/orderProductEntity";
+import statDAO from "../dao/statDAO";
 
 class OrderService {
   private static _instance: OrderService
@@ -22,12 +23,15 @@ class OrderService {
 
   public async getById(id: string) {
     try {
+      // let order = new OrderEntity();
       const order = await orderDAO.getById(id);
-      // if(!orders){
-      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
-      // }
+      if(!order){
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      }
       // const order = orders[0];
       // logger.debug("upda"+ order?.id)
+      const orderProducts = await orderProductDAO.getById(id);
+      order.orderProducts = orderProducts;
       if (!order) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
       }
@@ -82,7 +86,6 @@ class OrderService {
       }
       let neworderProducts =  Array<OrderProductEntity>();
       newOrder.updateAt = dateUtil.fromTimeString(e.updateAt),
-      logger.debug("updateAt: "+e.updateAt);
       newOrder.employee = newemployee,
       newOrder.note = e.note,
       newOrder.money = e.money,
@@ -207,7 +210,54 @@ class OrderService {
     }
   }
   
-
+  public async viewRev24h() {
+    try {
+      const nowTime = new Date();
+      nowTime.setHours(nowTime.getHours() + 7);
+      let startHour = new Date();
+      const hour = nowTime.getHours();
+      // logger.debug('TIme:', hour);
+      nowTime.setMinutes(0);
+      startHour.setHours(nowTime.getHours() - 24);
+      // logger.debug('TIme:', startHour);
+      // logger.debug('TIme2:', nowTime);
+      // Validate input
+      const orders = await statDAO.filterOrderByTime(startHour, nowTime);
+      const result = new Map()
+      // let index = new Array<number>(8);
+      // for (let i = 0; i < 8; i++) {
+      //   index[i] = 0;
+      // }
+      const startTime = startHour.getTime();
+      const endTime = nowTime.getTime();
+      for (let i = 0; i < 8; i++) {
+        let curHour = new Date();
+        curHour.setHours(nowTime.getHours() - 21 + i*3);
+        let hour = curHour.getHours(); 
+        let income = 0;
+        for (let j = 0; j<orders.length;j++){
+          if (curHour.getTime()>orders[j].updateAt.getTime()){
+            income += orders[j].money;
+          }
+        }
+        result.set(hour,income);
+      }
+      const res = Array.from(result.entries())
+      // logger.debug("haha",res)
+      return res;
+    }
+    catch(e) {
+      if (e instanceof QueryFailedError) {
+        logger.debug(e);
+        logger.debug("QueryFailedError");
+      }
+      if (e instanceof CustomError) {
+        logger.debug('CustomError');
+        throw e;
+      }
+      throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_GET_REVENUE_ERROR);
+    }
+  }
 }
 
 export default OrderService.Instance

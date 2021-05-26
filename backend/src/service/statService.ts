@@ -197,7 +197,7 @@ class StatService {
   async viewRevenueCostNowMonth() {
     try {
       const nowDate = new Date();
-      
+      nowDate.setHours(nowDate.getHours()+7)
       const month = nowDate.getMonth();
       const year = nowDate.getFullYear();
       const startDateMonth = new Date(year, month, 1);

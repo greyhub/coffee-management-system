@@ -19,6 +19,11 @@ router.get('/v1/order',
   authOrderMiddleware("getAll"),
   orderController.getAll
 )
+router.post('/v1/order/getbyid',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  authOrderMiddleware("getById"),
+  orderController.getById
+)
 
 router.put('/v1/order/createone',
   accountController.authTokenAndPassRoleCodeToResLocals,
@@ -36,6 +41,10 @@ router.put('/v1/order/update',
   accountController.authTokenAndPassRoleCodeToResLocals,
   authOrderMiddleware("update"),
   orderController.updateInfo
+)
+router.get('/v1/stat/revenue/24h',
+  accountController.authTokenAndPassRoleCodeToResLocals,
+  orderController.viewRev24h
 )
 
 // /**

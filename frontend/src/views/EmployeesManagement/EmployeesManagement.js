@@ -47,7 +47,7 @@ export default function EmployeesManager(){
     const [data,setData] = useState([]);
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
-    const employeesJson = {'header':['Mã nhân viên','Tên','Quê quán','Vị trí','Tình trạng hiện tại'],'data':data};
+    const employeesJson = {'header':['Mã nhân viên','Tên','Quê quán','Vị trí','Tình trạng hiện tại','Ảnh'],'data':data};
     useEffect(()=>{
       getData()
     },[]);
@@ -80,7 +80,7 @@ export default function EmployeesManager(){
       });
        var list = [];
        for(var i = 0;i<res1.data['employees'].length;i++){
-         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString()]);
+         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString(),res1.data['employees'][i]['avatarUri']]);
        }
        setData(list);
        setLoad(false);

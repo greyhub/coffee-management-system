@@ -223,6 +223,7 @@ export default function BillsTable(props) {
           tmp.push({'product':products[key],'count':1})
         }
         setBills({...BillsInfo,products: tmp});
+        caculatePrice();
     }
     return (
     <div className={classes.tableResponsive}>
@@ -361,7 +362,7 @@ export default function BillsTable(props) {
                       <br/>
                       <label>Tình trạng: {item['isActive'].toString()}</label>
                       <br/>
-                      <img src={item['previewUri']}></img>
+                      <img src={item['previewUri']} width="300" height="300"></img>
                       <br/>
                       <Button onClick={(e)=>{addItemCart(e,key)}}>+</Button> <label>Giỏ hàng: {BillsInfo['products'].map((product,key)=>{
                         if(item['id']==product['product']['id']){

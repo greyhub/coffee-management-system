@@ -97,7 +97,6 @@ export default function BillsTable(props) {
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:initial');
     document.getElementsByClassName('BillForm')[0].setAttribute('style','display: none');
     document.getElementsByClassName('BillFixForm')[0].setAttribute('style','display: none');
-    document.location.reload();
     }
 
     function handleChangeInputTag(e,key){

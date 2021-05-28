@@ -112,7 +112,7 @@ export default function EmployeesTable(props) {
     function clickReturnToList(){
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:initial');
     document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: none');
-    document.location.reload();
+    document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: none');
     }
 
     function handleChangeInputTag(e,func){

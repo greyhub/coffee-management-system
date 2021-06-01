@@ -1,18 +1,12 @@
 import React, {useEffect, useState} from 'react'
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-//core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableItems.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Router } from '@material-ui/icons';
 import axios from 'axios'
-import {render} from "react-dom";
-import jwt_decode from "jwt-decode";
-import jwtDecode from "jwt-decode";
 
 
 const styles = {
@@ -102,9 +96,9 @@ export default function Items(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Items</h4>
+                        <h4 className={classes.cardTitleWhite}>Quản lý mặt hàng</h4>
                         <p className={classes.cardCategoryWhite}>
-                            các sản phẩm đang có hiện tại
+                            Các sản phẩm đang có hiện tại
                         </p>
                     </CardHeader>
                     <CardBody>

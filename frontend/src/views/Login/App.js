@@ -4,8 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import { grey } from "@material-ui/core/colors";
-import PersonAdd from "@material-ui/icons/PersonAdd";
-import Help from "@material-ui/icons/Help";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import theme from "./theme";
 import Input from '@material-ui/core/Input';
@@ -169,10 +167,10 @@ class LoginPage extends React.Component {
           <div style={styles.loginContainer}>
             <Paper style={styles.paper}>
               <form>
-                <InputLabel htmlFor="component-simple">Account</InputLabel>
+                <InputLabel htmlFor="component-simple">Tài khoản</InputLabel>
                 <Input type="account" placeholder="Account" fullWidth={true} onChange={this.onChange} name='account' value={this.state.account} />
                 <div style={{ marginTop: 16 }}>
-                <InputLabel htmlFor="component-simple">Password</InputLabel>
+                <InputLabel htmlFor="component-simple">Mật khẩu</InputLabel>
                 <Input type="password" placeholder="Password..." fullWidth={true} onChange={this.onChange} name='password' value={this.state.password} />
                 </div>
 
@@ -180,32 +178,20 @@ class LoginPage extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        label="Remember me"
+                        label="Lưu mật khẩu"
                         style={styles.checkRemember.style}
                         labelStyle={styles.checkRemember.labelStyle}
                         iconStyle={styles.checkRemember.iconStyle}
                       />
                     }
-                    label="Remember me"
+                    label="Lưu mật khẩu"
                   />
                     <Button variant="contained" color="primary" style={styles.loginBtn} onClick={this.onHandleLogin}>
-                      Login
+                      Đăng nhập
                     </Button>
                 </div>
               </form>
             </Paper>
-
-            <div style={styles.buttonsDiv}>
-              <Button href="/admin/dashboard" style={styles.flatButton}>
-                <PersonAdd />
-                <span style={{ margin: 5 }}>Register</span>
-              </Button>
-
-              <Button href="/admin/dashboard" style={styles.flatButton}>
-                <Help />
-                <span style={{ margin: 5 }}>Forgot Password?</span>
-              </Button>
-            </div>
           </div>
         </div>
         <Dialog
@@ -217,11 +203,11 @@ class LoginPage extends React.Component {
             aria-describedby="alert-dialog-slide-description"
         >
         <DialogTitle id="alert-dialog-slide-title">
-          {"Login Failed!"}
+          {"Đăng nhập thất bại!"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Mat khau khong chinh xac!
+            Mật khẩu không chính xác !
           </DialogContentText>
         </DialogContent>
         <DialogActions>

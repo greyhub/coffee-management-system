@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-//core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TablePurchasing.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { getAllJSDocTags } from 'typescript';
 import axios from 'axios';
-import { alphaNumerate } from 'chartist';
 
 
 

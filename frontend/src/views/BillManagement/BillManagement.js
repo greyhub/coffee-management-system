@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react'
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-//core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableBills.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Router } from '@material-ui/icons';
 import axios from 'axios'
 
 
@@ -93,9 +90,9 @@ export default function OrderManagement(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Bill Panel</h4>
+                        <h4 className={classes.cardTitleWhite}>Quản lý đơn hàng</h4>
                         <p className={classes.cardCategoryWhite}>
-                            Panel for managing bills in selling 
+                          Danh sách đơn hàng 
                         </p>
                     </CardHeader>
                     <CardBody>

@@ -1,5 +1,4 @@
-// import React, { useState } from "react";
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -8,17 +7,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { Button} from 'react-bootstrap';
-// core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
-import RestoreIcon from '@material-ui/icons/Restore';
 import ImageIcon from '@material-ui/icons/Image';
 import axios from 'axios'
-import Edit from "@material-ui/icons/Edit";
-import Close from "@material-ui/icons/Close";
-import Cloud from "@material-ui/icons/Cloud";
 
 export default function ItemsTable(props) {
     const useStyles = makeStyles(styles);
@@ -33,20 +27,20 @@ export default function ItemsTable(props) {
     classTableItems = classes.table;
 
     async function clickDelete(e,prop){
-        const dl = prop[0];
-        const res = await axios({
-            method: 'delete',
-            url: "https://mighty-plains-90447.herokuapp.com/v1/product/delete",
-            headers:{
-                "Authorization": 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            },
-            data:{
-                ids: [dl],
-            }
-        }).catch(function(err){
-            alert(err)
-        });
+        // const dl = prop[0];
+        // const res = await axios({
+        //     method: 'delete',
+        //     url: "https://mighty-plains-90447.herokuapp.com/v1/product/delete",
+        //     headers:{
+        //         "Authorization": 'Bearer ' + token,
+        //         'Content-Type': 'application/json'
+        //     },
+        //     data:{
+        //         ids: [dl],
+        //     }
+        // }).catch(function(err){
+        //     alert(err)
+        // });
         document.location.reload();
     }
 

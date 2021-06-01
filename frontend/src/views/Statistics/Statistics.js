@@ -321,7 +321,7 @@ export default function Statistics(props) {
                     <form id='4' onSubmit={(e) => {
                         handleSubmit(e, '4')
                     }}>
-                        <label className="start">Start</label>
+                        <label className="start">Bắt đầu</label>
                         <label className="start inp">
                             <input type="date" name='start' placeholder="dd-mm-yyyy"
                                    value={start}
@@ -331,7 +331,7 @@ export default function Statistics(props) {
                         </label>
 
 
-                        <label style={{color: '#fff'}}>End</label>
+                        <label style={{color: '#fff'}}>Kết thúc</label>
                         <label className="end inp inp1">
                             <input className="inp1" type="date" name='end' placeholder="dd-mm-yyyy" value={end}
                                    onChange={(e) => {
@@ -340,7 +340,7 @@ export default function Statistics(props) {
                             />
                         </label>
 
-                        <input type="Submit" value='Submit'/>
+                        <input type="Submit" value='Duyệt'/>
                     </form>
                 </div>
             </CardHeader>

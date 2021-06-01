@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react'
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-//core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableEmployess.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Router } from '@material-ui/icons';
 import axios from 'axios'
 
 
@@ -92,9 +89,9 @@ export default function EmployeesManager(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Employees Panel</h4>
+                        <h4 className={classes.cardTitleWhite}>Quản lý nhân viên</h4>
                         <p className={classes.cardCategoryWhite}>
-                            Panel for managing employees in the company 
+                          Danh sách các nhân viên 
                         </p>
                     </CardHeader>
                     <CardBody>

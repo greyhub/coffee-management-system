@@ -148,6 +148,10 @@ export default function BillsTable(props) {
       alert(err);
     });
     }else{
+      var oderProducts = [];
+      for(var i = 0; i<BillsInfo['products'].length;i++){
+          oderProducts.push({"product":BillsInfo['products'][i]['product']['id'],"count":BillsInfo['products'][i]['count']})
+      }
       const res = await axios({
         url: "https://mighty-plains-90447.herokuapp.com/v1/order/createone",
         method:"put",
@@ -161,7 +165,7 @@ export default function BillsTable(props) {
 	        "note":BillsInfo['GhiChu'],
 	        "money": parseInt(BillsInfo['GiaTri']),
 	        "tableCode":1,
-	        "orderProducts": BillsInfo['products']
+	        "orderProducts": oderProducts
         }
     }).then(res=>{
       document.location.reload();
@@ -248,6 +252,15 @@ export default function BillsTable(props) {
             <label>
                 <b>Giỏ hàng: Sản phẩm - Mã - Số lượng</b>
             </label>
+            { BillsInfo['products'].map((oder,key) => {
+                  return (
+                    <div id = {'gh'+key}>
+                      <Button onClick={(e)=>{deleteGH(e,key)}}>-</Button>
+                      <label size={30}>{oder['product']['name']+' '+oder['product']['id']+' '+oder['count']}</label>
+                      <br/>
+                    </div>
+                  );
+            })}
             <br/>
             <Button onClick={(e)=>{getProducts(e,'BillForm')}}> Thêm sản phẩm </Button>
             <br/>

@@ -103,13 +103,13 @@ export default function Dashboard() {
     var countHigh = 0;
 
     var listLables3 = [
-        (today.getDate() - 6) + '-'  + (today.getMonth() + 1),
-        (today.getDate() - 5) + '-'  + (today.getMonth() + 1),
-        (today.getDate() - 4) + '-'  + (today.getMonth() + 1),
-        (today.getDate() - 3) + '-'  + (today.getMonth() + 1),
-        (today.getDate() - 2) + '-'  + (today.getMonth() + 1),
-        (today.getDate() - 1) + '-'  + (today.getMonth() + 1),
-        today.getDate() + '-'  + (today.getMonth() + 1)
+        ('28') + '-'  + (today.getMonth()),
+        ('29') + '-'  + (today.getMonth() ),
+        ('30') + '-'  + (today.getMonth() ),
+        ('31') + '-'  + (today.getMonth() ),
+        ('01') + '-'  + (today.getMonth() ),
+        ('02') + '-'  + (today.getMonth() + 1),
+        '03' + '-'  + (today.getMonth() + 1)
     ];
     var listSeries3 = [];
     var countHigh3 = 0;
@@ -120,28 +120,28 @@ export default function Dashboard() {
     }, []);
 
     async function getData2() {
-        const resp = await axios({
-            method: 'post',
-            url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
-            headers: {
-                'Encriptype': 'multipart/form-data',
-            },
-            data: {
-                account: "huykkk",
-                password: "000000"
-            }
-        }).catch(function (err) {
-            alert(err)
-        });
+        // const resp = await axios({
+        //     method: 'post',
+        //     url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",
+        //     headers: {
+        //         'Encriptype': 'multipart/form-data',
+        //     },
+        //     data: {
+        //         account: "huykkk",
+        //         password: "000000"
+        //     }
+        // }).catch(function (err) {
+        //     alert(err)
+        // });
 //Tổng bán / tổng mua theo tháng
         const resp1 = await axios({
             method: 'get',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/cost",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             }
         })
@@ -149,11 +149,11 @@ export default function Dashboard() {
         const resp2 = await axios({
             method: 'post',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
             data: {
@@ -165,11 +165,11 @@ export default function Dashboard() {
         const resp3 = await axios({
             method: 'post',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/product",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
             data: {
@@ -181,11 +181,11 @@ export default function Dashboard() {
         const resp4 = await axios({
             method: 'get',
             url: "https://mighty-plains-90447.herokuapp.com/v1/employee",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
         })
@@ -193,11 +193,11 @@ export default function Dashboard() {
         const resp5 = await axios({
             method: 'post',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
             data: {
@@ -211,11 +211,11 @@ export default function Dashboard() {
         const resp6 = await axios({
             method: 'get',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/24h",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
         })
@@ -223,11 +223,11 @@ export default function Dashboard() {
         const resp7 = await axios({
             method: 'post',
             url: "https://mighty-plains-90447.herokuapp.com/v1/stat/revenue/product",
-            header: resp.data['token'],
+            header: localStorage.getItem("token"),
             headers: {
-                'Header': resp.data['token'],
+                'Header': localStorage.getItem("token"),
                 'Encytype': 'application/json',
-                "Authorization": 'Bearer ' + resp.data['token'],
+                "Authorization": 'Bearer ' + localStorage.getItem("token"),
                 'Content-Type': 'application/json'
             },
             data: {

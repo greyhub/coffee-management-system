@@ -32,19 +32,19 @@ export default function PurchasingTable(props) {
 
     async function clickDelete(e,prop){
         const dl = prop[0];
-        // const res = await axios({
-        //     method: 'delete',
-        //     url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/delete",
-        //     headers:{
-        //         "Authorization": 'Bearer ' + token,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     data:{
-        //         ids: [dl],
-        //     }
-        // }).catch(function(err){
-        //     alert(err)
-        // });
+        const res = await axios({
+            method: 'delete',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/delete",
+            headers:{
+                "Authorization": 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data:{
+                ids: [dl],
+            }
+        }).catch(function(err){
+            alert(err)
+        });
         document.location.reload();
     }
 
@@ -71,7 +71,6 @@ export default function PurchasingTable(props) {
             setSupplierName(res.data['supplierName']);
             setPrice(res.data['price']);
             setTime(res.data['time']);
-
         }).catch(function(err){
             alert(err)
         });
@@ -245,7 +244,7 @@ export default function PurchasingTable(props) {
                     <label>
                         Ngày mua
                         <br/>
-                        <input type="text" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
+                        <input type="date" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
                     </label>
                     <br/>
 

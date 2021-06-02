@@ -11,7 +11,7 @@
 
 | Dashboard | Nhân viên | Mặt hàng | Thu mua | Đơn hàng | Thống kê |
 | --- | --- | --- | --- | --- | --- |
-| [![Start page](src/assets/github/dashboard.jpg)]() | [![Employees page](src/assets/github/employees.jpg)]() | [![Items page ](src/assets/github/items.jpg)]() | [![Purchasing Page](src/assets/github/purchasing.jpg)]() | [![Bill page](src/assets/github/Bill.jpg)]() | []()
+| [![Start page](src/assets/img/dashboard.jpg)]() | [![Employees page](src/assets/img/employees.jpg)]() | [![Items page ](src/assets/img/items.jpg)]() | [![Purchasing Page](src/assets/img/purchasing.jpg)]() | [![Bill page](src/assets/img/Bill.jpg)]() | []()
 
 
 ## Quick start

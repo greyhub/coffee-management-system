@@ -6,7 +6,6 @@ import {
     Route,
     Link
   } from "react-router-dom";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -14,10 +13,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { Button} from 'react-bootstrap';
-// core components
-import CardFooter from "components/Card/CardFooter.js";
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/icons";

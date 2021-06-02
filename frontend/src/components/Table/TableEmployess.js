@@ -136,6 +136,10 @@ export default function EmployeesTable(props) {
 
     async function handleSubmit(e,id){
       e.preventDefault();
+      var input_list = document.getElementById(id).getElementsByTagName("input");
+        for(var i=0; i<input_list.length;i++){
+          input_list[i].removeAttribute("disabled");
+      }
       var _form = document.getElementById(id);
       var _data = new FormData(_form);
       if(id == '1'){
@@ -150,17 +154,18 @@ export default function EmployeesTable(props) {
         data: _data
       }).then(function(res){
         alert('Submit Success');
+        document.location.reload();
         return res;
       }
       ).catch(function(err){
+        var input_list = document.getElementById(id).getElementsByTagName("input");
+        for(var i=0; i<input_list.length;i++){
+        input_list[i].getAttribute("disabled");
+        }
         alert(err)
       });
     }
     else if(id == '2'){
-      var input_list = document.getElementById(id).getElementsByTagName("input");
-      for(var i=0; i<input_list.length;i++){
-          input_list[i].removeAttribute("disabled");
-      }
       const res = await axios({
         method: 'put',
         url: "https://mighty-plains-90447.herokuapp.com/v1/employee/update",
@@ -172,9 +177,12 @@ export default function EmployeesTable(props) {
         data: _data
       }).then(function(res){
         alert('Submit Success');
-        return res;
+        document.location.reload();
+      }).catch(function(err){
+        var input_list = document.getElementById(id).getElementsByTagName("input");
+        for(var i=0; i<input_list.length;i++){
+        input_list[i].disabled =true;
       }
-      ).catch(function(err){
         alert(err)
       });
     }

@@ -15,6 +15,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { Button} from 'react-bootstrap';
 // core components
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/icons";
@@ -28,6 +30,10 @@ export default function EmployeesTable(props) {
   const useStyles = makeStyles(styles);
   var classTableEmployess;
   var recordEmployess;
+  const inputStyle = {
+    borderStyle: "hidden hidden solid hidden", 
+    'font-size': "20px"
+  }
   const classes = useStyles();
   const [maNV,setMaNV] = useState('');
   const [HoVT,setHT] = useState('');
@@ -38,11 +44,11 @@ export default function EmployeesTable(props) {
   const [DateOfJoin,setDJ] = useState('');
   const [HanHD,setHHD] = useState('');
   const [TT,setTT] = useState('');
-  const [Link,setLink] = useState('');
+  const [Links,setLinks] = useState('');
   const [CMND,setCMND] = useState('');
   const [TK,setTK] = useState('');
   const [Q,setQ] = useState('');
-  const [MK,setMK] = useState(0);
+  const [MK,setMK] = useState('');
   const [lastName,setLastName] = useState();
   const EmployeesInfo = {'MaNV':maNV,'lastName':lastName,'HoVT':HoVT,'DateOfBirth':DateOfBirth,'QueQuan':QueQuan,'Luong':Luong,'MaVT':MaVT,'DateOfJoin':DateOfJoin,'HanHD':HanHD,'TT':TT,'Link':Link,'CMND':CMND,'TK':TK,'MK':MK,'Q':Q};
   const { tableHead, tableData, tableHeaderColor ,token} = props;
@@ -69,7 +75,7 @@ export default function EmployeesTable(props) {
     e.preventDefault();
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
     document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: initial');
-    await axios({
+    const res = await axios({
       method: 'post',
       url: "https://mighty-plains-90447.herokuapp.com/v1/employee/getbyid",
       headers:{
@@ -79,23 +85,21 @@ export default function EmployeesTable(props) {
       data: {
          id: prop[0]
       }
-    }).then(function(res){
-      setMaNV(res.data['id']);
-      setHT(res.data['firstName']);
-      setLastName(res.data['lastName']); 
-      setDB(res.data['birthday']); 
-      setQQ(res.data['address']);
-      setVT(res.data['position']);
-      setHHD(res.data['expireDate']);
-      setCMND(res.data['cccd']);
-      setTT(res.data['isActive'].toString());
-      setTK(res.data['account']);
-      setLuong(res.data['salary']);
-      setQ(res.data['roleCode']);
-      setDJ(res.data['joinDate']);
-    }).catch(function(err){
-      alert(err)
     });
+    setMaNV(res.data['id']);
+    setHT(res.data['firstName']);
+    setLastName(res.data['lastName']); 
+    setDB(res.data['birthday']); 
+    setQQ(res.data['address']);
+    setVT(res.data['position']);
+    setHHD(res.data['expireDate']);
+    setCMND(res.data['cccd']);
+    setTT(res.data['isActive'].toString());
+    setTK(res.data['account']);
+    setLuong(res.data['salary']);
+    setQ(res.data['roleCode']);
+    setDJ(res.data['joinDate']);
+    setLinks(prop[5])
     }
 
     function clickAddStaff(){
@@ -103,12 +107,26 @@ export default function EmployeesTable(props) {
     //alert(document.getElementsByClassName(classTableEmployess)[0]);
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:none');
     document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: initial');
+    setMaNV('');
+    setHT('');
+    setLastName(''); 
+    setDB(''); 
+    setQQ('');
+    setVT('');
+    setHHD('');
+    setCMND('');
+    setTT('');
+    setTK('');
+    setLuong('');
+    setQ('');
+    setDJ('');
+    setLinks('');
     }
 
     function clickReturnToList(){
     document.getElementsByClassName(classTableEmployess)[0].setAttribute('style','display:initial');
     document.getElementsByClassName('FormEmployees')[0].setAttribute('style','display: none');
-    document.location.reload();
+    document.getElementsByClassName('FormFixEmployees')[0].setAttribute('style','display: none');
     }
 
     function handleChangeInputTag(e,func){
@@ -157,186 +175,162 @@ export default function EmployeesTable(props) {
       });
     }
     }
+    function fixInfo(e,id){
+        document.getElementById(id).removeAttribute('disabled');
+    }
     return (
     <div className={classes.tableResponsive}>
     <div class='FormEmployees' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form id='1' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'1')}}>
-            <label>
-                FirstName:
+        <form id='1' onSubmit={(e)=>{handleSubmit(e,'1')}}>
+          <GridContainer>
+          <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'firstName' valur = {HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
-            </label>
-            <br/>
-            <label>
-                LastName:
+                <input placeholder="Tên" size={45}  style={inputStyle} type="text" name = 'firstName' value = {HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
-            </label>
-            <br/>
-            <label>
-                Date Of Birth:
+                <input placeholder="Tên đệm" size={45}  style={inputStyle} type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'birthday' placeholder="dd-mm-yy(2 số sau mỗi -)" value={DateOfBirth}   onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
-            </label>
-            <br/>
-            <label>
-                Address:
+                <input type="text" name = 'birthday' placeholder="Ngày sinh: dd-mm-yy" size={45}  style={inputStyle} value={DateOfBirth}   onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'address' value = {QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
-            </label>
-            <br/>
-            <label>
-                Slary:
+                <input placeholder='Quê Quán' size={45}  style={inputStyle} type="text" name = 'address' value = {QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="number" name = 'salary' value = {Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
-            </label>
-            <br/>
-            <label>
-                Position:
+                <input placeholder='Lương' size={45}  style={inputStyle} type="number" name = 'salary' value = {Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'position' value = {MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
-            </label>
-            <br/>
-            <label>
-                Joined Date:
+                <input placeholder='Vị trí' size={45}  style={inputStyle} type="text" name = 'position' value = {MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'joinDate' placeholder="dd-mm-yy(2 số sau mỗi -)" value ={DateOfJoin} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
-            </label>
-            <br/>
-            <label>
-                Expried Date:
+                <input size={45}  style={inputStyle} type="text" name = 'joinDate' placeholder="Ngày tham gia: dd-mm-yy" value ={DateOfJoin} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'expireDate' placeholder="dd-mm-yy(2 số sau mỗi -)" value = {HanHD} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
-            </label>
-            <br/>
-            <label>
-                Active:
+                <input  size={45}  style={inputStyle} type="text" name = 'expireDate' placeholder="Ngày hết hạn hợp đồng: dd-mm-yy" value = {HanHD} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'isActive' value={TT} onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
-            </label>
-            <br/>
-            <label>
-                Picture:
+                <input placeholder='Tình trạng: true(false)' size={45}  style={inputStyle} type="text" name = 'isActive' value={TT} onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="file" name = 'avatar' value={Link} onChange={(e)=>{handleChangeInputTag(e,setLink)}}/>
-            </label>
-            <br/>
-            <label>
-                CCCD:
+                <input placeholder='CCCD' size={45}  style={inputStyle} type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
-            </label>
-            <br/>
-            <label>
-                Role:
+                <input placeholder='Account' size={45}  style={inputStyle} type="text" name = 'account' value={TK} onChange={(e)=>{handleChangeInputTag(e,setTK)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="number" name = 'roleCode' value={1}/>
-            </label>
-            <br/>
-            <label>
-                Account:
+                <input placeholder='Password' size={45}  style={inputStyle} type="text" name = 'password' value={MK} onChange={(e)=>{handleChangeInputTag(e,setMK)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'account' value={TK} onChange={(e)=>{handleChangeInputTag(e,setTK)}}/>
-            </label>
-            <br/>
-            <label>
-                Password:
-                <br/>
-                <input type="text" name = 'password' value={MK} onChange={(e)=>{handleChangeInputTag(e,setMK)}}/>
-            </label>
+                <input size={45}  style={inputStyle} type="file" name = 'avatar'/>
+            </GridItem>
+            </GridContainer>
+            <input type="number" name = 'roleCode' value={1} style={{display: 'none'}}/>
             <br/>
             <input type="Submit" value='Submit'/>
         </form>
     </div>
     <div class='FormFixEmployees' style={{display:'none'}}>
         <Button onClick={clickReturnToList}>Back</Button>
-        <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
-            <label>
-                ID:
+        <form id='2' onSubmit={(e)=>{handleSubmit(e,'2')}}>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'id' value={maNV}/>
-            </label>
-            <br/>
-            <label>
-                FirstName:
+                Mã nhân viên:
+                <input id ="id" disabled="disabled" size={45}  style={inputStyle} type="text" name = 'id' value={maNV}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'firstName' value={HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
-            </label>
-            <br/>
-            <label>
-                LastName:
+                Tên: 
+                <input id="firstName" disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'firstName' value={HoVT}  onChange={(e)=>{handleChangeInputTag(e,setHT)}}/>
+                <Button onClick={(e)=>fixInfo(e,"firstName")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
-            </label>
-            <br/>
-            <label>
-                Date Of Birth:
+                Tên đệm:
+                <input id="lastName" disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
+                <Button onClick={(e)=>fixInfo(e,"lastName")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'birthday' value={DateOfBirth.split('-')[2]+'-'+DateOfBirth.split('-')[1]+'-'+DateOfBirth.split('-')[0]}  onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
-            </label>
-            <br/>
-            <label>
-                Address:
+                Ngày sinh:
+                <input id="dateBirth" disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'birthday' value={DateOfBirth.split('-')[2]+'-'+DateOfBirth.split('-')[1]+'-'+DateOfBirth.split('-')[0]}  onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
+                <Button onClick={(e)=>fixInfo(e,"dateBirth")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'address' value={QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
-            </label>
-            <br/>
-            <label>
-                Slary:
+                Quê Quán:
+                <input id ="QQ" disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'address' value={QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
+                <Button onClick={(e)=>fixInfo(e,"QQ")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="number" name = 'salary' value={Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
-            </label>
-            <br/>
-            <label>
-                Position:
+                Lương: 
+                <input id="luong" disabled="disabled"  size={45}  style={inputStyle} type="number" name = 'salary' value={Luong}  onChange={(e)=>{handleChangeInputTag(e,setLuong)}}/>
+                <Button onClick={(e)=>fixInfo(e,"luong")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'position' value={MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
-            </label>
-            <br/>
-            <label>
-                Joined Date:
+                Vị trí:
+                <input id="position" disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'position' value={MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
+                <Button onClick={(e)=>fixInfo(e,"position")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
+                Ngày tham gia:
                 <br/>
-                <input type="text" name = 'joinDate' value={DateOfJoin.split('-')[2]+'-'+DateOfJoin.split('-')[1]+'-'+DateOfJoin.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
-            </label>
-            <br/>
-            <label>
-                Expried Date:
+                <input id='joinDate' disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'joinDate' value={DateOfJoin.split('-')[2]+'-'+DateOfJoin.split('-')[1]+'-'+DateOfJoin.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setDJ)}}/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'expireDate' value={HanHD.split('-')[2]+'-'+HanHD.split('-')[1]+'-'+HanHD.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
-            </label>
-            <br/>
-            <label>
-                Active:
+                Ngày hết hạn hợp đồng:
+                <input id='ed' disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'expireDate' value={HanHD.split('-')[2]+'-'+HanHD.split('-')[1]+'-'+HanHD.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
+                <Button onClick={(e)=>fixInfo(e,"ed")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'isActive' value={TT}  onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
-            </label>
-            <br/>
-            <label>
-                Picture:
+                Tình trạng:
+                <input id='tt' disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'isActive' value={TT}  onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
+                <Button onClick={(e)=>fixInfo(e,"tt")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="file" name = 'avatar'/>
-            </label>
-            <br/>
-            <label>
                 CCCD:
+                <input id='cccd' disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
+                <Button onClick={(e)=>fixInfo(e,"cccd")} ><BorderColorIcon/></Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
-            </label>
-            <br/>
-            <label>
-                Role:
+                Quyền:
+                <input id='role' disabled="disabled"  size={45}  style={inputStyle} type="number" name = 'roleCode' value={Q}/>
+                <Button onClick={(e)=>fixInfo(e,"role")} ><BorderColorIcon/></Button>
+            </GridItem>  
+            <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="number" name = 'roleCode' value={Q}/>
-            </label>
-            <br/>    
-            <label>
-                Account:
-                <br/>
-                <input type="text" name = 'account' value={TK}/>
-            </label>
-            <br/>   
-            <input type="Submit" value='Submit'/>
+                Tài khoản:
+                <input id='tk' disabled="disabled"  size={45}  style={inputStyle} type="text" name = 'account' value={TK}/>
+                <Button onClick={(e)=>fixInfo(e,"tk")} ><BorderColorIcon/></Button>
+            </GridItem>
+          </GridContainer>
+          <br/>
+          Ảnh:
+          <img src = {Links} width="200" height="200"></img>
+          <br/>
+          <input id='anh' disabled="disabled"  size={45}  style={inputStyle} type="file" name = 'avatar'/>
+          <Button onClick={(e)=>fixInfo(e,"anh")} ><BorderColorIcon/></Button>
+          <br/>
+          <input type="Submit" value='Submit'/>
         </form>
     </div>
     <div className={classes.table}><Button id='add' onClick={()=>clickAddStaff()}><AddIcon/></Button>
@@ -359,14 +353,23 @@ export default function EmployeesTable(props) {
         ) : null}
         <TableBody>
           {tableData.map((prop, key) => {
+            if (prop[4]=='true'){
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 {prop.map((prop, key) => {
+                  if (key != 5){
                   return (
                     <TableCell className={classes.tableCell} key={key}>
                       {prop}
-                    </TableCell>  
+                    </TableCell> 
                   );
+                  }else{
+                    return (
+                      <TableCell className={classes.tableCell} key={key}>
+                        <img src={prop} width="150" height="150"></img>
+                      </TableCell>  
+                    );
+                  }
                 })}
                 <TableCell>
                     <Button id='delete' onClick={(e)=>clickDelete(e,prop)}><DeleteIcon/></Button> 
@@ -374,7 +377,7 @@ export default function EmployeesTable(props) {
                 </TableCell>
               </TableRow>
             );
-          })}
+          }})}
         </TableBody>
       </Table>
     </div>
@@ -399,6 +402,5 @@ EmployeesTable.propTypes = {
   tableHead: PropTypes.arrayOf(PropTypes.string),
   tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
-
 
 

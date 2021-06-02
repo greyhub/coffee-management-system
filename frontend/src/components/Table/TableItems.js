@@ -105,7 +105,6 @@ export default function ItemsTable(props) {
         document.getElementsByClassName('FormAddItems')[0].setAttribute('style','display: none');
         document.getElementsByClassName('FormFixItems')[0].setAttribute('style','display: none');
         document.getElementsByClassName('FormFixImageItems')[0].setAttribute('style','display: none');
-        document.location.reload();
     }
 
     function handleChangeInputTag(e,func){

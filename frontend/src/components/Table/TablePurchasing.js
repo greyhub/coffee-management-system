@@ -68,9 +68,9 @@ export default function PurchasingTable(props) {
             setMaterialName(res.data['materialName']);
             setDescription(res.data['description']);
             setCount(res.data['count']);
+            setSupplierName(res.data['suppierName']);
             setPrice(res.data['price']);
             setTime(res.data['time']);
-
         }).catch(function(err){
             alert(err)
         });
@@ -237,7 +237,7 @@ export default function PurchasingTable(props) {
                     <label>
                         Ngày mua
                         <br/>
-                        <input type="text" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
+                        <input type="date" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
                     </label>
                     <br/>
 

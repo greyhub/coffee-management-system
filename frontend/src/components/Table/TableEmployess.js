@@ -157,6 +157,10 @@ export default function EmployeesTable(props) {
       });
     }
     else if(id == '2'){
+      var input_list = document.getElementById(id).getElementsByTagName("input");
+      for(var i=0; i<input_list.length;i++){
+          input_list[i].removeAttribute("disabled");
+      }
       const res = await axios({
         method: 'put',
         url: "https://mighty-plains-90447.herokuapp.com/v1/employee/update",

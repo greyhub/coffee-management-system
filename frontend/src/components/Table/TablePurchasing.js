@@ -80,6 +80,13 @@ export default function PurchasingTable(props) {
     function clickAdd(){
         document.getElementsByClassName(classTablePurchasing)[0].setAttribute('style','display:none');
         document.getElementsByClassName('FormAddPurchasing')[0].setAttribute('style','display: initial');
+        setID('');
+        setMaterialName('');
+        setDescription('');
+        setCount('');
+        setSupplierName('');
+        setPrice('');
+        setTime('');
     }
 
     function clickReturnToList(){

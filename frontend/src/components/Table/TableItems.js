@@ -95,6 +95,11 @@ export default function ItemsTable(props) {
     function clickAddItems(){
         document.getElementsByClassName(classTableItems)[0].setAttribute('style','display:none');
         document.getElementsByClassName('FormAddItems')[0].setAttribute('style','display: initial');
+        setMaSp('');
+        setName('');
+        setPrice('');
+        setDescription('');
+        setIsActive('');
     }
 
     function clickRestore(e,prop){

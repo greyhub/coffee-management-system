@@ -27,20 +27,20 @@ export default function ItemsTable(props) {
     classTableItems = classes.table;
 
     async function clickDelete(e,prop){
-        // const dl = prop[0];
-        // const res = await axios({
-        //     method: 'delete',
-        //     url: "https://mighty-plains-90447.herokuapp.com/v1/product/delete",
-        //     headers:{
-        //         "Authorization": 'Bearer ' + token,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     data:{
-        //         ids: [dl],
-        //     }
-        // }).catch(function(err){
-        //     alert(err)
-        // });
+        const dl = prop[0];
+        const res = await axios({
+            method: 'delete',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/product/delete",
+            headers:{
+                "Authorization": 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data:{
+                ids: [dl],
+            }
+        }).catch(function(err){
+            alert(err)
+        });
         document.location.reload();
     }
 

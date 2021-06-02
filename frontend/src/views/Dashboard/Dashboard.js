@@ -93,9 +93,9 @@ export default function Dashboard() {
     };
 
     var today = new Date();
-    var date7 = (today.getDate() - 6) + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    var date7 = ('28') + '-' + '0' + (today.getMonth()) + '-' + today.getFullYear();
     var dateS = "01" + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
-    var dateE = today.getDate() + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    var dateE = '0' + today.getDate() + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
     var sumRevunueMonth = 0;
     var sumCountSellPD = 0;
     var listLables = [];
@@ -231,7 +231,7 @@ export default function Dashboard() {
                 'Content-Type': 'application/json'
             },
             data: {
-                start: today.getDate() + '-' + '0' + today.getMonth() + '-' + today.getFullYear(),
+                start: '0' + today.getDate() + '-' + '0' + today.getMonth() + '-' + today.getFullYear(),
                 end: dateE
             }
         })

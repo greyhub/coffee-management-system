@@ -189,8 +189,8 @@ export default function Statistics(props) {
 
     async function getData1() {
         var today = new Date();
-        var dateC = today.getDate() + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        var dateB = (today.getDate() - 6) + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        var dateC = '0' + today.getDate() + '-' + '0' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        var dateB = ('28') + '-' + '0' + (today.getMonth()) + '-' + today.getFullYear();
         // const res3 = await axios({
         //     method: 'post',
         //     url: "https://mighty-plains-90447.herokuapp.com/v1/account/signin",

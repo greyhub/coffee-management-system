@@ -6,7 +6,6 @@ import {
     Route,
     Link
   } from "react-router-dom";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -14,15 +13,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { Button} from 'react-bootstrap';
-// core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
-import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Icon, IconButton } from "@material-ui/core";
 import axios from 'axios'
-import { preProcessFile } from "typescript";
 
 export default function EmployeesTable(props) {
   const useStyles = makeStyles(styles);

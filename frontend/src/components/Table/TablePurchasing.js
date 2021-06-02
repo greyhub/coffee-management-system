@@ -32,19 +32,19 @@ export default function PurchasingTable(props) {
 
     async function clickDelete(e,prop){
         const dl = prop[0];
-        // const res = await axios({
-        //     method: 'delete',
-        //     url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/delete",
-        //     headers:{
-        //         "Authorization": 'Bearer ' + token,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     data:{
-        //         ids: [dl],
-        //     }
-        // }).catch(function(err){
-        //     alert(err)
-        // });
+        const res = await axios({
+            method: 'delete',
+            url: "https://mighty-plains-90447.herokuapp.com/v1/transaction/delete",
+            headers:{
+                "Authorization": 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data:{
+                ids: [dl],
+            }
+        }).catch(function(err){
+            alert(err)
+        });
         document.location.reload();
     }
 

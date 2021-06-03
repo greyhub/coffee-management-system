@@ -21,6 +21,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Icon, IconButton } from "@material-ui/core";
 import axios from 'axios';
 import CardBody from "components/Card/CardBody";
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
 
 export default function BillsTable(props) {
   const inputStyle = {
@@ -232,17 +234,19 @@ export default function BillsTable(props) {
           <GridContainer>
           <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" placeholder="Mã nhân viên"  size={45}  style={inputStyle} value={BillsInfo['MaNV']} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text" placeholder="Mã nhân viên"  size={30}  style={inputStyle} value={BillsInfo['MaNV']} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </GridItem>
+            <GridItem xs={1} sm={1} md={1}></GridItem>
             <GridItem xs={12} sm={12} md={5}>
                <br/>
-                <input type="text" placeholder="Tên khách hàng" size={45} style={inputStyle} value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
+                <input type="text" placeholder="Tên khách hàng" size={30} style={inputStyle} value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
             </GridItem>
-            <GridItem xs={12} sm={12} md={5}>
-                <br/>
-                <input type="text" placeholder="Ghi chú" style={inputStyle} size ={45} value={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
-            </GridItem>
+            
             </GridContainer>
+            <GridContainer><GridItem xs={12} sm={12} md={5}>
+                <br/>
+                <input type="text" placeholder="Ghi chú" style={inputStyle} size ={30} value={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
+            </GridItem></GridContainer>
             <br/>
             <label>
                 <b>Giỏ hàng: Sản phẩm - Mã - Số lượng</b>
@@ -250,14 +254,14 @@ export default function BillsTable(props) {
             { BillsInfo['products'].map((oder,key) => {
                   return (
                     <div id = {'gh'+key}>
-                      <Button onClick={(e)=>{deleteGH(e,key)}}>-</Button>
-                      <label size={30}>{oder['product']['name']+' '+oder['product']['id']+' '+oder['count']}</label>
+                      <Button size={45} onClick={(e)=>{deleteGH(e,key)}}>-</Button>
+                      <label size={45}>{oder['product']['name']+' '+oder['product']['id']+' '+oder['count']}</label>
                       <br/>
                     </div>
                   );
             })}
             <br/>
-            <Button onClick={(e)=>{getProducts(e,'BillForm')}}> Thêm sản phẩm </Button>
+            <Button size = {45} onClick={(e)=>{getProducts(e,'BillForm')}}> Thêm sản phẩm </Button>
             <br/>
             <label> Giá trị: {BillsInfo['GiaTri']}</label>
             <br/>

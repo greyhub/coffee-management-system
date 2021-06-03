@@ -6,17 +6,28 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { Button} from 'react-bootstrap';
+// import { Button} from 'react-bootstrap';
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ImageIcon from '@material-ui/icons/Image';
-import axios from 'axios'
+import axios from 'axios';
+import SaveIcon from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
+import GridContainer from 'components/Grid/GridContainer';
+import GridItem from "components/Grid/GridItem.js";
+
+
 
 export default function ItemsTable(props) {
     const useStyles = makeStyles(styles);
     var classTableItems;
+
+    const inputStyle = {
+        borderStyle: "hidden hidden solid hidden", 
+        'font-size': "18px"
+      }
     const classes = useStyles();
     const [maSP,setMaSp] = useState('');
     const [name,setName] = useState('');
@@ -267,24 +278,61 @@ export default function ItemsTable(props) {
 
             <div className='FormFixImageItems' style={{display: 'none'}}>
                 <Button onClick={clickReturnToList}>Back</Button>
-                <form id='3' style={{textAlign: 'center'}} onSubmit={(e) => {
+                <form id='3' style={{textAlign: 'left'}} onSubmit={(e) => {
                     handleSubmit(e, '3')
                 }}>
-                    <label>
-                        ID:
-                        <br/>
-                        <input type="text" name='id' value={maSP}/>
+
+                <GridContainer>
+                <GridItem xs={2} sm={2} md={1}>
+                    </GridItem>
+                <GridItem xs={10} sm={10} md={4}>
+                <label>
+                    ID:
+                    </label>   
+                    <br/>
+                    <input style={inputStyle} type="text" disabled="disabled" name='id' value={maSP}/>
+                     
+                </GridItem>
+                </GridContainer>
+                <GridContainer>
+                <GridItem xs={2} sm={2} md={1}>
+                    </GridItem>
+                <GridItem xs={10} sm={10} md={1}>
+                <GridItem xs={2} sm={2} md={1}>
+                    </GridItem>
+                    <br/>
+                        <label>
+                        Ảnh                      
                     </label>
+                    
+                    </GridItem>
+                </GridContainer>
+                <GridContainer>
+                <GridItem xs={2} sm={2} md={1}>
+                    </GridItem>
+                <GridItem xs={10} sm={10} md={4}>
+                
+                <input type="file" style={inputStyle} name = 'preview'/>
+                </GridItem>
+                </GridContainer>
+                <GridContainer>
+                <GridItem xs={2} sm={2} md={1}>
+                    </GridItem>
+                <GridItem xs={10} sm={10} md={4}>
                     <br/>
-                    <br/>
-                    <label>
-                        Ảnh
-                        <br/>
-                        <input type="file" name = 'preview'/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input type="Submit" value='Submit'/>
+                    <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  type="Submit"
+                  className={classes.button}
+                  startIcon={<SaveIcon />}
+                >
+                  Lưu
+                </Button>
+                    {/* <input type="Submit" style={inputStyle}value='Submit'/> */}
+                </GridItem>
+                </GridContainer>
                 </form>
             </div>
 

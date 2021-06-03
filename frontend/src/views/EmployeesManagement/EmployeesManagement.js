@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
+// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+//core compontment
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableEmployess.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import { Router } from '@material-ui/icons';
 import axios from 'axios'
 
 
@@ -44,7 +47,7 @@ export default function EmployeesManager(){
     const [data,setData] = useState([]);
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
-    const employeesJson = {'header':['Mã nhân viên','Tên','Quê quán','Vị trí','Tình trạng hiện tại'],'data':data};
+    const employeesJson = {'header':['Mã nhân viên','Tên','Quê quán','Vị trí','Tình trạng hiện tại','Ảnh'],'data':data};
     useEffect(()=>{
       getData()
     },[]);
@@ -77,7 +80,7 @@ export default function EmployeesManager(){
       });
        var list = [];
        for(var i = 0;i<res1.data['employees'].length;i++){
-         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString()]);
+         list.push([res1.data['employees'][i]['id'],res1.data['employees'][i]['lastName']+' '+res1.data['employees'][i]['firstName'],res1.data['employees'][i]['address'],res1.data['employees'][i]['position'],res1.data['employees'][i]['isActive'].toString(),res1.data['employees'][i]['avatarUri']]);
        }
        setData(list);
        setLoad(false);
@@ -89,9 +92,9 @@ export default function EmployeesManager(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Quản lý nhân viên</h4>
+                        <h4 className={classes.cardTitleWhite}>Employees Panel</h4>
                         <p className={classes.cardCategoryWhite}>
-                          Danh sách các nhân viên 
+                            Panel for managing employees in the company 
                         </p>
                     </CardHeader>
                     <CardBody>

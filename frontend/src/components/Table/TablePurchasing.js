@@ -68,7 +68,7 @@ export default function PurchasingTable(props) {
             setMaterialName(res.data['materialName']);
             setDescription(res.data['description']);
             setCount(res.data['count']);
-            setSupplierName(res.data['suppierName']);
+            setSupplierName(res.data['supplierName']);
             setPrice(res.data['price']);
             setTime(res.data['time']);
         }).catch(function(err){
@@ -79,12 +79,19 @@ export default function PurchasingTable(props) {
     function clickAdd(){
         document.getElementsByClassName(classTablePurchasing)[0].setAttribute('style','display:none');
         document.getElementsByClassName('FormAddPurchasing')[0].setAttribute('style','display: initial');
+        setID('');
+        setMaterialName('');
+        setDescription('');
+        setCount('');
+        setSupplierName('');
+        setPrice('');
+        setTime('');
     }
 
     function clickReturnToList(){
         document.getElementsByClassName(classTablePurchasing)[0].setAttribute('style','display:initial');
         document.getElementsByClassName('FormAddPurchasing')[0].setAttribute('style','display: none');
-        document.location.reload();
+        document.getElementsByClassName('FormFixPurchasing')[0].setAttribute('style','display: none');
     }
 
     function handleChangeInputTag(e,func){

@@ -261,7 +261,7 @@ export default function BillsTable(props) {
                   );
             })}
             <br/>
-            <Button size = {45} onClick={(e)=>{getProducts(e,'BillForm')}}> Thêm sản phẩm </Button>
+            <Button s onClick={(e)=>{getProducts(e,'BillForm')}}> Thêm sản phẩm </Button>
             <br/>
             <label> Giá trị: {BillsInfo['GiaTri']}</label>
             <br/>

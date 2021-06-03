@@ -7,6 +7,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import axios from 'axios';
+import moment from 'moment';
 
 
 
@@ -83,7 +84,9 @@ export default function Purchasing(){
                 res1.data['transactions'][i]['description'],
                 res1.data['transactions'][i]['count'],res1.data['transactions'][i]['price'],
                 res1.data['transactions'][i]['supplierName'],
-                res1.data['transactions'][i]['time'].toString()]);
+                // res1.data['transactions'][i]['time'].toString()]); // --> new Date(res.data['time'])
+                // new Date(res1.data['transactions'][i]['time']) ]);
+                moment(res1.data['transactions'][i]['time']).format('MM/DD/YYYY') ]);
             }
             setData(list);
             setLoad(false);

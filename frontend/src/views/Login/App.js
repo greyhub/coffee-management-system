@@ -155,12 +155,20 @@ class LoginPage extends React.Component {
     };
   
     if (this.state.redirectToReferrer) {
-      
-      return (<Redirect to={{
-        pathname : '/admin/dashboard',
-        state: {redirectToReferrer: true,
-        }
-      }}/>)
+      if (parseInt(localStorage.getItem("roleCode"), 10) < 2) {
+        return (<Redirect to={{
+          pathname : '/admin/items',
+          state: {redirectToReferrer: true,
+          }
+        }}/>)
+      }
+      else {
+        return (<Redirect to={{
+          pathname : '/admin/dashboard',
+          state: {redirectToReferrer: true,
+          }
+        }}/>)
+      }
     }
     return (
       <ThemeProvider theme={theme}>

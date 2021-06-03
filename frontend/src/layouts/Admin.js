@@ -10,7 +10,7 @@ import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
-import routes from "routes.js";
+import routeAll from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
@@ -19,7 +19,7 @@ import logo from "assets/img/greycoffee_logo.png";
 
 let ps;
 
-const switchRoutes = (
+const switchR = function(routes){return (
   <Switch>
     {routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -35,7 +35,7 @@ const switchRoutes = (
     })}
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
-);
+)};
 
 const useStyles = makeStyles(styles);
 
@@ -91,6 +91,18 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+
+  let routes = routeAll;
+  const role = localStorage.getItem("roleCode");
+  if (role && parseInt(role, 10) < 2) {
+    console.log("routeszzz" + JSON.stringify(routeAll));
+    routes = routes.filter(r => {
+      return r.path === "/bill" || r.path === "/items";
+    })
+  }
+
+  const switchRoutes = switchR(routes);
+
   return (
     <div className={classes.wrapper}>
       <Sidebar

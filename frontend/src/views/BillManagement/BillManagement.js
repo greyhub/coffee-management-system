@@ -48,7 +48,7 @@ export default function OrderManagement(){
     const [data,setData] = useState([]);
     const [loading,setLoad] = useState(true);
     const [token, setToken] = useState();
-    var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên khách hàng','Ghi chú'],'data':data}
+    var employeesJson = {'header':['Mã đơn hàng','Mã nhân viên','Ngày tạo','Giá trị','Tên nhân viên','Ghi chú'],'data':data}
     useEffect(()=>{
       getData()
     },[]);

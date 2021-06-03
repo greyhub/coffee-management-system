@@ -341,7 +341,7 @@ export default function ItemsTable(props) {
                                 ID:
 
                             <br/>
-                            <input style={inputStyle} type="text" disabled="disabled" name='id' value={maSP}/>
+                            <input style={inputStyle} type="text"  name='id' value={maSP}/>
 
                         </GridItem>
                     </GridContainer>

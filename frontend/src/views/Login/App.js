@@ -75,6 +75,7 @@ class LoginPage extends React.Component {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("islogged",true);
           localStorage.setItem("roleCode", response.data.roleCode);
+          localStorage.setItem("id", response.data.id);
           this.setState({redirectToReferrer:true})
           
           // return (<Redirect to={{

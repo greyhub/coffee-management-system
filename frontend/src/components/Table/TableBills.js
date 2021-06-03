@@ -12,7 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { Button} from 'react-bootstrap';
+import { Button as Button1} from 'react-bootstrap';
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import { Label, NoEncryption, SettingsInputAntennaTwoTone } from "@material-ui/icons";
@@ -23,11 +23,13 @@ import axios from 'axios';
 import CardBody from "components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
+import SaveIcon from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
 
 export default function BillsTable(props) {
   const inputStyle = {
     borderStyle: "hidden hidden solid hidden", 
-    'font-size': "20px"
+    'font-size': "18px"
   }
   const useStyles = makeStyles(styles);
   var classTableEmployess;
@@ -158,7 +160,7 @@ export default function BillsTable(props) {
         },
         data:{
 	        "updateAt": String(currentDate.getDate()).padStart(2, '0') + '-' +String(currentDate.getMonth()).padStart(2, '0')+'-'+String(currentDate.getFullYear()).padStart(2, '0') + ' ' +String(currentDate.getHours()).padStart(2, '0')+':'+String(currentDate.getMinutes()).padStart(2, '0')+':'+String(currentDate.getSeconds()).padStart(2, '0'),
-	        "importerId":BillsInfo['MaNV'],
+	        "importerId":localStorage.getItem("id"),
 	        "note":BillsInfo['GhiChu'],
 	        "money": parseInt(BillsInfo['GiaTri']),
 	        "tableCode":1,
@@ -234,13 +236,13 @@ export default function BillsTable(props) {
           <GridContainer>
           <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                <input type="text" placeholder="Mã nhân viên"  size={30}  style={inputStyle} value={BillsInfo['MaNV']} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
+                <input type="text" name = "importerId" placeholder="Mã nhân viên" value={localStorage.getItem("id")} size={30} disabled = "disabled"  style={inputStyle} value={localStorage.getItem("id")} onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
             </GridItem>
             <GridItem xs={1} sm={1} md={1}></GridItem>
-            <GridItem xs={12} sm={12} md={5}>
+            {/* <GridItem xs={12} sm={12} md={5}>
                <br/>
-                <input type="text" placeholder="Tên khách hàng" size={30} style={inputStyle} value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
-            </GridItem>
+                <input type="text" placeholder="Tên nhân viên" size={30} disabled = "disabled" style={inputStyle} value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
+            </GridItem> */}
             
             </GridContainer>
             <GridContainer><GridItem xs={12} sm={12} md={5}>
@@ -254,8 +256,8 @@ export default function BillsTable(props) {
             { BillsInfo['products'].map((oder,key) => {
                   return (
                     <div id = {'gh'+key}>
-                      <Button size={45} onClick={(e)=>{deleteGH(e,key)}}>-</Button>
-                      <label size={45}>{oder['product']['name']+' '+oder['product']['id']+' '+oder['count']}</label>
+                      <Button1 size={35} onClick={(e)=>{deleteGH(e,key)}}>-</Button1>
+                      <label size={35}>{oder['product']['name']+' '+oder['product']['id']+' '+oder['count']}</label>
                       <br/>
                     </div>
                   );
@@ -265,7 +267,16 @@ export default function BillsTable(props) {
             <br/>
             <label> Giá trị: {BillsInfo['GiaTri']}</label>
             <br/>
-            <input type="submit" value="Submit" />
+            <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  type="Submit"
+                  className={classes.button}
+                  startIcon={<SaveIcon />}
+                >
+                  Lưu
+                </Button>
         </form>
     </div>
     <div class='BillFixForm' style={{display:'none'}}>
@@ -275,29 +286,31 @@ export default function BillsTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Mã đơn hàng:
+                <br/>
                 <input class="input_MaDH" type="text" value={BillsInfo['MaDH']} size={45} style={inputStyle} disabled="disabled" onChange={(e)=>{handleChangeInputTag(e,'MaDH')}}/>
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Mã nhân viên:
                 <input id="MaNV" type="text" value={BillsInfo['MaNV']} size={45} style={inputStyle} disabled="disabled" onChange={(e)=>{handleChangeInputTag(e,'MaNV')}}/>
-                <Button onClick={(e)=>fixInfo(e,"MaNV")} ><BorderColorIcon/></Button>
+                {/* <Button onClick={(e)=>fixInfo(e,"MaNV")} ><BorderColorIcon/></Button> */}
             </GridItem>
-            <GridItem xs={12} sm={12} md={5}>
+            {/* <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Ngày tạo:
-                <input id='ngayTao' type="text" onfocus="this.type = 'date'"  value={new Date(BillsInfo['ngayTao'])} size={45} style={inputStyle} disabled="disabled" onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
-            </GridItem>
+                <input id='ngayTao' type="text" onfocus="this.type = 'date'"  value={new Date(BillsInfo['ngayTao'])} size={45} style={inputStyle} onChange={(e)=>{handleChangeInputTag(e,'ngayTao')}}/>
+            </GridItem> */}
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
-                Tên khách hàng:
-                <input id="tenKH" type="text" size={45} style={inputStyle} disabled="disabled"  value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
-                <Button onClick={(e)=>fixInfo(e,"tenKH")} ><BorderColorIcon/></Button>
+                Tên nhân viên
+                <input id="tenKH" type="text" disabled = "disabled" size={45} style={inputStyle} value={BillsInfo['tenKH']} onChange={(e)=>{handleChangeInputTag(e,'tenKH')}}/>
+                {/* <Button onClick={(e)=>fixInfo(e,"tenKH")} ><BorderColorIcon/></Button> */}
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
+              <br/>
                 Ghi chú: 
-                <input id="GC" size={45} style={inputStyle} disabled="disabled"  type="text"  placeholder={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
-                <Button onClick={(e)=>fixInfo(e,"GC")} ><BorderColorIcon/></Button>
+                <input id="GC" size={45} style={inputStyle}  type="text"  placeholder={BillsInfo['GhiChu']} onChange={(e)=>{handleChangeInputTag(e,'GhiChu')}}/>
+                {/* <Button onClick={(e)=>fixInfo(e,"GC")} ><BorderColorIcon/></Button> */}
             </GridItem>
             </GridContainer>
             <br/>
@@ -318,7 +331,16 @@ export default function BillsTable(props) {
             <br/>
             <label>Giá trị: {BillsInfo['GiaTri']}</label> 
             <br/>
-            <input type="submit" value="Submit" />
+            <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  type="Submit"
+                  className={classes.button}
+                  startIcon={<SaveIcon />}
+                >
+                  Lưu
+                </Button>
         </form>
     </div>
     <div className={classes.table}><Button id='add' onClick={()=>clickAddStaff()}><AddIcon/></Button>

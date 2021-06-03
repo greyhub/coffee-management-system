@@ -6,17 +6,24 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { Button} from 'react-bootstrap';
-// core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import AddIcon from '@material-ui/icons/Add';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import DeleteIcon from '@material-ui/icons/Delete';
-import axios from 'axios'
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
+import SaveIcon from '@material-ui/icons/Save';
+import moment from 'moment';
 
 export default function PurchasingTable(props) {
     const useStyles = makeStyles(styles);
     var classTablePurchasing;
+    const inputStyle = {
+        borderStyle: "hidden hidden solid hidden", 
+        'font-size': "18px"
+    }
     const classes = useStyles();
     const [id,setID] = useState('');
     const [materialName,setMaterialName] = useState('');
@@ -70,7 +77,7 @@ export default function PurchasingTable(props) {
             setCount(res.data['count']);
             setSupplierName(res.data['supplierName']);
             setPrice(res.data['price']);
-            setTime(res.data['time']);
+            setTime( moment(res.data['time']).format('YYYY-MM-DD') );  
         }).catch(function(err){
             alert(err)
         });
@@ -118,10 +125,11 @@ export default function PurchasingTable(props) {
                     count: _data.get('count'),
                     price: _data.get('price'),
                     supplierName: _data.get('supplierName'),
-                    time: _data.get('time')
+                    time: _data.get('time').split("-").reverse().join("-")
                 }
             }).then(function(res){
                     alert('Add Purchasing Success');
+                    document.location.reload();
                     return res;
                 }
             ).catch(function(err){
@@ -143,10 +151,11 @@ export default function PurchasingTable(props) {
                     count: _data.get('count'),
                     price: _data.get('price'),
                     supplierName: _data.get('supplierName'),
-                    time: _data.get('time')
+                    time: _data.get('time').split("-").reverse().join("-")
                 }
             }).then(function(res){
                     alert('Update Purchasing Success');
+                    document.location.reload();
                     return res;
                 }
             ).catch(function(err){
@@ -157,98 +166,150 @@ export default function PurchasingTable(props) {
     return (
         <div className={classes.tableResponsive}>
             <div class='FormAddPurchasing' style={{display:'none'}}>
-                <Button onClick={clickReturnToList}>Back</Button>
-                <form id='1' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'1')}}>
-                    <label>
-                        Tên nguyên liệu
+                <Button variant="primary" size ="lg" onClick={clickReturnToList}>Back</Button>
+                <form id='1' style={{textAlign: 'left'}} onSubmit={(e)=>{handleSubmit(e,'1')}}>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Tên nguyên liệu" size={30} style={inputStyle} type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
+                        </label>
                         <br/>
-                        <input type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Mô tả
-                        <br/>
-                        <input type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
-                    </label>
-                    <br/>
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
 
-                    <label>
-                        Số lượng
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Mô tả" size={30} style={inputStyle} type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
+                        </label>
                         <br/>
-                        <input type="number" name = 'count' value={count} onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Giá (VND)
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Số lượng" size={30} style={inputStyle} type="number" name = 'count' value={count}  onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
+                        </label>
                         <br/>
-                        <input type="number" name = 'price' value={price} onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Nhà cung cấp
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Giá (VND)" size={30} style={inputStyle} type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
+                        </label>
                         <br/>
-                        <input type="text" name = 'supplierName' value = {supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Ngày mua
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Nhà cung cấp" size={30} style={inputStyle} type="text" name = 'supplierName' value={supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
+                        </label>
                         <br/>
-                        <input type="text" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
-                    </label>
-                    <br/>
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Ngày mua" size={30} style={inputStyle} type="date" name = 'time' value={time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
+                        </label>
+                        <br/>
+                        </GridItem>
+                    </GridContainer>
 
                     <br/>
-                    <input type="Submit" value='Submit'/>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        type="Submit"
+                        className={classes.button}
+                        startIcon={<SaveIcon />}
+                        >
+                        Lưu
+                    </Button>
                 </form>
             </div>
             <div class='FormFixPurchasing' style={{display:'none'}}>
-                <Button onClick={clickReturnToList}>Back</Button>
-                <form id='2' style={{textAlign: 'center'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
-                    <label>
-                        ID
+                <Button variant="info" onClick={clickReturnToList}>Back</Button>
+                <form id='2' style={{textAlign: 'left'}} onSubmit={(e)=>{handleSubmit(e,'2')}}>
+                    <GridContainer>
+                    <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="ID" size={30} style={inputStyle} type="text" name = 'id' value = {id} />
+                        </label>
                         <br/>
-                        <input type="text" name = 'id' value = {id} />
-                    </label>
-                    <br/>
-                    <label>
-                        Tên nguyên liệu
+                    </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Tên nguyên liệu" size={30} style={inputStyle} type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
+                        </label>
                         <br/>
-                        <input type="text" name = 'materialName' value = {materialName}  onChange={(e)=>{handleChangeInputTag(e,setMaterialName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Mô tả
-                        <br/>
-                        <input type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
-                    </label>
-                    <br/>
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
 
-                    <label>
-                        Số lượng
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Mô tả" size={30} style={inputStyle} type="text" name = 'description' value={description}  onChange={(e)=>{handleChangeInputTag(e,setDescription)}}/>
+                        </label>
                         <br/>
-                        <input type="number" name = 'count' value={count} onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Giá (VND)
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Số lượng" size={30} style={inputStyle} type="number" name = 'count' value={count}  onChange={(e)=>{handleChangeInputTag(e,setCount)}}/>
+                        </label>
                         <br/>
-                        <input type="number" name = 'price' value={price} onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Nhà cung cấp
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Giá (VND)" size={30} style={inputStyle} type="number" name = 'price' value={price}  onChange={(e)=>{handleChangeInputTag(e,setPrice)}}/>
+                        </label>
                         <br/>
-                        <input type="text" name = 'supplierName' value = {supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
-                    </label>
-                    <br/>
-                    <label>
-                        Ngày mua
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Nhà cung cấp" size={30} style={inputStyle} type="text" name = 'supplierName' value={supplierName}  onChange={(e)=>{handleChangeInputTag(e,setSupplierName)}}/>
+                        </label>
                         <br/>
-                        <input type="date" name = 'time' value = {time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
-                    </label>
-                    <br/>
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}></GridItem>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <label>
+                            <br/>
+                            <input placeholder="Ngày mua" size={30} style={inputStyle} type="date" name = 'time' value={time}  onChange={(e)=>{handleChangeInputTag(e,setTime)}}/>
+                        </label>
+                        <br/>
+                        </GridItem>
+                    </GridContainer>
 
-                    <input type="Submit" value='Submit'/>
+                    <br/>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        type="Submit"
+                        className={classes.button}
+                        startIcon={<SaveIcon />}
+                        >
+                        Lưu
+                    </Button>
                 </form>
             </div>
             <div className={classes.table}><Button id='add' onClick={()=>clickAdd()}><AddIcon/></Button>

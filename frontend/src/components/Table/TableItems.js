@@ -148,6 +148,7 @@ export default function ItemsTable(props) {
                 }
             }).then(function (res) {
                     alert('Add Items Success');
+                    document.location.reload();
                     return res;
                 }
             ).catch(function (err) {
@@ -170,6 +171,7 @@ export default function ItemsTable(props) {
                 }
             }).then(function (res) {
                     alert('Update Item Success');
+                    document.location.reload();
                     return res;
                 }
             ).catch(function (err) {
@@ -187,6 +189,7 @@ export default function ItemsTable(props) {
                 data: _data,
             }).then(function (res) {
                     alert('Update Image Success');
+                    document.location.reload();
                     return res;
                 }
             ).catch(function (err) {

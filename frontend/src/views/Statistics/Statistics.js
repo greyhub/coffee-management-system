@@ -141,7 +141,7 @@ export default function Statistics(props) {
             for (var i = 0; i < arr.length; i++) {
                 listNamePD.push([
                     Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1]
-                    + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
+                    // + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
                         // + "<br/>" +Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[2]
                         .toString()
                 ])
@@ -274,7 +274,7 @@ export default function Statistics(props) {
         for (var i = 0; i < arr.length; i++) {
             listNamePD.push([
                 Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[1]
-                + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
+                // + "<br/>" + Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[0]
                     // + "<br/>" +Object.values(Object.values(Object.values(res4.data.revenue)[i])[1])[2]
                     .toString()
             ])

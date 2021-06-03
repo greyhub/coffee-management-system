@@ -396,7 +396,7 @@ export default function BillsTable(props) {
                       <br/>
                       <label>Tình trạng: {item['isActive'].toString()}</label>
                       <br/>
-                      <img src={item['previewUri']} width="300" height="300"></img>
+                      <img src={item['previewUri']} width="150" height="150"></img>
                       <br/>
                       <Button onClick={(e)=>{addItemCart(e,key)}}>+</Button> <label>Giỏ hàng: {BillsInfo['products'].map((product,key)=>{
                         if(item['id']==product['product']['id']){

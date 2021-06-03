@@ -287,6 +287,7 @@ export default function EmployeesTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Mã nhân viên:
+                <br/>
                 <input id ="id"  size={30} disabled="disabled" style={inputStyle} type="text" name = 'id' value={maNV}/>
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
@@ -299,18 +300,21 @@ export default function EmployeesTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Tên đệm:
+                <br/>
                 <input id="lastName"   size={30}  style={inputStyle} type="text" name = 'lastName' value={lastName}  onChange={(e)=>{handleChangeInputTag(e,setLastName)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"lastName")} ><BorderColorIcon/></Button> */}
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Ngày sinh:
+                <br/>
                 <input id="dateBirth"   size={30}  style={inputStyle} type="text" name = 'birthday' value={DateOfBirth.split('-')[2]+'-'+DateOfBirth.split('-')[1]+'-'+DateOfBirth.split('-')[0]}  onChange={(e)=>{handleChangeInputTag(e,setDB)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"dateBirth")} ><BorderColorIcon/></Button> */}
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Quê Quán:
+                <br/>
                 <input id ="QQ"   size={30}  style={inputStyle} type="text" name = 'address' value={QueQuan}  onChange={(e)=>{handleChangeInputTag(e,setQQ)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"QQ")} ><BorderColorIcon/></Button> */}
             </GridItem>
@@ -324,6 +328,7 @@ export default function EmployeesTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Vị trí:
+                <br/>
                 <input id="position"   size={30}  style={inputStyle} type="text" name = 'position' value={MaVT}  onChange={(e)=>{handleChangeInputTag(e,setVT)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"position")} ><BorderColorIcon/></Button> */}
             </GridItem>
@@ -336,18 +341,21 @@ export default function EmployeesTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Ngày hết hạn hợp đồng:
+                <br/>
                 <input id='ed'   size={30}  style={inputStyle} type="text" name = 'expireDate' value={HanHD.split('-')[2]+'-'+HanHD.split('-')[1]+'-'+HanHD.split('-')[0]} onChange={(e)=>{handleChangeInputTag(e,setHHD)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"ed")} ><BorderColorIcon/></Button> */}
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Tình trạng:
+                <br/>
                 <input id='tt'   size={30}  style={inputStyle} type="text" name = 'isActive' value={TT}  onChange={(e)=>{handleChangeInputTag(e,setTT)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"tt")} ><BorderColorIcon/></Button> */}
             </GridItem>
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 CCCD:
+                <br/>
                 <input id='cccd'   size={30}  style={inputStyle} type="text" name = 'cccd' value={CMND} onChange={(e)=>{handleChangeInputTag(e,setCMND)}}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"cccd")} ><BorderColorIcon/></Button> */}
             </GridItem>
@@ -361,6 +369,7 @@ export default function EmployeesTable(props) {
             <GridItem xs={12} sm={12} md={5}>
                 <br/>
                 Tài khoản:
+                <br/>
                 <input id='tk'   size={30}  style={inputStyle} type="text" name = 'account' value={TK}/>
                 {/* <Button onClick={(e)=>fixInfo(e,"tk")} ><BorderColorIcon/></Button> */}
             </GridItem>

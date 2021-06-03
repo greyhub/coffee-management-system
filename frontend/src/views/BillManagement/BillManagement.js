@@ -93,9 +93,9 @@ export default function OrderManagement(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Bill Panel</h4>
+                        <h4 className={classes.cardTitleWhite}>Danh sách hóa đơn</h4>
                         <p className={classes.cardCategoryWhite}>
-                            Panel for managing bills in selling 
+                          Thông tin các hóa đơn theo thời gian
                         </p>
                     </CardHeader>
                     <CardBody>

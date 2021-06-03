@@ -92,9 +92,9 @@ export default function EmployeesManager(){
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Employees Panel</h4>
+                        <h4 className={classes.cardTitleWhite}>Danh sách nhân viên</h4>
                         <p className={classes.cardCategoryWhite}>
-                            Panel for managing employees in the company 
+                          Thông tin theo từng nhân viên 
                         </p>
                     </CardHeader>
                     <CardBody>
